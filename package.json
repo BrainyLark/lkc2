@@ -1,0 +1,22 @@
+{
+  "name": "lkcapp",
+  "version": "1.0.0",
+  "description": "Mongolian LKC development application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+  	"express": "*",
+  	"mongoose": "*",
+  	"bcryptjs": "*", 
+  	"cors": "*",
+  	"jsonwebtoken": "*", 
+  	"body-parser": "*",
+  	"passport-jwt": "*",
+  	"passport": "*"
+  },
+  "author": "ebi",
+  "license": "ISC"
+}
