@@ -10,25 +10,34 @@ const User = require('../models/user');
 
 //Register
 router.post('/register', function(req, res, next) {
-	let newUser = new User({
-		name: req.body.name,
-		email: req.body.email,
-		username: req.body.username,
-		password: req.body.password
-	});
+	var username = req.body.username.toLowerCase();
+	User.getUserByUsername(username, function(err, result){
+		if(err) throw err;
+		if(result!=null){
+			res.json({success: false, message: username + " нэртэй оролцогч бүртгэлтэй байна. Өөр нэр сонгоно уу!"});
+		} else {
+			let newUser = new User({
+				name: req.body.name,
+				email: req.body.email,
+				username: username,
+				password: req.body.password
+			});
 
-	User.addUser(newUser, function(err, user) {
-		if(err){
-			res.json({success: false, message: "Failed to register user"});
-		} else{
-			res.json({success: true, message: "User registered"});
+			User.addUser(newUser, function(err, user) {
+				if(err){
+					res.json({success: false, message: "Оролцогчийг бүртгэх боломжгүй байна"});
+				} else{
+					res.json({success: true, message: "Оролцогч амжилттай бүртгэгдлээ"});
+				}
+			});
 		}
 	});
 });
 
+
 //Authenticate
 router.post('/authenticate', function(req, res, next) {
-	const username = req.body.username;
+	const username = req.body.username.toLowerCase();
 	const password = req.body.password;
 
 	User.getUserByUsername(username, function(err, user) {
@@ -36,11 +45,11 @@ router.post('/authenticate', function(req, res, next) {
 			throw err;
 		}
 		if(!user){
-			return res.json({success: "false", msg: "User not found!"});
+			return res.json({success: false, msg: "Оролцогч олдсонгүй!"});
 		}
 
 		User.comparePassword(password, user.password, function(err, isMatch) {
-			if(err){ 
+			if(err){
 				throw err;
 			}
 
@@ -61,8 +70,8 @@ router.post('/authenticate', function(req, res, next) {
 				});
 			} else {
 				return res.json({
-					success: "false",
-					msg: 'Wrong Password'
+					success: false,
+					msg: 'Нууц үг буруу байна!'
 				});
 			}
 		});
@@ -70,7 +79,7 @@ router.post('/authenticate', function(req, res, next) {
 });
 
 //Profile
-router.get('/profile', passport.authenticate('jwt', {session: false}), 
+router.get('/profile', passport.authenticate('jwt', {session: false}),
 	function(req, res, next) {
 		res.json({user: req.user});
 	}

@@ -25,19 +25,20 @@ const app = express();
 
 //Where routes of users are
 const users = require('./routes/users');
+const tasks = require('./routes/tasks');
 
 //Port Number
 const port = 3000;
 
 //Cors Middleware
-app.use(cors()); 
+app.use(cors());
 //allows JS req accesses in domains
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, 'public ')));
 
 //Body Parser Middleware
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 //allows to extract data from req from front end
 
 //Passport Middleware
@@ -47,6 +48,7 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/tasks', tasks);
 
 //Index Route
 app.get('/', function(req, res) {
