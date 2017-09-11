@@ -11,4 +11,13 @@ router.get('/', function(req, res){
       });
 });
 
+router.post('/translation', function(req, res, next){
+      var username = req.body.username;
+      var domainId = req.body.domainId;
+
+      taskController.allocateTask(username, domainId, function(id){
+            res.send({"childCount": id});
+      });
+});
+
 module.exports = router;
