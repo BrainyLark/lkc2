@@ -1,64 +1,98 @@
-const pgp = require('pg-promise')(/*options*/);
-const db = pgp('postgres://postgres:1234@localhost:5432/lkc2');
-const request = require('request');
+'use strict';
+
+var DataStore 	= require('../adapter/DataAdapter')[0]
+var Task 		= require('../models/task')
+var Promise		= require('bluebird')
 
 const unique_beginners_uk_ids = [
-      161, 119, 124, 129, 15355, 127, 145, 138, 131, 123, 40, 132, 83505, 121, 61558, 118, 120, 143, 139, 28162, 142, 133, 130, 122, 134
+161, 119, 124, 129, 15355, 127, 145, 138, 131, 123, 40, 132, 83505, 121, 61558, 118, 120, 143, 139, 28162, 142, 133, 130, 122, 134
 ];
 
-
-module.exports.getUniqueBeginners = function(callback){
-      db.many('select c.label as label, c.uk_id as uk_id, s.gloss as gloss from concepts c, vocabulary_synsets s where vocabulary_id = 1 and c.uk_id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25) and s.concept_id = c.id', unique_beginners_uk_ids)
-      .then(function(data){
-            callback(null, data);
-      }).catch(function(err){
-            callback(err, null);
-            console.log(err);
-      });
+module.exports.getUniqueBeginners = function (callback) {
+	DataStore.getUniqueBeginners(unique_beginners_uk_ids, function (err, data) {
+		if (err) throw err;
+		callback(err, data)
+	})
 }
 
-function getConceptId(uk_id, callback){
-      var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false";
-      request.get(conceptRequest, function(err, response, body){
-            if(!err && response.statusCode == 200){
-                  callback(JSON.parse(body)[0].id);
-            }
-      });
+module.exports.getTask = function (taskId, callback) {
+	Task.find(taskId, callback)
 }
 
-function getCount(conceptId, callback){
-      var queryString = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts/"+conceptId+"/descendants/count?maxDepth=1";
-      request.get(queryString, function(err, response, body){
-            if(!err && response.statusCode == 200){
-                  callback(body);
-            }
-      });
-}
 
-function getChildrenCount(uk_id, callback){
-      getConceptId(uk_id, function(conceptId){
-            getCount(conceptId, function(count){
-                  count = parseInt(count, 10);
-                  callback(conceptId, count);
-            });
-      });
-}
-
-function getDescendants(conceptId, callback){
-      var queryString = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts/"+conceptId+"/descendants?pageIndex=1&pageSize=50&maxDepth=1&includeTimestamps=false&includeRelationsCount=false";
-      request.get(queryString, function(err, response, body){
-            if(!err && response.statusCode == 200){
-                  callback(JSON.parse(body));
-            }
-      });
-}
-
-module.exports.allocateTask = function(username, globalId, callback){
-      getChildrenCount(globalId, function(conceptId, childCount){
-            getDescendants(conceptId, function(descendants){
-                  for(var i = 0; i<childCount; i++){
-                        console.log(descendants[i].target.id);
-                  }
-            });
-      });
+module.exports.generate = function(uk_id, offset, limit, callback) {
+	var returnValue = { created: -1 }; // returns the specific location where the script ended {last processed uk_id, which child}
+	Task.create(); //creates the tasks table; but won't create a new table if the table is already created
+	DataStore.getConceptId(uk_id, function (conceptId) {
+		DataStore.getAncestor(conceptId, function (ancestor) {
+			if (ancestor.length == 0) ancestor.target = { id: conceptId, globalId: uk_id };
+			generateTask({
+				id: conceptId,
+				globalId: uk_id
+			}, {
+				id: ancestor.target.id,
+				globalId: ancestor.target.globalId,
+			});
+		})
+	});
+	let initialLimit = limit;
+	function _return(err, concept, parentConcept) {
+		if (returnValue.created == -1) {
+			returnValue.created = initialLimit - limit;
+			callback(null, returnValue);
+		}
+	}
+	function generateTask(
+		concept, // {id: integer, globalId: integer}
+		parentConcept // { id: integer, globalId: integer, child: integer}
+		) {
+		if (limit <= 0 || !(returnValue.created == -1)) {
+			return _return(null, concept, parentConcept);
+		}
+		DataStore.getDescendants(concept.id, function (descendants) {
+			let childCount = descendants.length;
+			let promises = []
+			for (let i = 0; i < childCount; i++) {
+				if (limit == 0 || !(returnValue.created == -1))
+					return _return(null, concept, { child: i });
+				offset--;
+				if (offset < 0) {
+					limit--;
+					promises.push(DataStore.getConcept(descendants[i].target.id, function(err, child) {
+						if (err) return _return(err, concept, parentConcept);
+						createTask(child, concept)
+					}))
+				}
+			}
+			Promise.all(promises).then(function() {
+				for (let i = 0; i < childCount; i++)
+					generateTask({
+						id: descendants[i].target.id,
+						globalId: descendants[i].target.globalId
+					}, {
+						id: concept.id,
+						globalId: concept.globalId
+					})
+			})
+		});
+	}
+	function createTask (concept, parentConcept) {
+		let lemma = "";
+		for (let i = 0; i < concept.synset.length; i++) {
+			if (i) lemma += ", ";
+			lemma += concept.synset[i].word.lemma;
+		}
+		Task.add({
+			label: concept.concept,
+			gloss: concept.gloss,
+			conceptId: concept.conceptId,
+			conceptGlobalId: concept.globalId,
+			parentConceptId: parentConcept.id,
+			parentConceptGlobalId: parentConcept.globalId,
+			lemma: lemma,
+			domainId: uk_id,
+			typeId: 1,
+			wordnetId: -1
+		})
+	}
 }

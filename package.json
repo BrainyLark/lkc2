@@ -8,14 +8,17 @@
     "start": "node app"
   },
   "dependencies": {
-  	"express": "*",
-  	"mongoose": "*",
-  	"bcryptjs": "*", 
-  	"cors": "*",
-  	"jsonwebtoken": "*", 
-  	"body-parser": "*",
-  	"passport-jwt": "*",
-  	"passport": "*"
+    "bcryptjs": "*",
+    "bluebird": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "pg-promise": "^7.0.1",
+    "request": "^2.83.0"
   },
   "author": "ebi",
   "license": "ISC"
