@@ -3,6 +3,9 @@
 const express = require('express');
 const router = express.Router();
 const taskController = require('../controller/TaskController');
+const translationController = require('../controller/TranslationController');
+const modificationController = require('../controller/ModificationController');
+const validationController = require('../controller/ValidationController');
 
 router.get('/', function (req, res) {
 	var cb = function (err, data) {
@@ -32,5 +35,39 @@ router.get('/:id(\\d+)', function (req, res) {
 	var cb = function (data) { res.json(data) }
 	taskController.getTask(req.params, cb);
 })
+
+router.post('/translation', function(req, res, next){
+      var username = req.body.username;
+      var domainId = req.body.domainId;
+
+      console.log("Sanaa in tasks router : " + username);
+
+      translationController.allocateTask(username, domainId, function(err, data){
+            if(err) {
+                  res.send(err);
+            }
+            else {
+                  res.json({data: data});
+            }
+      });
+});
+
+router.post('/modification', function(req, res, next){
+      var username = req.body.username;
+      var domainId = req.body.domainId;
+      /*
+            allocate task from modification class
+      */
+
+});
+
+router.post('/validation', function(req, res, next){
+      var username = req.body.username;
+      var domainId = req.body.domainId;
+      /*
+            allocate task from validation class
+      */
+});
+
 
 module.exports = router;
