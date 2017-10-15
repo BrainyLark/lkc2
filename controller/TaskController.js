@@ -31,77 +31,87 @@ module.exports.generateLogTable = function(cb) {
 
 module.exports.generate = function(uk_id, offset, limit, callback) {
 	var returnValue = { created: -1 }; // returns the specific location where the script ended {last processed uk_id, which child}
-	Task.tasks.create(); //creates the tasks table; but won't create a new table if the table is already created
-	DataStore.getConceptId(uk_id, function (conceptId) {
-		DataStore.getAncestor(conceptId, function (ancestor) {
-			if (ancestor.length == 0) ancestor.target = { id: conceptId, globalId: uk_id };
-			generateTask({
-				id: conceptId,
-				globalId: uk_id
-			}, {
-				id: ancestor.target.id,
-				globalId: ancestor.target.globalId,
-			});
-		})
-	});
-	let initialLimit = limit;
-	function _return(err, concept, parentConcept) {
-		if (returnValue.created == -1) {
-			returnValue.created = initialLimit - limit;
-			callback(null, returnValue);
-		}
-	}
-	function generateTask(
-		concept, // {id: integer, globalId: integer}
-		parentConcept // { id: integer, globalId: integer, child: integer}
-		) {
-		if (limit <= 0 || !(returnValue.created == -1)) {
-			return _return(null, concept, parentConcept);
-		}
-		DataStore.getDescendants(concept.id, function (descendants) {
-			let childCount = descendants.length;
-			let promises = []
-			for (let i = 0; i < childCount; i++) {
-				if (limit == 0 || !(returnValue.created == -1))
-					return _return(null, concept, { child: i });
-				offset--;
-				if (offset < 0) {
-					limit--;
-					promises.push(DataStore.getConcept(descendants[i].target.id, function(err, child) {
-						if (err) return _return(err, concept, parentConcept);
-						createTask(child, concept)
-					}))
-				}
-			}
-			Promise.all(promises).then(function() {
-				for (let i = 0; i < childCount; i++)
-					generateTask({
-						id: descendants[i].target.id,
-						globalId: descendants[i].target.globalId
-					}, {
-						id: concept.id,
-						globalId: concept.globalId
-					})
+	Task.tasks.create(function() {
+		DataStore.getConceptId(uk_id, function (conceptId) {
+			DataStore.getAncestor(conceptId, function (ancestor) {
+				if (ancestor.length == 0) ancestor.target = { id: conceptId, globalId: uk_id };
+				generateTask({
+					id: conceptId,
+					globalId: uk_id
+				}, {
+					id: ancestor.target.id,
+					globalId: ancestor.target.globalId,
+				});
 			})
 		});
-	}
-	function createTask (concept, parentConcept) {
-		let lemma = "";
-		for (let i = 0; i < concept.synset.length; i++) {
-			if (i) lemma += ", ";
-			lemma += concept.synset[i].word.lemma;
+		let initialLimit = limit;
+		function _return(err) {
+			if (returnValue.created == -1) {
+				returnValue.created = initialLimit - limit;
+				callback(null, { statusCode: 0, statusMsg: 'Task generation process finished on domainId = ' + uk_id + '. Values will be available in the database in few minutes depending on the volume. Initiated insert queries: ' + returnValue.created });
+			}
 		}
-		Task.tasks.add({
-			label: concept.concept,
-			gloss: concept.gloss,
-			conceptId: concept.conceptId,
-			conceptGlobalId: concept.globalId,
-			parentConceptId: parentConcept.id,
-			parentConceptGlobalId: parentConcept.globalId,
-			lemma: lemma,
-			domainId: uk_id,
-			typeId: 1,
-			wordnetId: -1
-		})
-	}
+		limit = parseInt(limit);
+		var lastState = limit;
+		var taskGeneration = setInterval(function() {
+			if (limit == lastState) {
+				clearInterval(taskGeneration);
+				return _return(null);
+			}
+			lastState = limit;
+		}, 8000);
+		function generateTask(
+			concept, // {id: integer, globalId: integer}
+			parentConcept // { id: integer, globalId: integer, child: integer}
+			) {
+			if (limit <= 0 || !(returnValue.created == -1)) {
+				return _return(null);
+			}
+			DataStore.getDescendants(concept.id, function (descendants) {
+				let childCount = descendants.length;
+				let promises = []
+				for (let i = 0; i < childCount; i++) {
+					if (limit == 0 || !(returnValue.created == -1))
+						return _return(null);
+					offset--;
+					if (offset < 0) {
+						limit--;
+						promises.push(DataStore.getConcept(descendants[i].target.id, function(err, child) {
+							if (err) return _return(err);
+							createTask(child, concept)
+						}))
+					}
+				}
+				Promise.all(promises).then(function() {
+					for (let i = 0; i < childCount; i++)
+						generateTask({
+							id: descendants[i].target.id,
+							globalId: descendants[i].target.globalId
+						}, {
+							id: concept.id,
+							globalId: concept.globalId
+						})
+				})
+			});
+		}
+		function createTask (concept, parentConcept) {
+			let lemma = "";
+			for (let i = 0; i < concept.synset.length; i++) {
+				if (i) lemma += ", ";
+				lemma += concept.synset[i].word.lemma;
+			}
+			Task.tasks.add({
+				label: concept.concept,
+				gloss: concept.gloss,
+				conceptId: concept.conceptId,
+				conceptGlobalId: concept.globalId,
+				parentConceptId: parentConcept.id,
+				parentConceptGlobalId: parentConcept.globalId,
+				lemma: lemma,
+				domainId: uk_id,
+				typeId: 1,
+				wordnetId: -1
+			})
+		}
+	}); //creates the tasks table; but won't create a new table if the table is already created
 }

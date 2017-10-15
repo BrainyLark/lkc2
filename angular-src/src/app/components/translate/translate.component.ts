@@ -35,7 +35,7 @@ export class TranslateComponent implements OnInit {
 	initializer() {
 		this.lemmas = [];
 		this.taskService.getTask(this.conceptId).subscribe( taskData => {
-			this.task = taskData;	
+			this.task = taskData.data;	
 		});
 	}
 
@@ -53,7 +53,14 @@ export class TranslateComponent implements OnInit {
 	}
 
 	sendData() {
-		this.taskService.postTranslation(this.lemmas).subscribe();
+		var postData = {
+			taskid: this.task.id,
+			domainid: this.task.domainid,
+			translation: this.lemmas,
+			start_date: new Date(),
+			end_date: new Date()
+		};
+		this.taskService.postTranslation(postData).subscribe();
 		this.initializer();
 	}
 }

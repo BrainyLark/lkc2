@@ -6,7 +6,7 @@ class TasksRepository {
 		this.pgp = pgp;
 	}
 
-	create() {
+	create(cb) {
 		let sql = 'CREATE TABLE IF NOT EXISTS tasks(\
 			id serial PRIMARY KEY,\
 			label VARCHAR (100) NOT NULL,\
@@ -23,7 +23,7 @@ class TasksRepository {
 			updated_at TIMESTAMP DEFAULT now()\
 		)';
 
-		return this.rep.none(sql);
+		return this.rep.none(sql).then(() => cb());
 	}
 
 	drop() {
