@@ -83,12 +83,16 @@ export class TranslateComponent implements OnInit {
 	}
 
 	sendData() {
+		if(this.lemmas.length === 0) {
+			console.log("No data");
+			return;
+		}
 		var postData = {
  			taskid: this.task.id,
  			domainid: this.task.domainid,
  			translation: this.lemmas,
  			start_date: this.start_date,
- 			end_date: new Date()
+ 			end_date: new Date() 
  		};
  		this.taskService.postTranslation(postData).subscribe();
   		this.initializer();
