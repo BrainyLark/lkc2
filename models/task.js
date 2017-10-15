@@ -76,13 +76,11 @@ class TasksLogRepository {
 			count smallint DEFAULT 0 \
 		)';
 
-		return this.rep.none(sql).then(function() {
-			cb();
-		});
+		return this.rep.none(sql).then(cb);
 	}
 
 	insert(values) {
-		this.rep.none('INSERT INTO task_count_log(task_id, task_type, domain_id) VALUES(${id}, ${typeid}, ${domainid})', values);
+		return this.rep.none('INSERT INTO task_count_log(task_id, task_type, domain_id) VALUES(${id}, ${typeid}, ${domainid})', values);
 	}
 
 }
