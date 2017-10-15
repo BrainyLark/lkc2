@@ -18,7 +18,7 @@ import {TaskService} from './services/task.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { DomainsComponent } from './components/domains/domains.component';
-import { TranslationComponent } from './components/translation/translation.component';
+import { TranslateComponent } from './components/translate/translate.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'domains', component: DomainsComponent, canActivate:[AuthGuard]},
-  {path: 'translation', component: TranslationComponent, canActivate:[AuthGuard]},
+  {path: 'translate/:conceptId', component: TranslateComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     ProfileComponent,
     DomainsComponent,
-    TranslationComponent
+    TranslateComponent
   ],
   imports: [
     BrowserModule,

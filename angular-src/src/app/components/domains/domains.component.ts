@@ -24,6 +24,10 @@ export class DomainsComponent implements OnInit {
        });
   }
 
+  goToTranslate(conceptId) {
+    this.router.navigate(['translate',conceptId]);
+  }
+
   generateTask(id){
       console.log("I will create this task ", id);
   }
