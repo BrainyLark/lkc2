@@ -1,5 +1,5 @@
 const pgp = require('pg-promise')(/*options*/);
-const db = pgp('postgres://postgres:1234@localhost:5432/lkc2');
+const db = pgp('postgres://postgres:1234@localhost:5432/lkc2data');
 const request = require('request');
 const Tasks = require('../models/task')
 // global ids for twenty five unique noun beginners
@@ -49,14 +49,10 @@ module.exports.allocateTask = function(username, domainId, callback) {
                         else if(result.status_code == 1) {
                               last_task_id = parseInt(result.id);
                               console.log("task to be performed: ", last_task_id);
-                              // requesting a task object by header
-                              var requestHeader = {
-                                    task_id : last_task_id
-                              };
-                              Tasks.find({id: last_task_id}, function(rs) {
-                                    // to be written
+
+                              Tasks.find({id: last_task_id}, function(data) {
+                                    callback(null, data);
                               });
-                              callback(null, result); // must return task but for now it is just task id
                         }
                   }
             });

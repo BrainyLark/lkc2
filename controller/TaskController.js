@@ -16,13 +16,22 @@ module.exports.getUniqueBeginners = function (callback) {
 }
 
 module.exports.getTask = function (taskId, callback) {
-	Task.find(taskId, callback)
+	Task.tasks.find(taskId, callback)
 }
 
+module.exports.generateLogTable = function(cb) {
+	Task.taskslog.create(function() {
+		Task.tasks.all(function(result) {
+			for(let i = 0; i < result.length; i++)
+				Task.taskslog.insert(result[i]);
+			cb(null, {msg : 'Done'})
+		});
+	});
+}
 
 module.exports.generate = function(uk_id, offset, limit, callback) {
 	var returnValue = { created: -1 }; // returns the specific location where the script ended {last processed uk_id, which child}
-	Task.create(); //creates the tasks table; but won't create a new table if the table is already created
+	Task.tasks.create(); //creates the tasks table; but won't create a new table if the table is already created
 	DataStore.getConceptId(uk_id, function (conceptId) {
 		DataStore.getAncestor(conceptId, function (ancestor) {
 			if (ancestor.length == 0) ancestor.target = { id: conceptId, globalId: uk_id };
@@ -82,7 +91,7 @@ module.exports.generate = function(uk_id, offset, limit, callback) {
 			if (i) lemma += ", ";
 			lemma += concept.synset[i].word.lemma;
 		}
-		Task.add({
+		Task.tasks.add({
 			label: concept.concept,
 			gloss: concept.gloss,
 			conceptId: concept.conceptId,

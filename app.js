@@ -49,6 +49,7 @@ require('./config/passport')(passport);
 
 app.use('/users', users);
 app.use('/tasks', tasks);
+app.use('/tasks', passport.authenticate('jwt', {session: false}, tasks));
 
 //Index Route
 app.get('/', function(req, res) {

@@ -52,8 +52,8 @@ class TasksRepository {
 		return this.rep.oneOrNone(sql, values).then(res => cb(res));
 	}
 
-	all() {
-		return this.rep.any('SELECT * FROM tasks');
+	all(cb) {
+		return this.rep.any('SELECT * FROM tasks').then(res => cb(res));
 	}
 
 	total() {
@@ -61,12 +61,39 @@ class TasksRepository {
 	}
 }
 
+class TasksLogRepository {
+	constructor(rep, pgp) {
+		this.rep = rep;
+		this.pgp = pgp;
+	}
+
+	create(cb) {
+		let sql = 'CREATE TABLE IF NOT EXISTS task_count_log(\
+			id BIGSERIAL PRIMARY KEY,\
+			task_id BIGSERIAL,\
+			task_type smallint,\
+			domain_id smallint,\
+			count smallint DEFAULT 0 \
+		)';
+
+		return this.rep.none(sql).then(function() {
+			cb();
+		});
+	}
+
+	insert(values) {
+		this.rep.none('INSERT INTO task_count_log(task_id, task_type, domain_id) VALUES(${id}, ${typeid}, ${domainid})', values);
+	}
+
+}
+
 const options = {
 	extend(obj, dc) {
 		obj.tasks = new TasksRepository(obj, pgp);
+		obj.taskslog = new TasksLogRepository(obj, pgp);
 	}
 };
 const pgp 	= require('pg-promise')(options);
 const db 	= pgp('postgres://postgres:1234@localhost:5432/lkc2data');
 
-module.exports = db.tasks;
+module.exports = db;

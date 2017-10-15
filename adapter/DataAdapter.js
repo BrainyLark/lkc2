@@ -60,7 +60,6 @@ function getUniqueBeginners(unique_beginners_uk_ids, callback) {
 	})
 }
 
-
 var dataSources = [{
 	getConceptId: getConceptId,
 	getDescendants: getDescendants,
