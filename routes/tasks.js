@@ -9,6 +9,8 @@ const modificationController = require('../controller/ModificationController');
 const validationController = require('../controller/ValidationController');
 const Translation = require('../models/translation');
 
+const TRANSLATION_TASK_TYPE = 1;
+
 router.get('/', function (req, res) {
 	var cb = function (err, data) {
 		if(err) throw err;
@@ -54,10 +56,6 @@ router.get('/translation/:domainId', passport.authenticate('jwt', {session: fals
 	      var user = req.user;
 	      var domainId = req.params.domainId;
 		var username = user.username;
-		res.json({user: username});
-		return;
-
-	      console.log("Sanaa in tasks router : " + username);
 
 	      translationController.allocateTask(username, domainId, function(err, data){
 	            if(err) {
@@ -76,6 +74,8 @@ router.post('/translation', passport.authenticate('jwt', {session: false}),
 			res.json({success: false, msg: "Дахин нэвтрэх шаардлагатай!"});
 		} else {
 			let newTranslation = new Translation({
+				taskid: req.body.taskid,
+				domainid: req.body.domainid,
 				translator: username,
 				translation: req.body.translation,
 				start_date: req.body.start_date,
@@ -89,6 +89,8 @@ router.post('/translation', passport.authenticate('jwt', {session: false}),
 					res.json({success: true, msg: "Орчуулгыг амжилттай хадгаллаа!"});
 				}
 			});
+			// register log data of the latter
+			translationController.insertLog(req.body.taskid, TRANSLATION_TASK_TYPE, req.body.domainid, username);
 		}
 	});
 

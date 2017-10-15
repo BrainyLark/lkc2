@@ -26,36 +26,63 @@ module.exports.getUniqueBeginners = function(callback) {
       });
 }
 
+//this function responsible for inserting log data into log storage
+
+module.exports.insertLog = function(taskid, type, domainid, username, callback) {
+      db.none('INSERT INTO task_user_log(task_id, task_type, domain_id, user_name) VALUES($1, $2, $3, $4)', [taskid, type, domainid, username]);
+}
+
 // this function is used in tasks router
 // for allocating the corresponding task with respect to username, and the domain
 
 module.exports.allocateTask = function(username, domainId, callback) {
       const taskType = 1;
       var lastTask;
-      db.one('select max(task_id) as id from task_user_log where user_name=$1 and domain_id=$2 and task_type=$3', [username, domainId, taskType]).then(function(data) {
-            var last_task_id = parseInt(data.id);
-            var last_task_cnt = 0;
+      db.oneOrNone('select max(task_id) as id from task_user_log where user_name=$1 and domain_id=$2 and task_type=$3', [username, domainId, taskType]).then(function(data) {
+            var last_task_id = null;
+            if(data.id == null) {
+                  db.one('select min(task_id) as id from task_count_log where domain_id=$1', [domainId]).then(function(rs) {
+                        last_task_id = parseInt(rs.id) - 1;
+                        getNextTask(last_task_id, taskType, domainId, function(err, result) {
+                              if(err) {
+                                    callback(err, null);
+                              }
+                              else {
+                                    if(result.status_code == 0) {
+                                          callback(null, result);
+                                    }
+                                    else if(result.status_code == 1) {
+                                          last_task_id = parseInt(result.id);
+                                          console.log("task to be performed: ", last_task_id);
 
-            // run and check until task count is lower than 5 from log
-
-            getNextTask(last_task_id, taskType, domainId, function(err, result) {
-                  if(err) {
-                        callback(err, null);
-                  }
-                  else {
-                        if(result.status_code == 0) {
-                              callback(null, result);
+                                          Tasks.tasks.find({id: last_task_id}, function(data) {
+                                                callback(null, data);
+                                          });
+                                    }
+                              }
+                        });
+                  });
+            } else {
+                  last_task_id = parseInt(data.id);
+                  getNextTask(last_task_id, taskType, domainId, function(err, result) {
+                        if(err) {
+                              callback(err, null);
                         }
-                        else if(result.status_code == 1) {
-                              last_task_id = parseInt(result.id);
-                              console.log("task to be performed: ", last_task_id);
+                        else {
+                              if(result.status_code == 0) {
+                                    callback(null, result);
+                              }
+                              else if(result.status_code == 1) {
+                                    last_task_id = parseInt(result.id);
+                                    console.log("task to be performed: ", last_task_id);
 
-                              Tasks.find({id: last_task_id}, function(data) {
-                                    callback(null, data);
-                              });
+                                    Tasks.tasks.find({id: last_task_id}, function(data) {
+                                          callback(null, data);
+                                    });
+                              }
                         }
-                  }
-            });
+                  });
+            }
 
       }).catch(function(err){
             callback(err, null);
@@ -66,7 +93,7 @@ module.exports.allocateTask = function(username, domainId, callback) {
 // unless it finds an appropriate next task for the passed task, it calls itself recursively
 
 function getNextTask(task_id, task_type, domain_id, callback) {
-      task_id = task_id + 1;
+      task_id = parseInt(task_id) + 1;
       db.oneOrNone('select task_id as id, count as cnt from task_count_log where task_id=$1 and task_type=$2 and domain_id=$3', [task_id, task_type, domain_id]).then(function(data) {
 
             if(data == null) {

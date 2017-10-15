@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const config = require('../config/database');
 
 const TranslationSchema = mongoose.Schema({
+      taskid: {
+            type: Number
+      },
+      domainid: {
+            type: Number
+      },
       translator: {
             type: String
       },
