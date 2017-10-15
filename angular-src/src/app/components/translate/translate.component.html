@@ -42,21 +42,40 @@
 						</tr>
 						<tr *ngFor="let item of lemmas; let i = index">
 							<td>{{item.lemma}}</td>
-							<td>{{item.rating}}</td>
+							<td>
+								<div *ngFor="let num of numbers" class="visible-xl-inline visible-lg-inline visible-sm-inline visible-xs-inline">
+									<span  *ngIf="num<item.rating" class="glyphicon glyphicon-star yellow"></span>
+								</div>
+								<div *ngFor="let num of numbers" class="visible-xl-inline visible-lg-inline visible-sm-inline visible-xs-inline">
+									<span  *ngIf="num>=item.rating" class="glyphicon glyphicon-star"></span>
+								</div>
+
+							</td>
 							<td><button (click)="deleteLemma(i)"class="btn btn-danger">
 									Delete
 								</button></td>
 						</tr>
 						<tr>
-							<td><input type="text" class="form-control" [(ngModel)]="lemma" name="lemma" placeholder="үг нэмэх"></td>
-							<td><input type="number" class="form-control" [(ngModel)]="rating" name="rating" placeholder="өөрийн үнэлгээ(1-5)"></td>
-							<td><button type="button" class="btn btn-default btn-md" (click)="addLemma()">Үг нэмэх</button></td>
+							<td><span *ngIf="errLemma!==undefined" class="error">{{errLemma}}</span>
+								<input type="text" class="form-control" [(ngModel)]="lemma" name="lemma" placeholder="үг нэмэх">
+							</td>
+							<td>
+								<span *ngIf="errRating!==undefined" class="error">{{errRating}}</span>
+								<div *ngFor="let num of numbers" class="visible-xl-inline visible-lg-inline visible-sm-inline visible-xs-inline">
+									<span (click)="setRating(num)" *ngIf="num<rating" class="glyphicon glyphicon-star yellow" ></span>
+								</div>
+								<div *ngFor="let num of numbers" class="visible-xl-inline visible-lg-inline visible-sm-inline visible-xs-inline">
+									<span (click)="setRating(num)" *ngIf="num>=rating" class="glyphicon glyphicon-star" ></span>
+								</div>
+							</td>
+						<td><button type="button" class="btn btn-success btn-md" (click)="addLemma()">Үг нэмэх</button></td>
 						</tr>
 					</div>
 					
 				</div>
 				<div class="panel-footer">
 					<button type="submit" class="btn btn-primary">Илгээх</button>
+					<button type="button" class="btn btn-default btn-md" (click)="skipTask()">Алгасах</button>
 				</div>
 			</div>
 		</form>
