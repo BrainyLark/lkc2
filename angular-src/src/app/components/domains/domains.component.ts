@@ -4,32 +4,32 @@ import { Router } from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
-  selector: 'app-domains',
-  templateUrl: './domains.component.html',
-  styleUrls: ['./domains.component.css']
+	selector: 'app-domains',
+	templateUrl: './domains.component.html',
+	styleUrls: ['./domains.component.css']
 })
 export class DomainsComponent implements OnInit {
 
-  uniqueBeginners: Object;
+	uniqueBeginners: Object;
 
-  constructor(
-      private taskService: TaskService,
-      private router: Router,
-      private flashMessagesService: FlashMessagesService
-  ) { }
+	constructor(
+		private taskService: TaskService,
+		private router: Router,
+		private flashMessagesService: FlashMessagesService
+		) { }
 
-  ngOnInit() {
-      this.taskService.getDomains().subscribe(domains => {
-            this.uniqueBeginners = domains.data;
-       });
-  }
+	ngOnInit() {
+		this.taskService.getDomains().subscribe(domains => {
+			this.uniqueBeginners = domains;
+		});
+	}
 
-  goToTranslate(conceptId) {
-    this.router.navigate(['translate',conceptId]);
-  }
+	goToTranslate(conceptId) {
+		this.router.navigate(['translate',conceptId]);
+	}
 
-  generateTask(id){
-      console.log("I will create this task ", id);
-  }
+	generateTask(id){
+		console.log("I will create this task ", id);
+	}
 
 }

@@ -1,20 +1,20 @@
-'use strict';
+'use strict'
 
-const pgp = require('pg-promise')(/*options*/)
-const lkc2DataDump = pgp('postgres://postgres:1234@localhost:5432/lkc2')
-const request = require('request')
+const pgp 			= require('pg-promise')(/*options*/),
+	lkc2DataDump	= pgp('postgres://postgres:1234@localhost:5432/lkc2'),
+	request 		= require('request')
 
 function getConceptId(uk_id, callback) {
 	var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false"
 	request.get(conceptRequest, function(err, response, body) {
 		if(!err && response.statusCode == 200) {
 			try {
-				var id = JSON.parse(body)[0].id;
+				var id = JSON.parse(body)[0].id
 				callback(id)
 			}
 			catch (e) {
-				console.log('Couldn\'t find concept with globalId = ' + uk_id + ' from API. Returning negative one');
-				callback(-1);
+				console.log('Couldn\'t find concept with globalId = ' + uk_id + ' from API. Returning negative one')
+				callback(-1)
 			}
 		}
 	})
@@ -31,11 +31,14 @@ function getDescendants(conceptId, callback) {
 	var queryString = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts/"+conceptId+"/descendants?pageIndex=1&pageSize=50&maxDepth=1&includeTimestamps=false&includeRelationsCount=false"
 	request.get(queryString, function(err, response, body) {
 		if(!err && response.statusCode == 200) {
-			try { callback(JSON.parse(body)) }
+			var data = []
+			try { data = JSON.parse(body) }
 			catch(e) {
-				console.log('Getting descendants of  ' + conceptId + ' has failed. The API didn\'t return a json object. Assuming it has no descendants');
-				callback([]);
+				console.log('Getting descendants of  ' + conceptId + ' has failed. The API didn\'t return a json object. Assuming it has no descendants')
+				callback([])
+				return
 			}
+			callback(data)
 		}
 	})
 }

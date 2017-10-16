@@ -4,13 +4,16 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class TaskService {
-
 	authToken: any;
 
 	constructor(private http:Http) {  }
 
 	getDomains() {
-		return this.http.get('http://localhost:3000/tasks').map(res => res.json());
+		let headers = new Headers();
+		this.loadToken();
+		headers.append('Authorization', this.authToken);
+		headers.append('Content-Type', 'application/json');
+		return this.http.get('http://localhost:3000/domain', {headers: headers}).map(res => res.json());
 	}
 
 
@@ -23,14 +26,14 @@ export class TaskService {
 		let headers = new Headers();
 		this.loadToken();
 		headers.append('Authorization', this.authToken);
-		headers.append('Content-Type', 'application/json');	
-		return this.http.get('http://localhost:3000/tasks/translation/' + id, {headers: headers}).map(res => res.json());
+		headers.append('Content-Type', 'application/json');
+		return this.http.get('http://localhost:3000/translation/' + id, {headers: headers}).map(res => res.json());
 	}
 	postTranslation(data) {
 		let headers = new Headers();
 		this.loadToken();
 		headers.append('Authorization', this.authToken);
-		headers.append('Content-Type', 'application/json');	
-		return this.http.post('http://localhost:3000/tasks/translation', data, {headers: headers});
+		headers.append('Content-Type', 'application/json');
+		return this.http.post('http://localhost:3000/translation', data, {headers: headers});
 	}
 }

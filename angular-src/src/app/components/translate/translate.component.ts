@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { TaskService } from '../../services/task.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
 	selector: 'app-translate',
@@ -25,9 +25,10 @@ export class TranslateComponent implements OnInit {
 	regexp: any;
 
 	constructor(
-		private http:Http,
 		private taskService: TaskService,
-		private route: ActivatedRoute
+		private router: Router,
+		private route: ActivatedRoute,
+  		private flashMessage: FlashMessagesService
 		) {}
 
 	ngOnInit() {
@@ -45,21 +46,26 @@ export class TranslateComponent implements OnInit {
 	}
 
 	initializer() {
-
 		this.start_date = new Date();
 		this.lemmas = [];
 		this.lemma = '';
 		this.rating = 0;
 		this.taskService.getTask(this.conceptId).subscribe( taskData => {
-			this.task = taskData.data;	
+			if (taskData.statusCode == 0) {
+				this.flashMessage.show('Энэ айны бүх даалгавар хийгдсэн байна!', {cssClass: 'alert-success', timeout: 3000});
+				this.router.navigate(['/domains']);
+				return this.task = {};
+			}
+			this.task = taskData;
 		});
 	}
 
 	setRating(num) {
-		this.rating = num+1;
+		this.rating = num + 1;
 	}
 
-	addLemma() {	
+	addLemma() {
+		this.lemma = this.lemma.trim();
 		if(this.lemma === '' || this.lemma === ' '|| this.regexp.test(this.lemma)) {
 			this.errLemma = 'Үг алдаатай бичигдсэн байна!';
 			return;
@@ -88,14 +94,15 @@ export class TranslateComponent implements OnInit {
 			return;
 		}
 		var postData = {
- 			taskid: this.task.id,
- 			domainid: this.task.domainid,
+ 			taskId: this.task._id,
+ 			domainId: this.task.domainId,
  			translation: this.lemmas,
  			start_date: this.start_date,
  			end_date: new Date() 
  		};
- 		this.taskService.postTranslation(postData).subscribe();
-  		this.initializer();
+ 		this.taskService.postTranslation(postData).subscribe((data) => {}, (err) => {}, () => {
+  			this.initializer();
+		});
 	}
 
 	skipTask() {
