@@ -11,10 +11,8 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model('User', UserSchema)
 
-module.exports.getByJWT = function(jwt, callback) {
-	if (jwt._doc && jwt._doc._id) return User.find(jwt._doc._id, callback) 
-	if (jwt._id) return User.find(jwt._id, callback)
-	User.find(jwt, callback)
+module.exports.getUserById = function(id, callback) {
+	User.findById(id, callback)
 }
 
 module.exports.getByUsername = function(username, callback) {

@@ -57,7 +57,7 @@ const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation']
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
 //Index Route
-app.get('/', function(req, res) { res.send("Hey Buddy") })
+app.get('/', function(req, res) { res.json({status: -1, msg: "You have directed into the wrong endpoint!"}) })
 
 //Start Server
 app.listen(config.port, function() {
