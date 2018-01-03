@@ -53,7 +53,7 @@ function getChildCount(conceptId, callback) {
 function getConcept(conceptId, callback) {
 	var queryString = "https://lkc.disi.unitn.it/mongolian/lkcApp/concepts/byid/" + conceptId + "/en"
 	request({url: queryString, headers: {
-		'Cookie': 'connect.sid=s%3AjG4eVi_V7YNQMj_LFQMDz3Y5q0fuzTHJ.g6MT0zXceYI8izWNuXkhaFYdeI6frlo9SwlP1WMAhZY',
+		'Cookie': 'connect.sid=s%3A7O8J47ocJVNo-ABX4MqAqIzVy5ISN0rf.JlNSZSPXnkYJozafF%2B9iOZgH6ITBjE%2FZIPXN%2BPXTrHk',
 		'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
 		'Connection': 'keep-alive',
 		'Cache-Control': 'max-age=0'
@@ -64,13 +64,20 @@ function getConcept(conceptId, callback) {
 	})
 }
 
-function getUniqueBeginners(unique_beginners_uk_ids, callback) {
-	lkc2DataDump.many('select c.label as label, c.uk_id as uk_id, s.gloss as gloss from concepts c, vocabulary_synsets s where vocabulary_id = 1 and c.uk_id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25) and s.concept_id = c.id', unique_beginners_uk_ids)
-	.then(function(data) {
-		callback(null, data)
-	}).catch(function(err) {
-		callback(err, null)
-		console.log(err)
+function getUniqueBeginners(uids, callback) {
+	var responseData = []
+	let cnt = 0, n = uids.length
+	uids.forEach(uid => {
+		getConceptId(uid, function(id) {
+			if (id != -1) {
+				getConcept(id, function(err, data) {
+					if (err) throw err
+					responseData.push(data)
+					cnt ++
+					if (cnt >= n) callback(null, responseData)
+				})
+			}
+		})
 	})
 }
 
