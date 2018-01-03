@@ -1,8 +1,6 @@
 'use strict'
 
-const pgp 			= require('pg-promise')(/*options*/),
-	lkc2DataDump	= pgp('postgres://postgres:1234@localhost:5432/lkc2'),
-	request 		= require('request')
+const request = require('request')
 
 function getConceptId(uk_id, callback) {
 	var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false"
@@ -65,16 +63,16 @@ function getConcept(conceptId, callback) {
 }
 
 function getUniqueBeginners(uids, callback) {
-	var responseData = []
+	var datarr = []
 	let cnt = 0, n = uids.length
 	uids.forEach(uid => {
 		getConceptId(uid, function(id) {
 			if (id != -1) {
 				getConcept(id, function(err, data) {
 					if (err) throw err
-					responseData.push(data)
+					datarr.push(data)
 					cnt ++
-					if (cnt >= n) callback(null, responseData)
+					if (cnt >= n) callback(null, datarr)
 				})
 			}
 		})
