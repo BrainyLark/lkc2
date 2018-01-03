@@ -9,6 +9,6 @@ const DomainSchema = mongoose.Schema({
 
 const Domain = module.exports = mongoose.model('Domain', DomainSchema)
 
-module.exports.insert = function(bulk, cb) {
-    Domain.collection.insert(bulk, cb)
+module.exports.insert = function(batch, callback) {
+    Domain.collection.insert(batch, callback)
 }

@@ -51,6 +51,7 @@ require('./auth/passport')(passport)
 // API routes of our server
 app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
+// Unless it is not for testing, then put it into authorized api list
 app.use('/domain', require('./api/domain'))
 
 // Authorized APIs

@@ -26,7 +26,7 @@ module.exports.generate = function (req, res, next) {
 		if (err) return handleError(res, err)
 		Domain.insert(data, function(err, docs) {
 			if (err) throw err
-			res.json({success: true, msg: "Successfully generated"})
+			res.json({statusCode: 1, statusMsg: "Successfully generated"})
 		})
 	})
 }

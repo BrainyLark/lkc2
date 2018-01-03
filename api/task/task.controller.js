@@ -1,5 +1,5 @@
-const	Task = require('./task.model'),
-	handleError	= require('../../service/ErrorHandler')
+const Task = require('./task.model')
+const handleError = require('../../service/ErrorHandler')
 
 module.exports.index = function (req, res, next) {
 	Task.findBySettings(req.query, function (err, data) {
