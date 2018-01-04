@@ -1,10 +1,10 @@
 const mongoose 	= require('mongoose')
 
 const TaskEventSchema = mongoose.Schema({
-	taskId: 		{ type: String, required: true },
+	taskId: 		{ type: mongoose.Schema.Types.ObjectId, required: true },
 	taskType: 		{ type: Number, min: 1, max: 10, required: true },
 	domainId: 		{ type: Number, required: true },
-	userId: 		{ type: String, required: true }
+	userId: 		{ type: mongoose.Schema.Types.ObjectId, required: true }
 }, { timestamps: true })
 
 const TaskEvent = module.exports = mongoose.model('TaskEvent', TaskEventSchema)

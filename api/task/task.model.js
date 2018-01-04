@@ -16,20 +16,20 @@ const TaskSchema = new mongoose.Schema({
 	domainId: 					{ type: Number, required: true },
 	taskType: 					{ type: Number, min: 1, max: 10, required: true },
 	wordnetId: 					{ type: Number, required: false }
-}, { discriminatorKey: 'taskType' })
+}, { discriminatorKey: 'taskType' }, { timestamps: true })
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)
 
 const ModificationTask = Task.discriminator(modificationType,
 	new mongoose.Schema({
 		translatedWords: 		[{ word: String, rating: Number }],
-		_translationTaskId:		{ type: mongoose.Schema.Types.ObjectId, required: true }
+		_translationTaskId:		{ type: mongoose.Schema.Types.ObjectId }
 	}))
 
 const VerificationTask = Task.discriminator(verificationType,
 	new mongoose.Schema({
 		modifiedWords: 			[{ word: String }],
-		_modificationTaskId:	{ type: mongoose.Schema.Types.ObjectId, required: true }
+		_modificationTaskId:	{ type: mongoose.Schema.Types.ObjectId }
 	}))
 
 // Task table custom helper methods
