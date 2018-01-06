@@ -7,5 +7,4 @@ router.get('/', controller.index)
 // must be used only once
 router.get('/generate', controller.generate)
 
-exports['default'] = router
-module.exports = exports['default']
+module.exports = router

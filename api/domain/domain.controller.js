@@ -14,19 +14,22 @@ const selection = {
 	"example": false
 }
 
+const STATUS_OK = 1
+const STATUS_NULL = 0
+
 module.exports.index = function (req, res, next) {
 	Domain.find({}, selection, function(err, domains) {
 		if (err) throw err
-		res.json({domains: domains})
+		return res.json({domains: domains})
 	})
 }
 
 module.exports.generate = function (req, res, next) {
 	DataStore.getUniqueBeginners(uids, function (err, data) {
 		if (err) return handleError(res, err)
-		Domain.insert(data, function(err, docs) {
+		Domain.insert(data, function(err, dconcepts) {
 			if (err) throw err
-			res.json({statusCode: 1, statusMsg: "Successfully generated"})
+			return res.json({statusCode: STATUS_OK, statusMsg: "Successfully generated", dconcepts: dconcepts.ops})
 		})
 	})
 }

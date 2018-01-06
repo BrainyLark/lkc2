@@ -1,6 +1,7 @@
 'use strict'
 
 const request = require('request')
+const cookie = 'connect.sid=s%3AUzkmE8N_SgCGIA92-MhJk56TMMkeu54h.0Z7T7MYCjIeSYUzBQCo9RtgTwQ%2Bx4LIaUg8dwswaVJ4'
 
 function getConceptId(uk_id, callback) {
 	var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false"
@@ -51,7 +52,7 @@ function getChildCount(conceptId, callback) {
 function getConcept(conceptId, callback) {
 	var queryString = "https://lkc.disi.unitn.it/mongolian/lkcApp/concepts/byid/" + conceptId + "/en"
 	request({url: queryString, headers: {
-		'Cookie': 'connect.sid=s%3A7O8J47ocJVNo-ABX4MqAqIzVy5ISN0rf.JlNSZSPXnkYJozafF%2B9iOZgH6ITBjE%2FZIPXN%2BPXTrHk',
+		'Cookie': cookie,
 		'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
 		'Connection': 'keep-alive',
 		'Cache-Control': 'max-age=0'
@@ -63,16 +64,22 @@ function getConcept(conceptId, callback) {
 }
 
 function getUniqueBeginners(uids, callback) {
-	var datarr = []
+	var ubconcepts = []
 	let cnt = 0, n = uids.length
 	uids.forEach(uid => {
 		getConceptId(uid, function(id) {
 			if (id != -1) {
 				getConcept(id, function(err, data) {
 					if (err) throw err
-					datarr.push(data)
+					let filtered = {
+						conceptId: data.conceptId,
+						concept: data.concept,
+						gloss: data.gloss,
+						globalId: data.globalId
+					}
+					ubconcepts.push(filtered)
 					cnt ++
-					if (cnt >= n) callback(null, datarr)
+					if (cnt >= n) callback(null, ubconcepts)
 				})
 			}
 		})

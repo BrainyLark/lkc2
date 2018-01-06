@@ -6,7 +6,7 @@ const request			= require('request')
 const handleError		= require('../../service/ErrorHandler')
 
 // defining constant variables
-const TRANSLATION_TASK_TYPE 	= 1
+const TRANSLATION_TASK_TYPE		= 1
 const MODIFICATION_TASKTYPE		= 2
 const MAX_TRANSLATION			= 5
 const STATUS_OK 				= 1
@@ -82,6 +82,6 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 			taskType: TRANSLATION_TASK_TYPE,
 			taskId: translation.taskId
 		}, done)
-		TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)
+		if (translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)
 	})
 }
