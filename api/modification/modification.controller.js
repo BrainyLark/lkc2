@@ -14,7 +14,7 @@ module.exports.saveUserModificationData = function (req, res, next) {
     Modification.create({
         taskId: req.body.taskId,
         domainId: req.body.domainId,
-        modifier: user.username
+        modifier: user.username,
         modifierId: user._id,
         modifiedWords: req.body.modifiedWords,
         gap: req.body.gap || false,

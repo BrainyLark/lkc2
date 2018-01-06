@@ -23,13 +23,13 @@ const Task = module.exports = mongoose.model('Task', TaskSchema)
 const ModificationTask = Task.discriminator(modificationType,
 	new mongoose.Schema({
 		translatedWords: 		[{ word: String, rating: Number }],
-		_translationTaskId:		{ type: mongoose.Schema.Types.ObjectId }
+		_translationTaskId:		{ type: String }
 	}))
 
 const VerificationTask = Task.discriminator(verificationType,
 	new mongoose.Schema({
 		modifiedWords: 			[{ word: String }],
-		_modificationTaskId:	{ type: mongoose.Schema.Types.ObjectId }
+		_modificationTaskId:	{ type: String }
 	}))
 
 // Task table custom helper methods

@@ -1,7 +1,7 @@
 const mongoose 	= require('mongoose')
 
 const TaskEventCountSchema = mongoose.Schema({
-	taskId: 			{ type: mongoose.Schema.Types.ObjectId, required: true },
+	taskId: 			{ type: String, required: true },
 	taskType: 			{ type: Number, required: true },
 	domainId: 			{ type: Number, required: true },
 	count: 				{ type: Number, required: true, default: 0}

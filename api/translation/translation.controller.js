@@ -28,10 +28,9 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 				gloss: task.gloss,
 				lemma: task.lemma,
 				domainId: task.domainId,
-				taskType: task.taskType,
+				taskType: MODIFICATION_TASKTYPE,
 				_translationTaskId: translationTaskId,
-				
-			})
+			}, callback)
 		})
 	}
 	var user = req.user
@@ -52,11 +51,14 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 			con++
 			if (err) return handleError(res, err)
 			if (con == 2) {
-				TaskEventCount.findOne({ taskId: translation.taskId }, (err, tEvCon) => {
+				TaskEventCount.findOne({ taskId: req.body.taskId }, (err, tEvCon) => {
 					if (tEvCon.count >= MAX_TRANSLATION) {
-
+						generateModTask(req.body.taskId, (err, task) => {
+							if (err) handleError(err)
+							return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!"})
+						})
 					}
-					return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
+					else return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
 				})
 			}
 		}

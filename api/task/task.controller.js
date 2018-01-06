@@ -1,7 +1,7 @@
 const Task 				= require('./task.model')
 const TaskEvent			= require('../taskEvent/taskEvent.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
-const Translation		= require('./translation.model')
+const Translation		= require('../translation/translation.model')
 const request			= require('request')
 const handleError		= require('../../service/ErrorHandler')
 const STATUS_OK 		= 1
@@ -31,7 +31,7 @@ module.exports.truncate = function (req, res, next) {
 module.exports.next = function (req, res, next) {
 	var userId = req.user._id
 	var domainId = req.params.domainId
-	var typeId = req.body.typeId
+	var typeId = req.params.typeId
 	var MAX_TRANSLATION = (typeId == 2) ? 3 : 5
 	TaskEvent.findLastEventForUser([userId, domainId, typeId], function(err, lastEvent) {
 		if (err) return handleError(res, err)

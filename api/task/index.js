@@ -6,7 +6,7 @@ var router = new Router()
 router.get('/', controller.index)
 router.get('/truncate', controller.truncate)
 router.get('/:id', controller.show)
-router.get('/:domainId(\\d+)', controller.next)
+router.get('/:typeId(\\d+)/:domainId(\\d+)', controller.next)
 
 exports['default'] = router
 module.exports = exports['default']
