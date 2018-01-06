@@ -51,11 +51,9 @@ require('./auth/passport')(passport)
 // API routes of our server
 app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
-// Unless it is not for testing, then put it into authorized api list
-app.use('/domain', require('./api/domain'))
 
 // Authorized APIs
-const APIs = ['taskEvent', 'taskEventCount', 'task', 'translation']
+const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation']
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
 //Index Route

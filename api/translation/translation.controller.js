@@ -69,7 +69,16 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 					if (tEvCon.count >= MAX_TRANSLATION) {
 						generateModTask(req.body.taskId, (err, task) => {
 							if (err) handleError(err)
-							return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", createdTask: task})
+							TaskEventCount.create({ 
+								taskId: task._id,
+								taskType: MODIFICATION_TASKTYPE,
+								domainId: task.domainId,
+								count: 0
+							}, (err, tEvCon) => {
+								if (err) handleError(err)
+							 	return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", modificationTask: task, eventLog: tEvCon })
+							})
+							
 						})
 					}
 					else return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
@@ -82,6 +91,7 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 			taskType: TRANSLATION_TASK_TYPE,
 			taskId: translation.taskId
 		}, done)
-		if (translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)
+		if (!translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)
+		else done(null, null)
 	})
 }

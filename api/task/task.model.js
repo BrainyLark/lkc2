@@ -16,9 +16,11 @@ const TaskSchema = new mongoose.Schema({
 	domainId: 					{ type: Number, required: true },
 	taskType: 					{ type: Number, min: 1, max: 10, required: true },
 	wordnetId: 					{ type: Number, required: false }
-}, { discriminatorKey: 'taskType' }, { timestamps: true })
+}, { discriminatorKey: 'taskType', timestamps: true })
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)
+
+const TranslationTask = Task.discriminator(initialType, new mongoose.Schema({}))
 
 const ModificationTask = Task.discriminator(modificationType,
 	new mongoose.Schema({
