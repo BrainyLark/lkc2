@@ -22,7 +22,7 @@ const Task = module.exports = mongoose.model('Task', TaskSchema)
 
 const ModificationTask = Task.discriminator(modificationType,
 	new mongoose.Schema({
-		translatedWords: 		[{ word: String, rating: Number }],
+		translatedWords: 		[{ word: String }],
 		_translationTaskId:		{ type: String }
 	}))
 

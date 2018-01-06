@@ -21,16 +21,30 @@ module.exports.showTranslations = function(req, res, next) {
 
 module.exports.saveUserTranslationData = function (req, res, next) {
 	var generateModTask = function (translationTaskId, callback) {
-		Task.findOne({ _id: translationTaskId }, function (err, task) {
+		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
 			if (err) handleError(err)
-			Task.create({
-				conceptId: task.conceptId,
-				gloss: task.gloss,
-				lemma: task.lemma,
-				domainId: task.domainId,
-				taskType: MODIFICATION_TASKTYPE,
-				_translationTaskId: translationTaskId,
-			}, callback)
+			var tset = new Set()
+			for (let user = 0; user < 5; user++) {
+				for (let ind = 0; ind < run[user].translation.length; ind++)
+					tset.add(run[user].translation[ind].lemma)
+			}
+			tlist = Array.from(tset)
+			var words = []
+			for (let w = 0; w < tlist.length; w++) {
+				words.push({word: tlist[w]})
+			}
+			Task.findById(translationTaskId, 'conceptId lemma gloss domainId', (err, origin) => {
+				if (err) handleError(err)
+				Task.create({
+					conceptId: origin.conceptId,
+					gloss: origin.gloss,
+					lemma: origin.lemma,
+					domainId: origin.domainId,
+					taskType: MODIFICATION_TASKTYPE,
+					_translationTaskId: translationTaskId,
+					translatedWords: words
+				}, callback)
+			})
 		})
 	}
 	var user = req.user
@@ -55,7 +69,7 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 					if (tEvCon.count >= MAX_TRANSLATION) {
 						generateModTask(req.body.taskId, (err, task) => {
 							if (err) handleError(err)
-							return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!"})
+							return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", createdTask: task})
 						})
 					}
 					else return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
