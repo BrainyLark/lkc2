@@ -52,7 +52,10 @@ $ nodemon
 ```
 ## Todos
 
- - Almost everything
+ - Shift GUI into angular material
+ - Remove unnecessary static resources
+ - Modification GUI design
+ - Validation GUI design
 
 ## Built With
 
@@ -64,9 +67,9 @@ $ nodemon
 
 ## Authors
 
-* **Erdenebileg** - *Initial work* - [BrainyLark](https://github.com/BrainyLark)
-* **Javkhlan Batsaikhan** - *Initial work* - [bjavkhlan](https://github.com/bjavkhlan)
-* **Enkhsanaa Natsagdorj** - [enkhsanaa](https://github.com/enkhsanaa)
+* **Erdenebileg Byambadorj** - *Back&Front* - [BrainyLark](https://github.com/BrainyLark)
+* **Javkhlan Batsaikhan** - *Front* - [bjavkhlan](https://github.com/bjavkhlan)
+* **Enkhsanaa Natsagdorj** - *Back&Front* [enkhsanaa](https://github.com/enkhsanaa)
 
 
 ## License

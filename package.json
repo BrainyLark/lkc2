@@ -19,6 +19,6 @@
     "pg-promise": "^7.0.2",
     "request": "^2.83.0"
   },
-  "author": "ebi",
+  "author": "erdenebileg, enkhsanaa, jawkhlan",
   "license": "ISC"
 }
