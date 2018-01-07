@@ -53,11 +53,11 @@ app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
 
 // Authorized APIs
-const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation']
+const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'modification']
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
 //Index Route
-app.get('/', function(req, res) { res.json({status: -1, msg: "You have directed into the wrong endpoint!"}) })
+app.get('/', function(req, res) { res.json({status: -1, msg: "You have been directed into the wrong endpoint!"}) })
 
 //Start Server
 app.listen(config.port, function() {

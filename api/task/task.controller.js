@@ -37,7 +37,7 @@ module.exports.next = function (req, res, next) {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
 		var findNextTask = function() {
-			TaskEventCount.find({ domainId: domainId })
+			TaskEventCount.find({ domainId: domainId, taskType: typeId })
 				.where('count').lt(MAX_TRANSLATION)
 				.where('createdAt').gt(createdAt)
 				.sort('taskId')

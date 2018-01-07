@@ -19,15 +19,23 @@ module.exports.saveUserModificationData = function (req, res, next) {
         modifiedWords: req.body.modifiedWords,
         gap: req.body.gap || false,
         skip: req.body.skip || false,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate
+        startDate: req.body.start_date,
+        endDate: req.body.end_date
     }, function(err, modification) {
         if (err) handleError(err)
         var con = 0
         var done = function(err, data) {
             if (err) handleError(err)
             con ++
-            if (con == 2) return res.json({ success: true, msg: "Засварлалтыг амжилттай хадгаллаа!" })
+            if (con == 2) {
+                TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, tEvCon) => {
+                    if (tEvCon.count >= MAX_MODIFICATION) {
+                        return res.json({ statusSuccess: STATUS_NULL, statusMsg: "Validation task is created here" })
+                    } else {
+                        return res.json({ statusSuccess: STATUS_OK, statusMsg: "Засварлалтыг амжилттай хадгаллаа!" })
+                    }
+                })
+            }
         }
         TaskEvent.create({
             userId: modification.modifierId,
@@ -35,6 +43,7 @@ module.exports.saveUserModificationData = function (req, res, next) {
             taskType: MODIFICATION_TASKTYPE,
             taskId: modification.taskId
         }, done)
-        TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: 1 } }, done)
+        if(!modification.skip) TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: 1 } }, done)
+        else done(null, null)
     })
 }
