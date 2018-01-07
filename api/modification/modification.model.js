@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const ModificationScheme = mongoose.Scheme({
+const ModificationScheme = mongoose.Schema({
     taskId:         { type: String, required: true },
     domainId:       { type: Number, required: true },
     modifierId:     { type: String, required: true },

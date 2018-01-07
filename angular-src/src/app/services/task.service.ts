@@ -27,7 +27,7 @@ export class TaskService {
 		this.loadToken();
 		headers.append('Authorization', this.authToken);
 		headers.append('Content-Type', 'application/json');
-		return this.http.get('http://localhost:3000/translation/' + id, {headers: headers}).map(res => res.json());
+		return this.http.get('http://localhost:3000/task/1/' + id, {headers: headers}).map(res => res.json());
 	}
 	postTranslation(data) {
 		let headers = new Headers();

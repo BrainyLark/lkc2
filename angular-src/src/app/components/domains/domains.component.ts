@@ -20,7 +20,7 @@ export class DomainsComponent implements OnInit {
 
 	ngOnInit() {
 		this.taskService.getDomains().subscribe(domains => {
-			this.uniqueBeginners = domains;
+			this.uniqueBeginners = domains.domains;
 		});
 	}
 

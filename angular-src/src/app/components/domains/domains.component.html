@@ -4,10 +4,10 @@
 <div class="well">Доор дүрслэгдсэн 25 айн ойлголтууд нь Ертөнцийн Мэдлэгийн Сангийн бүх нэр үгийн ойлголтуудыг агуулж байдаг. Та дараах сэдвүүдийг нягтлаж үзээд өөрийн хамгийн сайн мэдэх сэдвээ сонгон түүнийг орчуулах, засварлах болон үнэлэх даалгавруудыг гүйцэтгэж болно. MnLKC систем таны даалгаврыг ерөнхий ойлголтоос эхлүүлэн хуваарилж, даалгавар өгсөх тусам орчуулгын түвшин хүндрэх болно. Good Luck! Don't cheat please!</div>
 <div *ngFor="let ub_concept of uniqueBeginners">
       <div class="panel panel-default">
-      <div class="panel-heading">#{{ub_concept.uk_id}} <b>Domain:</b> {{ub_concept.label}}</div>
+      <div class="panel-heading">#{{ub_concept.globalId}} <b>Domain:</b> {{ub_concept.label}}</div>
       <div class="panel-body"><b>Description:</b> {{ub_concept.gloss}}</div>
       <div class="panel-footer"> Таны сонголт: &nbsp;&nbsp;&nbsp;
-            <button (click)="goToTranslate(ub_concept.uk_id)" class="btn btn-primary btn-sm">ОРЧУУЛАХ</button>
+            <button (click)="goToTranslate(ub_concept.globalId)" class="btn btn-primary btn-sm">ОРЧУУЛАХ</button>
             <button class="btn btn-warning btn-sm">ЗАСВАРЛАХ</button>
             <button class="btn btn-success btn-sm">ҮНЭЛЭХ</button>
       </div>
