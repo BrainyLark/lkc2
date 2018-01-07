@@ -3,10 +3,7 @@ const TaskEvent 		= require('../taskEvent/taskEvent.model')
 const TaskEventCount 	= require('../taskEventCount/taskEventCount.model')
 const handleError 		= require('../../service/ErrorHandler')
 const request 			= require('request')
-
-const STATUS_NULL = 0
-const STATUS_OK = 1
-const VALIDATION_TASKTYPE = 3
+const meta				= require('../../meta')
 
 module.exports.saveUserValidationData = function(req, res, next) {
 	var user = req.user
@@ -26,12 +23,12 @@ module.exports.saveUserValidationData = function(req, res, next) {
 		var done = function(err, data) {
 			if (err) handleError(err)
 			con++
-			if (con == 2) return res.json({ statusSuccess: STATUS_OK, statusMsg: "Үнэлгээ амжилттай хадгалагдлаа!" })
+			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: "Үнэлгээ амжилттай хадгалагдлаа!" })
 		}
 		
 		TaskEvent.create({
 			taskId: validation.taskId,
-			taskType: VALIDATION_TASKTYPE,
+			taskType: meta.tasktype.validation,
 			domainId: validation.domainId,
 			userId: user._id
 		}, done)

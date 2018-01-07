@@ -1,8 +1,5 @@
 const mongoose 	= require('mongoose')
-
-const initialType 		= 1
-const modificationType 	= 2
-const verificationType 	= 3
+const meta		= require('meta')
 
 // Necessary english resources for any type of task
 const TaskSchema = new mongoose.Schema({
@@ -20,15 +17,15 @@ const TaskSchema = new mongoose.Schema({
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)
 
-const TranslationTask = Task.discriminator(initialType, new mongoose.Schema({}))
+const TranslationTask = Task.discriminator(meta.tasktype.translation, new mongoose.Schema({}))
 
-const ModificationTask = Task.discriminator(modificationType,
+const ModificationTask = Task.discriminator(meta.tasktype.modification,
 	new mongoose.Schema({
 		translatedWords: 		[{ word: String }],
 		_translationTaskId:		{ type: String }
 	}))
 
-const VerificationTask = Task.discriminator(verificationType,
+const VerificationTask = Task.discriminator(meta.tasktype.validation,
 	new mongoose.Schema({
 		modifiedWords: 			[{ word: String }],
 		_modificationTaskId:	{ type: String }

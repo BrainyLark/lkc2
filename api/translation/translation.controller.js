@@ -4,14 +4,7 @@ const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const Translation		= require('./translation.model')
 const request			= require('request')
 const handleError		= require('../../service/ErrorHandler')
-
-// defining constant variables
-const TRANSLATION_TASK_TYPE		= 1
-const MODIFICATION_TASKTYPE		= 2
-const VALIDATION_TASKTYPE		= 3
-const MAX_TRANSLATION			= 5
-const STATUS_OK 				= 1
-const STATUS_NULL 				= 0
+const meta				= require('../../meta')
 
 module.exports.showTranslations = function(req, res, next) {
 	Translation.findBySettings(req.query, function (err, data) {
@@ -41,7 +34,7 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 					gloss: origin.gloss,
 					lemma: origin.lemma,
 					domainId: origin.domainId,
-					taskType: MODIFICATION_TASKTYPE,
+					taskType: meta.tasktype.modification,
 					_translationTaskId: translationTaskId,
 					translatedWords: words
 				}, callback)
@@ -67,29 +60,29 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 			if (err) return handleError(res, err)
 			if (con == 2) {
 				TaskEventCount.findOne({ taskId: req.body.taskId }, (err, tEvCon) => {
-					if (tEvCon.count >= MAX_TRANSLATION) {
+					if (tEvCon.count >= meta.tasklimit.translation) {
 						generateModTask(req.body.taskId, (err, task) => {
 							if (err) handleError(err)
 							TaskEventCount.create({ 
 								taskId: task._id,
-								taskType: MODIFICATION_TASKTYPE,
+								taskType: meta.tasktype.modification,
 								domainId: task.domainId,
 								count: 0
 							}, (err, tEvCon) => {
 								if (err) handleError(err)
-							 	return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", modificationTask: task, eventLog: tEvCon })
+							 	return res.json({ statusSuccess: meta.status.ok, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", modificationTask: task, eventLog: tEvCon })
 							})
 							
 						})
 					}
-					else return res.json({ statusSuccess: STATUS_OK, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
+					else return res.json({ statusSuccess: meta.status.ok, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
 				})
 			}
 		}
 		TaskEvent.create({
 			userId: translation.translatorId,
 			domainId: translation.domainId,
-			taskType: TRANSLATION_TASK_TYPE,
+			taskType: meta.tasktype.translation,
 			taskId: translation.taskId
 		}, done)
 		if (!translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)

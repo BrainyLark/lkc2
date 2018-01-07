@@ -4,12 +4,7 @@ const TaskEventCount    = require('../taskEventCount/taskEventCount.model')
 const request           = require('request')
 const handleError       = require('../../service/ErrorHandler')
 const Task              = require('../task/task.model')
-
-const MODIFICATION_TASKTYPE     = 2
-const VALIDATION_TASKTYPE       = 3
-const MAX_MODIFICATION          = 3
-const STATUS_OK                 = 1
-const STATUS_NULL               = 0
+const meta              = require('../../meta')
 
 module.exports.saveUserModificationData = function (req, res, next) {
     var user = req.user
@@ -37,7 +32,7 @@ module.exports.saveUserModificationData = function (req, res, next) {
                     gloss: origin.gloss,
                     lemma: origin.lemma,
                     domainId: origin.domainId,
-                    taskType: VALIDATION_TASKTYPE,
+                    taskType: meta.tasktype.validation,
                     _modificationTaskId: modTaskId,
                     modifiedWords: words
                 }, callback)
@@ -63,20 +58,20 @@ module.exports.saveUserModificationData = function (req, res, next) {
             con ++
             if (con == 2) {
                 TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, tEvCon) => {
-                    if (tEvCon.count >= MAX_MODIFICATION) {
+                    if (tEvCon.count >= meta.tasklimit.modification) {
                         generateValidTask(modification.taskId, (err, task) => {
                             if (err) handleError(err)
                             TaskEventCount.create({
                                 taskId: task._id,
-                                taskType: VALIDATION_TASKTYPE,
+                                taskType: meta.tasktype.validation,
                                 domainId: task.domainId,
                                 count: 0
                             }, (err, tEvCon) => {
-                                return res.json({ statusSuccess: STATUS_OK, statusMsg: "Засварлалтыг амжилттай хадгаллаа! Мөн үнэлгээний дасгалыг үүсгэв!", validationTask: task, taskLog: tEvCon })
+                                return res.json({ statusSuccess: meta.status.ok, statusMsg: "Засварлалтыг амжилттай хадгаллаа! Мөн үнэлгээний дасгалыг үүсгэв!", validationTask: task, taskLog: tEvCon })
                             })
                         })
                     } else {
-                        return res.json({ statusSuccess: STATUS_OK, statusMsg: "Засварлалтыг амжилттай хадгаллаа!" })
+                        return res.json({ statusSuccess: meta.status.ok, statusMsg: "Засварлалтыг амжилттай хадгаллаа!" })
                     }
                 })
             }
@@ -84,7 +79,7 @@ module.exports.saveUserModificationData = function (req, res, next) {
         TaskEvent.create({
             userId: modification.modifierId,
             domainId: modification.domainId,
-            taskType: MODIFICATION_TASKTYPE,
+            taskType: meta.tasktype.modification,
             taskId: modification.taskId
         }, done)
         if(!modification.skip) TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: 1 } }, done)

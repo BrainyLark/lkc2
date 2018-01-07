@@ -1,6 +1,7 @@
-const TaskEvent 		= require('./taskEvent.model'),
-	TaskEventCount	= require('../taskEventCount/taskEventCount.model'),
-	handleError		= require('../../service/ErrorHandler')
+const TaskEvent 		= require('./taskEvent.model')
+const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
+const handleError		= require('../../service/ErrorHandler')
+const meta				= require('../../meta')
 
 module.exports.index = function (req, res, next) {
 	TaskEvent.find({}, function (err, data) {
@@ -18,7 +19,7 @@ module.exports.truncate = function (req, res, next) {
 				taskEventCounters[i].count = 0;
 				taskEventCounters[i].save()
 			}
-			res.json({ statusCode: 0, statusMsg: 'Collection truncated.' })
+			res.json({ statusCode: meta.status.null, statusMsg: 'Collection truncated.' })
 		})
 	})
 }

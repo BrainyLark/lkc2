@@ -1,5 +1,5 @@
-const Router	= require('express').Router,
-	controller	= require('./translation.controller')
+const Router		= require('express').Router
+const controller	= require('./translation.controller')
 
 var router = new Router()
 

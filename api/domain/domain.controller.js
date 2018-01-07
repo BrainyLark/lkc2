@@ -1,6 +1,7 @@
-const DataStore	= require('../../service/DataAdapter')[0]
+const DataStore		= require('../../service/DataAdapter')[0]
 const handleError	= require('../../service/ErrorHandler')
-const Domain = require('./domain.model.js');
+const Domain 		= require('./domain.model.js');
+const meta			= require('../../meta')
 
 //global ids for the twenty-five unique beginner concepts
 const uids = [
@@ -14,9 +15,6 @@ const selection = {
 	"example": false
 }
 
-const STATUS_OK = 1
-const STATUS_NULL = 0
-
 module.exports.index = function (req, res, next) {
 	Domain.find({}, selection, function(err, domains) {
 		if (err) throw err
@@ -29,7 +27,7 @@ module.exports.generate = function (req, res, next) {
 		if (err) return handleError(res, err)
 		Domain.insert(data, function(err, dconcepts) {
 			if (err) throw err
-			return res.json({statusCode: STATUS_OK, statusMsg: "Successfully generated", dconcepts: dconcepts.ops})
+			return res.json({statusCode: meta.status.ok, statusMsg: "Successfully generated!", dconcepts: dconcepts.ops})
 		})
 	})
 }
