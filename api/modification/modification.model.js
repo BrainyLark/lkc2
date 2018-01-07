@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const ModificationScheme = mongoose.Scheme({
+const ModificationSchema = mongoose.Schema({
     taskId:         { type: String, required: true },
     domainId:       { type: Number, required: true },
     modifierId:     { type: String, required: true },
@@ -12,4 +12,4 @@ const ModificationScheme = mongoose.Scheme({
     endDate:		{ type: Date, required: true }
 }, {timestamps: true})
 
-const Modification = module.exports = mongoose.model('Modification', ModificationScheme)
+const Modification = module.exports = mongoose.model('Modification', ModificationSchema)

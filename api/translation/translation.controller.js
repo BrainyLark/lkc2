@@ -8,6 +8,7 @@ const handleError		= require('../../service/ErrorHandler')
 // defining constant variables
 const TRANSLATION_TASK_TYPE		= 1
 const MODIFICATION_TASKTYPE		= 2
+const VALIDATION_TASKTYPE		= 3
 const MAX_TRANSLATION			= 5
 const STATUS_OK 				= 1
 const STATUS_NULL 				= 0
@@ -28,7 +29,7 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 				for (let ind = 0; ind < run[user].translation.length; ind++)
 					tset.add(run[user].translation[ind].lemma)
 			}
-			tlist = Array.from(tset)
+			var tlist = Array.from(tset)
 			var words = []
 			for (let w = 0; w < tlist.length; w++) {
 				words.push({word: tlist[w]})
