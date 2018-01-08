@@ -1,6 +1,8 @@
-const router	 = require('express').Router	
+const Router	 = require('express').Router	
 const controller = require('./validation.controller')
 
-router('/', controller.saveUserValidationData)
+var router = new Router()
+
+router.post('/', controller.saveUserValidationData)
 
 module.exports = router

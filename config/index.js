@@ -14,5 +14,7 @@ module.exports = {
 	database: {
 		uri: "mongodb://localhost:27017/lkc2",
 		secret: "gew&*HFE*&QQ)@2(jdmoiJF(*#R"
-	}
+	},
+	// lkc api requires this one
+	cookie: "connect.sid=s%3AUzkmE8N_SgCGIA92-MhJk56TMMkeu54h.0Z7T7MYCjIeSYUzBQCo9RtgTwQ%2Bx4LIaUg8dwswaVJ4"
 }

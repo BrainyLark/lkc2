@@ -23,7 +23,7 @@ module.exports.saveUserValidationData = function(req, res, next) {
 		var done = function(err, data) {
 			if (err) handleError(err)
 			con++
-			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: "Үнэлгээ амжилттай хадгалагдлаа!" })
+			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.validsaved.ok })
 		}
 		
 		TaskEvent.create({

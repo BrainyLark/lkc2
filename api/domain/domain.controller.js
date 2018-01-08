@@ -27,7 +27,7 @@ module.exports.generate = function (req, res, next) {
 		if (err) return handleError(res, err)
 		Domain.insert(data, function(err, dconcepts) {
 			if (err) throw err
-			return res.json({statusCode: meta.status.ok, statusMsg: "Successfully generated!", dconcepts: dconcepts.ops})
+			return res.json({statusCode: meta.status.ok, statusMsg: meta.msg.mn.generated.ok, dconcepts: dconcepts.ops})
 		})
 	})
 }

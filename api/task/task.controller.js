@@ -23,7 +23,7 @@ module.exports.show = function (req, res, next) {
 module.exports.truncate = function (req, res, next) {
 	Task.remove({}, function(err) {
 		if (err) return handleError(err)
-		res.json({ statusCode: meta.status.null, statusMsg: 'Collection truncated' })
+		res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.truncated.ok })
 	})
 }
 
@@ -44,7 +44,7 @@ module.exports.next = function (req, res, next) {
 				.exec(function(err, pEvent) {
 					if (err) return handleError(res, err)
 					if (pEvent.length == 0) {
-						return res.json({ statusCode: meta.status.null, statusMsg: "No task is available in this domain." })
+						return res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.task.unavailable })
 					}
 					else {
 						Task.findById(pEvent[0].taskId, (err, task) => {

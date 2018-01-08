@@ -2,10 +2,11 @@ const DataStore			= require('../../service/DataAdapter')[0]
 const Task 				= require('../task/task.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const handleError		= require('../../service/ErrorHandler')
+const meta				= require('../../meta')
 
 module.exports.index = function(req, res, next) {
 	if (!req.query.hasOwnProperty('uk_id')) {
-		res.status(400).json({message: 'uk_id should be defined'})
+		res.status(400).json({message: "uk_id" + meta.msg.mn.generated.nodef})
 	}
 	let uk_id = req.query.uk_id
 	let limit = parseInt(req.query.limit) || 10
@@ -77,7 +78,7 @@ module.exports.index = function(req, res, next) {
 			var childIdx = -1, n = descendants.length
 			var generateTaskIterator = function(res) {
 				childIdx++
-				if (childIdx == n) return generateTaskIteratorCallback({ statusCode: 3, statusMsg: 'This domain has been fully exhausted. Created: ' + (initialLimit - limit) + ' tasks.' })
+				if (childIdx == n) return generateTaskIteratorCallback({ statusCode: 3, statusMsg: meta.msg.mn.generated.end + (initialLimit - limit) })
 				if (res.statusCode == 1) return generateTaskIteratorCallback(res)
 				generateTask({
 					id: descendants[childIdx].target.id,
@@ -93,12 +94,12 @@ module.exports.index = function(req, res, next) {
 				if (task) {
 					limit--
 					if (limit == 0) {
-						return generateTaskIteratorCallback({ statusCode: 1, statusMsg: initialLimit + ' limit reached. Created: ' + (initialLimit - limit) })
+						return generateTaskIteratorCallback({ statusCode: 1, statusMsg: initialLimit + meta.msg.mn.generated.limit + (initialLimit - limit) })
 					}
 				}
 				if (childIdx == n) {
 					childIdx = -1
-					return generateTaskIterator({ statusCode: 2, statusMsg: 'all descendant\'s created. Move on to the next child. Created: ' + (initialLimit - limit) })
+					return generateTaskIterator({ statusCode: 2, statusMsg: meta.msg.mn.generated.desc + (initialLimit - limit) })
 				}
 				createTask(descendants[childIdx], concept, createTaskIterator)
 			}

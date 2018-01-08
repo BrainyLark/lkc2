@@ -67,11 +67,11 @@ module.exports.saveUserModificationData = function (req, res, next) {
                                 domainId: task.domainId,
                                 count: 0
                             }, (err, tEvCon) => {
-                                return res.json({ statusSuccess: meta.status.ok, statusMsg: "Засварлалтыг амжилттай хадгаллаа! Мөн үнэлгээний дасгалыг үүсгэв!", validationTask: task, taskLog: tEvCon })
+                                return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.modsaved.ok, validationTask: task, taskLog: tEvCon })
                             })
                         })
                     } else {
-                        return res.json({ statusSuccess: meta.status.ok, statusMsg: "Засварлалтыг амжилттай хадгаллаа!" })
+                        return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.modsaved.ok })
                     }
                 })
             }

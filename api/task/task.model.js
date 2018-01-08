@@ -1,5 +1,5 @@
 const mongoose 	= require('mongoose')
-const meta		= require('meta')
+const meta		= require('../../meta')
 
 // Necessary english resources for any type of task
 const TaskSchema = new mongoose.Schema({

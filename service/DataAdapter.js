@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('request')
-const cookie = 'connect.sid=s%3AUzkmE8N_SgCGIA92-MhJk56TMMkeu54h.0Z7T7MYCjIeSYUzBQCo9RtgTwQ%2Bx4LIaUg8dwswaVJ4'
+const cookie = require('../config').cookie
 
 function getConceptId(uk_id, callback) {
 	var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false"

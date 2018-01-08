@@ -70,12 +70,12 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 								count: 0
 							}, (err, tEvCon) => {
 								if (err) handleError(err)
-							 	return res.json({ statusSuccess: meta.status.ok, statusMsg: "Орчуулгыг амжилттай хадгаллаа! Засварын дасгалыг мөн үүсгэлээ!", modificationTask: task, eventLog: tEvCon })
+							 	return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.transaved.ok, modificationTask: task, eventLog: tEvCon })
 							})
 							
 						})
 					}
-					else return res.json({ statusSuccess: meta.status.ok, statusMsg: "Орчуулгыг амжилттай хадгаллаа!"})
+					else return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.transaved.ok})
 				})
 			}
 		}

@@ -53,7 +53,7 @@ app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
 
 // Authorized APIs
-const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'modification']
+const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'modification', 'validation']
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
 //Index Route
