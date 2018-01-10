@@ -8,7 +8,7 @@ const meta              = require('../../meta')
 
 module.exports.saveUserModificationData = function (req, res, next) {
     var user = req.user
-    
+
     var generateValidTask = function(modTaskId, callback) {
         Modification.find({ taskId: modTaskId }, (err, run) => {
             if (err) handleError(err)

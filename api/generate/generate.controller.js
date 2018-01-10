@@ -1,8 +1,8 @@
-const DataStore			= require('../../service/DataAdapter')[0]
-const Task 				= require('../task/task.model')
+const DataStore		= require('../../service/DataAdapter')[0]
+const Task 			= require('../task/task.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const handleError		= require('../../service/ErrorHandler')
-const meta				= require('../../meta')
+const meta			= require('../../meta')
 
 module.exports.index = function(req, res, next) {
 	if (!req.query.hasOwnProperty('uk_id')) {

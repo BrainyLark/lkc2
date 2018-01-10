@@ -1,4 +1,4 @@
-const Router		= require('express').Router
+const Router	= require('express').Router
 const controller	= require('./translation.controller')
 
 var router = new Router()

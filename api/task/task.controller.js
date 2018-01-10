@@ -43,7 +43,7 @@ module.exports.next = function (req, res, next) {
 				.limit(1)
 				.exec( (err, pEvent) => {
 					if (err) return handleError(res, err)
-					if (pEvent.length == 0) {
+					if (!pEvent.length) {
 						return res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.task.unavailable })
 					}
 					else {

@@ -1,15 +1,15 @@
 const mongoose 	= require('mongoose')
 
 const TranslationSchema = mongoose.Schema({
-      taskId:			{ type: String, required: true },
-      domainId:			{ type: Number, required: true },
+      taskId:		{ type: String, required: true },
+      domainId:		{ type: Number, required: true },
       translator:		{ type: String, required: true },
-      translatorId:		{ type: String, required: true },
-      translation:		[{ lemma: String, rating: Number }],
-      gap:				{ type: Boolean, required: true, default: false },
-      skip:				{ type: Boolean, required: true, default: false },
+      translatorId:	{ type: String, required: true },
+      translation:	[{ lemma: String, rating: Number }],
+      gap:			{ type: Boolean, required: true, default: false },
+      skip:			{ type: Boolean, required: true, default: false },
       startDate:		{ type: Date, required: true },
-      endDate:			{ type: Date, required: true }
+      endDate:		{ type: Date, required: true }
 }, { timestamps: true })
 
 const Translation = module.exports = mongoose.model('Translation', TranslationSchema);

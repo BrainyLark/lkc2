@@ -1,5 +1,5 @@
-const Router	= require('express').Router,
-	controller	= require('./generate.controller')
+const Router	= require('express').Router
+const controller	= require('./generate.controller')
 
 var router = new Router()
 

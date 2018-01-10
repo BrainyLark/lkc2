@@ -3,16 +3,16 @@ const meta		= require('../../meta')
 
 // Necessary english resources for any type of task
 const TaskSchema = new mongoose.Schema({
-	label: 						{ type: String, required: false },
-	gloss: 						{ type: String, required: true },
-	conceptId: 					{ type: Number, required: true },
-	conceptGlobalId: 			{ type: Number, required: false },
-	parentConceptId: 			{ type: Number, required: false },
-	parentConceptGlobalId: 		{ type: Number, required: false },
-	lemma: 						{ type: String, required: true },
-	domainId: 					{ type: Number, required: true },
-	taskType: 					{ type: Number, min: 1, max: 10, required: true },
-	wordnetId: 					{ type: Number, required: false }
+	label:			{ type: String, required: false },
+	gloss: 			{ type: String, required: true },
+	conceptId: 			{ type: Number, required: true },
+	conceptGlobalId: 		{ type: Number, required: false },
+	parentConceptId: 		{ type: Number, required: false },
+	parentConceptGlobalId: 	{ type: Number, required: false },
+	lemma: 			{ type: String, required: true },
+	domainId: 			{ type: Number, required: true },
+	taskType: 			{ type: Number, min: 1, max: 10, required: true },
+	wordnetId: 			{ type: Number, required: false }
 }, { discriminatorKey: 'taskType', timestamps: true })
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)
@@ -22,12 +22,12 @@ const TranslationTask = Task.discriminator(meta.tasktype.translation, new mongoo
 const ModificationTask = Task.discriminator(meta.tasktype.modification,
 	new mongoose.Schema({
 		translatedWords: 		[{ word: String }],
-		_translationTaskId:		{ type: String }
+		_translationTaskId:	{ type: String }
 	}))
 
 const VerificationTask = Task.discriminator(meta.tasktype.validation,
 	new mongoose.Schema({
-		modifiedWords: 			[{ word: String }],
+		modifiedWords: 		[{ word: String }],
 		_modificationTaskId:	{ type: String }
 	}))
 
