@@ -1,7 +1,7 @@
 const TaskEvent 		= require('./taskEvent.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const handleError		= require('../../service/ErrorHandler')
-const meta				= require('../../meta')
+const meta			= require('../../meta')
 
 module.exports.index = function (req, res, next) {
 	TaskEvent.find({}, function (err, data) {

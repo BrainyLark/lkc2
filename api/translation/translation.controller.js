@@ -1,10 +1,10 @@
-const Task 				= require('../task/task.model')
-const TaskEvent			= require('../taskEvent/taskEvent.model')
+const Task 			= require('../task/task.model')
+const TaskEvent		= require('../taskEvent/taskEvent.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const Translation		= require('./translation.model')
-const request			= require('request')
+const request		= require('request')
 const handleError		= require('../../service/ErrorHandler')
-const meta				= require('../../meta')
+const meta			= require('../../meta')
 
 module.exports.showTranslations = function(req, res, next) {
 	Translation.findBySettings(req.query, (err, data) => {
@@ -14,7 +14,7 @@ module.exports.showTranslations = function(req, res, next) {
 }
 
 module.exports.saveUserTranslationData = function (req, res, next) {
-	var generateModTask = function (translationTaskId, callback) {
+	var generateModTask = (translationTaskId, callback) => {
 		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
 			if (err) return handleError(res, err)
 			var tset = new Set()

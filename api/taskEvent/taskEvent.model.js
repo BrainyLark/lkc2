@@ -16,5 +16,6 @@ module.exports.findLastEventForUser = function(query, callback) {
 		.where('userId').equals(query[0])
 		.where('domainId').equals(query[1])
 		.where('taskType').equals(query[2])
+		.where('state').equals(state.terminated)
 		.sort('-_id').limit(1).exec(callback);
 }
