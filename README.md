@@ -52,10 +52,18 @@ $ nodemon
 ```
 ## Todos
 
+ - Multilingual adapter
+ - Multilingual task generation
+ - Language discriminated task runs
+ - Dynamic way of solving task run	
  - Shift GUI into angular material
  - Remove unnecessary static resources
  - Modification GUI design
  - Validation GUI design
+
+## Possible considerations
+ - Vertice run update
+ - Modification generation might be scheduled
 
 ## Built With
 

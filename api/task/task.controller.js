@@ -1,10 +1,10 @@
-const Task 				= require('./task.model')
-const TaskEvent			= require('../taskEvent/taskEvent.model')
+const Task 			= require('./task.model')
+const TaskEvent		= require('../taskEvent/taskEvent.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const Translation		= require('../translation/translation.model')
-const request			= require('request')
+const request		= require('request')
 const handleError		= require('../../service/ErrorHandler')
-const meta				= require('../../meta')
+const meta			= require('../../meta')
 
 module.exports.index = function (req, res, next) {
 	Task.findBySettings(req.query, function (err, data) {
@@ -22,7 +22,7 @@ module.exports.show = function (req, res, next) {
 
 module.exports.truncate = function (req, res, next) {
 	Task.remove({}, function(err) {
-		if (err) return handleError(err)
+		if (err) return handleError(res, err)
 		res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.truncated.ok })
 	})
 }
@@ -32,25 +32,47 @@ module.exports.next = function (req, res, next) {
 	var domainId = req.params.domainId
 	var typeId = req.params.typeId
 	var taskLimit = (typeId == meta.tasktype.modification) ? meta.tasklimit.modification : meta.tasklimit.translation
-	TaskEvent.findLastEventForUser([userId, domainId, typeId], function(err, lastEvent) {
+	TaskEvent.findLastEventForUser([userId, domainId, typeId], (err, lastEvent) => {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
-		var findNextTask = function() {
+		var findNextTask = () => {
 			TaskEventCount.find({ domainId: domainId, taskType: typeId })
 				.where('count').lt(taskLimit)
 				.where('createdAt').gt(createdAt)
 				.sort('taskId')
 				.limit(1)
-				.exec(function(err, pEvent) {
+				.exec( (err, pEvent) => {
 					if (err) return handleError(res, err)
 					if (pEvent.length == 0) {
 						return res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.task.unavailable })
 					}
 					else {
-						Task.findById(pEvent[0].taskId, (err, task) => {
+						var taskId = pEvent[0].taskId
+						var cnt = 0
+						var cb = (err, docs) => {
 							if (err) return handleError(res, err)
-							task.statusCode = meta.status.ok
-							return res.json(task)
+							cnt++
+							if (cnt == 2)
+								Task.findById(taskId, (err, task) => {
+									if (err) return handleError(res, err)
+									task.statusCode = meta.status.ok
+									return res.json(task)
+								})
+						}
+						TaskEvent.findOne({ taskId: taskId, userId: userId }, (err, tevent) => {
+							if (err) return handleError(res, err)
+							if (!tevent) {
+								TaskEvent.create({
+									taskId: taskId,
+									taskType: typeId,
+									domainId: domainId,
+									userId: userId
+								}, cb)
+								TaskEventCount.update({ taskId: taskId }, { $inc: { count: 1 } }, cb)
+							} else {
+								TaskEvent.update({ taskId: taskId, userId: userId }, { $set: { updatedAt: new Date() }}, cb)
+								cb(null, null)
+							}
 						})
 					}
 				})

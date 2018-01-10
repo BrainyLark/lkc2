@@ -1,6 +1,6 @@
 const DataStore		= require('../../service/DataAdapter')[0]
 const handleError	= require('../../service/ErrorHandler')
-const Domain 		= require('./domain.model.js');
+const Domain 		= require('./domain.model.js')
 const meta			= require('../../meta')
 
 //global ids for the twenty-five unique beginner concepts

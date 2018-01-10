@@ -16,6 +16,18 @@ module.exports = {
 		modification: 3,
 		validation: 5
 	},
+	taskstate: {
+		ongoing: false,
+		terminated: true
+	},
+	daylimit: {
+		translation: 2,
+		modification: 3,
+		validation: 1
+	},
+	language: [
+		'zh', 'mn', 'it', 'es'
+	],
 	msg: {
 		mn: {
 			generated: {

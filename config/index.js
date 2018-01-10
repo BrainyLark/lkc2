@@ -16,5 +16,6 @@ module.exports = {
 		secret: "gew&*HFE*&QQ)@2(jdmoiJF(*#R"
 	},
 	// lkc api requires this one
+	// this cookie must be renewed within 3 days, in which one is valid and so that task and domain generation are valid
 	cookie: "connect.sid=s%3AUzkmE8N_SgCGIA92-MhJk56TMMkeu54h.0Z7T7MYCjIeSYUzBQCo9RtgTwQ%2Bx4LIaUg8dwswaVJ4"
 }
