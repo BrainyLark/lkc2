@@ -7,7 +7,7 @@ const handleError		= require('../../service/ErrorHandler')
 const meta				= require('../../meta')
 
 module.exports.showTranslations = function(req, res, next) {
-	Translation.findBySettings(req.query, function (err, data) {
+	Translation.findBySettings(req.query, (err, data) => {
 		if (err) return handleError(res, err)
 		res.json(data)
 	})
@@ -16,9 +16,9 @@ module.exports.showTranslations = function(req, res, next) {
 module.exports.saveUserTranslationData = function (req, res, next) {
 	var generateModTask = function (translationTaskId, callback) {
 		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
-			if (err) handleError(err)
+			if (err) return handleError(res, err)
 			var tset = new Set()
-			for (let user = 0; user < 5; user++) {
+			for (let user = 0; user < meta.tasklimit.translation; user++) {
 				for (let ind = 0; ind < run[user].translation.length; ind++)
 					tset.add(run[user].translation[ind].lemma)
 			}
@@ -28,7 +28,7 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 				words.push({word: tlist[w]})
 			}
 			Task.findById(translationTaskId, 'conceptId lemma gloss domainId', (err, origin) => {
-				if (err) handleError(err)
+				if (err) return handleError(res, err)
 				Task.create({
 					conceptId: origin.conceptId,
 					gloss: origin.gloss,
@@ -52,40 +52,35 @@ module.exports.saveUserTranslationData = function (req, res, next) {
 		gap: req.body.gap || false,
 		startDate: req.body.start_date,
 		endDate: req.body.end_date
-	}, function(err, translation) {
+	}, (err, translation) => {
 		if (err) return handleError(res, err)
 		var con = 0
-		var done = function(err, data) {
+		var done = (err, data) => {
 			con++
 			if (err) return handleError(res, err)
 			if (con == 2) {
 				TaskEventCount.findOne({ taskId: req.body.taskId }, (err, tEvCon) => {
 					if (tEvCon.count >= meta.tasklimit.translation) {
 						generateModTask(req.body.taskId, (err, task) => {
-							if (err) handleError(err)
-							TaskEventCount.create({ 
+							if (err) return handleError(res, err)
+							TaskEventCount.create({
 								taskId: task._id,
 								taskType: meta.tasktype.modification,
 								domainId: task.domainId,
 								count: 0
 							}, (err, tEvCon) => {
-								if (err) handleError(err)
+								if (err) return handleError(res, err)
 							 	return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.transaved.ok, modificationTask: task, eventLog: tEvCon })
 							})
-							
+
 						})
 					}
 					else return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.transaved.ok})
 				})
 			}
 		}
-		TaskEvent.create({
-			userId: translation.translatorId,
-			domainId: translation.domainId,
-			taskType: meta.tasktype.translation,
-			taskId: translation.taskId
-		}, done)
-		if (!translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: 1 } }, done)
+		TaskEvent.update({ taskId: translation.taskId, userId: translation.translatorId }, { $set: { state: meta.taskstate.terminated } }, done)
+		if (translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: -1 } }, done)
 		else done(null, null)
 	})
 }
