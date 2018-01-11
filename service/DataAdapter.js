@@ -12,7 +12,7 @@ function getConceptId(uk_id, callback) {
 				callback(id)
 			}
 			catch (e) {
-				console.log('Couldn\'t find concept with globalId = ' + uk_id + ' from API. Returning negative one')
+				console.log('Couldn\'t find concept with globalId = ' + uk_id + ' from API. Returning negative code!')
 				callback(-1)
 			}
 		}

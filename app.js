@@ -1,23 +1,17 @@
 //main server entry point file
-const express	= require('express'),
-	path		= require('path'),
-	morgan	= require('morgan'),
-	bodyParser	= require('body-parser'),
-	cors		= require('cors'),
-	passport	= require('passport'),
-	mongoose	= require('mongoose'),
-	config	= require('./config')
+const express	= require('express')
+const path		= require('path')
+const morgan	= require('morgan')
+const bodyParser	= require('body-parser')
+const cors		= require('cors')
+const passport	= require('passport')
+const config	= require('./config')
+const SlotResolver	= require('./service/SlotResolver')
+const ContentProvider	= require('./service/ContentProvider')
+const meta		= require('./meta')
 
 //connect database
-mongoose.connect(config.database.uri, { useMongoClient: true })
-
-mongoose.connection.on('connected', function() {
-	console.log("connected to database " + config.database.uri)
-})
-
-mongoose.connection.on('error', function(err) {
-	console.log("Database error: " + err)
-})
+ContentProvider.connect(config.database.uri)
 
 //Initiates app
 const app = express()
@@ -47,6 +41,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 require('./auth/passport')(passport)
+
+// SlotResolver purges every expired task placeholders
+setInterval(SlotResolver.purge, meta.interval)
 
 // API routes of our server
 app.use('/user', require('./api/user'))

@@ -1,5 +1,6 @@
 'use strict'
-var path = require('path')
+const path = require('path')
+const dayInMilli = 24 * 60 * 60 * 1000
 
 module.exports = {
 	tasktype: {
@@ -16,15 +17,12 @@ module.exports = {
 		modification: 3,
 		validation: 5
 	},
+	exp_days: 2,
 	taskstate: {
 		ongoing: false,
 		terminated: true
 	},
-	daylimit: {
-		translation: 2,
-		modification: 3,
-		validation: 1
-	},
+	interval: 10000,// * dayInMilli,
 	language: [
 		'zh', 'mn', 'it', 'es'
 	],
