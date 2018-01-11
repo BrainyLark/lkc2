@@ -6,10 +6,10 @@ const handleError       = require('../../service/ErrorHandler')
 const Task              = require('../task/task.model')
 const meta              = require('../../meta')
 
-module.exports.saveUserModificationData = function (req, res, next) {
+module.exports.saveUserModificationData = (req, res, next) => {
     var user = req.user
 
-    var generateValidTask = function(modTaskId, callback) {
+    var generateValidTask = (modTaskId, callback) => {
         Modification.find({ taskId: modTaskId }, (err, run) => {
             if (err) handleError(err)
             var mset = new Set()
@@ -50,15 +50,15 @@ module.exports.saveUserModificationData = function (req, res, next) {
         skip: req.body.skip || false,
         startDate: req.body.start_date,
         endDate: req.body.end_date
-    }, function(err, modification) {
+    }, (err, modification) => {
         if (err) handleError(err)
         var con = 0
-        var done = function(err, data) {
+        var cb = (err, data) => {
             if (err) handleError(err)
             con ++
             if (con == 2) {
-                TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, tEvCon) => {
-                    if (tEvCon.count >= meta.tasklimit.modification) {
+                TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, e_count) => {
+                    if (e_count.count >= meta.tasklimit.modification) {
                         generateValidTask(modification.taskId, (err, task) => {
                             if (err) handleError(err)
                             TaskEventCount.create({
@@ -66,23 +66,20 @@ module.exports.saveUserModificationData = function (req, res, next) {
                                 taskType: meta.tasktype.validation,
                                 domainId: task.domainId,
                                 count: 0
-                            }, (err, tEvCon) => {
-                                return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.modsaved.ok, validationTask: task, taskLog: tEvCon })
+                            }, (err, e_count) => {
+                                if (err) return handleError(res, err)
+                                console.log("Validation task successfully generated:\n")
+								console.log("Created task: ", task)
+								console.log("Task log: ", e_count)
                             })
                         })
-                    } else {
-                        return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.modsaved.ok })
                     }
+                    return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.modsaved.ok })
                 })
             }
         }
-        TaskEvent.create({
-            userId: modification.modifierId,
-            domainId: modification.domainId,
-            taskType: meta.tasktype.modification,
-            taskId: modification.taskId
-        }, done)
-        if(!modification.skip) TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: 1 } }, done)
-        else done(null, null)
+        TaskEvent.update({ taskId: modification.taskId, userId: modification.modifierId }, { $set: { state: meta.taskstate.terminated } }, cb)
+        if(modification.skip) TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: -1 } }, cb)
+        else cb(null, null)
     })
 }

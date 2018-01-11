@@ -5,7 +5,7 @@ const handleError 		= require('../../service/ErrorHandler')
 const request 			= require('request')
 const meta				= require('../../meta')
 
-module.exports.saveUserValidationData = function(req, res, next) {
+module.exports.saveUserValidationData = (req, res, next) => {
 	var user = req.user
 	Validation.create({
 		taskId: req.body.taskId,
@@ -20,21 +20,21 @@ module.exports.saveUserValidationData = function(req, res, next) {
 	}, (err, validation) => {
 		if (err) handleError(err)
 		var con = 0
-		var done = function(err, data) {
+		var cb = (err, data) => {
 			if (err) handleError(err)
 			con++
 			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.validsaved.ok })
 		}
-		
+
 		TaskEvent.create({
 			taskId: validation.taskId,
 			taskType: meta.tasktype.validation,
 			domainId: validation.domainId,
 			userId: user._id
-		}, done)
+		}, cb)
 
-		if (!validation.skip) TaskEventCount.update({ taskId: validation.taskId }, { $inc: { count: 1 } }, done)
-		else done(null, null)
+		if (validation.skip) TaskEventCount.update({ taskId: validation.taskId }, { $inc: { count: -1 } }, cb)
+		else cb(null, null)
 
 	})
 }
