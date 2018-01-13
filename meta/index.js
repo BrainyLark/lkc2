@@ -23,8 +23,8 @@ module.exports = {
 		terminated: true
 	},
 	interval: 10000,// * dayInMilli,
-	language: [
-		'zh', 'mn', 'it', 'es'
+	languageCodes: [
+		'en', 'in', 'it', 'es', 'zh'
 	],
 	msg: {
 		mn: {

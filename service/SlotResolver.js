@@ -13,7 +13,7 @@ var cb = (err, events) => {
         })
         TaskEvent.remove({ taskId: event.taskId, userId: event.userId }, (err) => {
             if (err) return handleError(res, err)
-            console.log("Removal successful for task: " event.taskId + " and user: " + event.userId)
+            console.log("Removal successful")
         })
     })
 }

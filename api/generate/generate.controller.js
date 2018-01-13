@@ -49,19 +49,13 @@ module.exports.index = function(req, res, next) {
 			if (task != null || err) return createTaskIteratorCallback(null, null)
 			DataStore.getConcept(concept.target.id, function(err, child) {
 				if (err) return createTaskIteratorCallback(null, null)
-				let lemma = ""
-				for (let i = 0; i < child.synset.length; i++) {
-					if (i) lemma += ", "
-					lemma += child.synset[i].word.lemma
-				}
 				Task.create({
-					label: child.concept,
-					gloss: child.gloss,
 					conceptId: child.conceptId,
 					conceptGlobalId: child.globalId,
+					posTag: child.posTag,
+					synset: child.synset,
 					parentConceptId: parentConcept.id,
 					parentConceptGlobalId: parentConcept.globalId,
-					lemma: lemma,
 					domainId: uk_id,
 					typeId: 1,
 					taskType: 1,

@@ -2,6 +2,7 @@
 
 const request = require('request')
 const cookie = require('../config').cookie
+const languageCodes = require('../meta').languageCodes
 
 function getConceptId(uk_id, callback) {
 	var conceptRequest = "http://ui.disi.unitn.it:80/lkc/mongolian-api/concepts?knowledgeBase=1&globalId="+uk_id+"&considerTokens=false&excludeFirstToken=false&includeTimestamps=false&includeRelationsCount=false"
@@ -50,16 +51,46 @@ function getChildCount(conceptId, callback) {
 	})
 }
 function getConcept(conceptId, callback) {
-	var queryString = "https://lkc.disi.unitn.it/mongolian/lkcApp/concepts/byid/" + conceptId + "/en"
-	request({url: queryString, headers: {
+	const apiHeader = {
 		'Cookie': cookie,
 		'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
 		'Connection': 'keep-alive',
 		'Cache-Control': 'max-age=0'
-	}}, function(err, response, body) {
-		if(!err && response.statusCode == 200) {
-			callback(err, JSON.parse(body))
+	}
+	var synset = []
+	var counter = 0
+	languageCodes.forEach(code => {
+		let urlString = "https://lkc.disi.unitn.it/mongolian/lkcApp/concepts/byid/" + conceptId + "/" + code
+		var cb = (err, response, body) => {
+			if (!err && response.statusCode == 200) {
+				let doc = JSON.parse(body)
+				if (doc.synset) {
+					let lemma = ''
+					for (let w = 0; w < doc.synset.length; w++) {
+						if (w > 0) lemma += ', '
+						lemma += doc.synset[w].word.lemma
+					}
+					synset.push({
+						languageCode: code,
+						vocabularyId: doc.synset[0].vocabularyId,
+						concept: doc.concept,
+						gloss: doc.gloss,
+						lemma: lemma
+					})
+				}
+				counter++
+				if (counter >= languageCodes.length) {
+					let responseData = {
+						conceptId: doc.conceptId,
+						posTag: doc.posTag,
+						globalId: doc.globalId,
+						synset: synset
+					}
+					callback(null, responseData)
+				}
+			}
 		}
+		request({ url: urlString, headers: apiHeader }, cb)
 	})
 }
 
@@ -73,8 +104,8 @@ function getUniqueBeginners(uids, callback) {
 					if (err) throw err
 					let filtered = {
 						conceptId: data.conceptId,
-						concept: data.concept,
-						gloss: data.gloss,
+						posTag: data.posTag,
+						synset: data.synset,
 						globalId: data.globalId
 					}
 					ubconcepts.push(filtered)
