@@ -1,6 +1,20 @@
-<app-navbar></app-navbar>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+  <h1>.:Mongolian LKC:.</h1>
 
-<div class="container">
-	<flash-messages></flash-messages>
-	<router-outlet></router-outlet>
-</div>
+  <button mat-button><mat-icon>home</mat-icon>НҮҮР</button>
+  <button mat-button><mat-icon>event_note</mat-icon>ДААЛГАВАР</button>
+  <button mat-button><mat-icon>info</mat-icon>ТУХАЙ</button>
+  <button mat-button><mat-icon>help_outline</mat-icon>FAQ</button>
+
+  <span class="example-spacer"></span>
+
+  <button mat-button><mat-icon>lock_open</mat-icon>НЭВТРЭХ</button>
+  <button mat-button><mat-icon>fingerprint</mat-icon>БҮРТГҮҮЛЭХ</button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<br>
+
+<app-register></app-register>
