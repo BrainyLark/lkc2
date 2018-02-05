@@ -3,20 +3,23 @@
 	<mat-card-subtitle>доорх мэдээллийг үнэн зөв бөглөнө үү!</mat-card-subtitle>
 	<mat-card-content>
 		<mat-form-field class="container">
-	    	<input matInput placeholder="Хэрэглэгчийн нэр" required>
+	    	<input matInput placeholder="Хэрэглэгчийн нэр" minlength="4" [(ngModel)]="uname" required>
+	    	<mat-error>Хэрэглэгчийн нэр дор хаяж 4 тэмдэгт байна :)</mat-error>
 	  	</mat-form-field>
 	  	<mat-form-field class="container">
-	    	<input matInput placeholder="Өөрийн нэр" required>
+	    	<input matInput placeholder="Өөрийн нэр" [(ngModel)]="name" minlength="2" required>
+	    	<mat-error>Нэрээ оруулна шүү! :(</mat-error>
 	  	</mat-form-field>
 	  	<mat-form-field class="container">
-	  		<input matInput placeholder="И-Мейл хаяг" required>
+	  		<input matInput [formControl]="email" placeholder="И-Мейл хаяг" required>
+	  		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
 	  	</mat-form-field>
 	  	<mat-form-field class="container">
-	  		<input matInput type="password" placeholder="Нууц үг" required>
+	  		<input matInput type="password" [(ngModel)]="password" placeholder="Нууц үг" minlength="6" required>
+	  		<mat-error>Нууц үг дор хаяж 6 тэмдэгт байна xD</mat-error>
 	  	</mat-form-field>
-	  	<mat-form-field class="container">
-	  		<input matInput type="password" placeholder="Нууц үг давтах" required>
-	  	</mat-form-field>
-	  	<button mat-button>Бүртгүүлэх</button>
+	  	<div class="right-side">
+	  		<button mat-raised-button color="primary">Бүртгүүлэх</button>
+	  	</div>
   	</mat-card-content>
 </mat-card>
