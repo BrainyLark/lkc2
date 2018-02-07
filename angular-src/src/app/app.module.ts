@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './/app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterService } from './register.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,8 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

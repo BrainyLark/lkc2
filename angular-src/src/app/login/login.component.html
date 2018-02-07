@@ -1,0 +1,41 @@
+<mat-card class="card">
+	<mat-card-title><mat-icon>lock_open</mat-icon>Нэвтрэх</mat-card-title>
+
+	<mat-horizontal-stepper>
+		<mat-step>
+			<form>
+				<ng-template matStepLabel>Хэрэглэгчийн нэр</ng-template>
+				<mat-form-field>
+					<input matInput placeholder="Хэрэглэгчийн нэр" required>
+				</mat-form-field>
+				<div>
+					<button mat-button matStepperNext>Дараагийнх</button>
+				</div>
+			</form>
+		</mat-step>
+
+		<mat-step>
+			<form>
+				<ng-template matStepLabel>Нууц үг</ng-template>
+				<mat-form-field>
+					<input type="password" matInput placeholder="Нууц үг" required>
+				</mat-form-field>
+				<div>
+					<button mat-button matStepperPrevious>Буцах</button>
+					<button mat-button matStepperNext>Нэвтрэх</button>
+				</div>
+			</form>
+		</mat-step>
+
+		<mat-step>
+			<form>
+				<ng-template matStepLabel>Нэвтрэх</ng-template>
+				Түр хүлээнэ үү<br>
+				<mat-spinner></mat-spinner>
+			</form>
+		</mat-step>
+	</mat-horizontal-stepper>
+	<div>
+		<button mat-button color="primary" routerLink="/register">Бүртгүүлэх үү?</button>
+	</div>
+</mat-card>

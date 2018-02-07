@@ -1,20 +1,20 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-  <h1>.:Mongolian LKC:.</h1>
+  <h1>&nbsp;&nbsp;&nbsp;lkc@mongolian&nbsp;&nbsp;&nbsp;</h1>
 
-  <button mat-button><mat-icon>home</mat-icon>НҮҮР</button>
-  <button mat-button><mat-icon>event_note</mat-icon>ДААЛГАВАР</button>
-  <button mat-button><mat-icon>info</mat-icon>ТУХАЙ</button>
-  <button mat-button><mat-icon>help_outline</mat-icon>FAQ</button>
+  <button mat-button routerLink="/"><mat-icon>home</mat-icon>нүүр</button>
+  <button mat-button><mat-icon>event_note</mat-icon>даалгавар авах</button>
+  <button mat-button><mat-icon>info</mat-icon>тухай</button>
+  <button mat-button><mat-icon>help_outline</mat-icon>faq</button>
 
   <span class="example-spacer"></span>
 
-  <button mat-button><mat-icon>lock_open</mat-icon>НЭВТРЭХ</button>
-  <button mat-button><mat-icon>fingerprint</mat-icon>БҮРТГҮҮЛЭХ</button>
+  <button mat-button routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
+  <button mat-button routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
 
   </mat-toolbar-row>
 </mat-toolbar>
 
 <br>
 
-<app-register></app-register>
+<router-outlet></router-outlet>
