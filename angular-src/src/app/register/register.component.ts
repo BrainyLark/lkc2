@@ -27,11 +27,18 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    if(this.registerService.isValid({ u: this.uname, n: this.name, e: this.email, p: this.password })) {
-      this.snackBar.open("Амжилттай бүртгэгдлээ!", "Ойлголоо");
-      this.router.navigateByUrl('/login');
+    let form_data = { u: this.uname, n: this.name, e: this.email, p: this.password };
+    if(this.registerService.isValid(form_data)) {
+      this.registerService.signUp(form_data).subscribe(res => {
+        if (res.success) { 
+          this.snackBar.open(res.message, "Ойлголоо", { duration: 5000 });
+          this.router.navigateByUrl('/login');
+        } else {
+          this.snackBar.open(res.message, "Ойлголоо", { duration: 5000 });
+        }
+      });
     } else {
-      this.snackBar.open("Бүртгэл амжилтгүй! Шаардлагатай мэдээллүүдийг оруулна уу!", "За, ойлголоо");
+      this.snackBar.open("Бүртгэл амжилтгүй! Дээрх шаардлагад нийцсэн өгөгдөл оруулна уу!", "За, ойлголоо", { duration: 3000 });
     }
   }
 
