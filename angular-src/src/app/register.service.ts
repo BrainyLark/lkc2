@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { SignRes } from './model/response';
 
 const httpOptions = {

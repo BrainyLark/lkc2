@@ -71,4 +71,12 @@ exports.authenticate = function(req, res, next) {
 }
 
 //Profile
-exports.profile = function(req, res, next) { res.json(req.user) }
+exports.profile = function(req, res, next) { 
+	var user = req.user
+	res.json({
+		_id: user._id,
+		name: user.name,
+		username: user.username,
+		email: user.email
+	})
+}

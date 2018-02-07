@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { RegisterService } from '../register.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +17,10 @@ export class RegisterComponent implements OnInit {
   password: string = '';
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor(private registerService: RegisterService, public snackBar: MatSnackBar, private router: Router) { }
+  constructor(private registerService: RegisterService, public snackBar: MatSnackBar, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
+    this.checkAuth();
   }
 
   getErrorMessage() {
@@ -39,6 +41,15 @@ export class RegisterComponent implements OnInit {
       });
     } else {
       this.snackBar.open("Бүртгэл амжилтгүй! Дээрх шаардлагад нийцсэн өгөгдөл оруулна уу!", "За, ойлголоо", { duration: 3000 });
+    }
+  }
+
+  checkAuth() {
+    let jwt_token = localStorage.getItem('jwt_token');
+    if (jwt_token) {
+      this.loginService.getProfile(jwt_token).subscribe(res => {
+        this.router.navigateByUrl('/');
+      });
     }
   }
 

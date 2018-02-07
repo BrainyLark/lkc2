@@ -8,10 +8,13 @@
   <button mat-button><mat-icon>help_outline</mat-icon>faq</button>
 
   <span class="example-spacer"></span>
-
-  <button mat-button routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
-  <button mat-button routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
-
+  <div *ngIf="!isAuth(); else profile">
+    <button mat-button routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
+    <button mat-button routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
+  </div>
+  <ng-template #profile>
+    <button mat-button>{{ username }}</button>
+  </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
 

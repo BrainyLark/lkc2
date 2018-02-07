@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterService } from './register.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [RegisterService],
+  providers: [RegisterService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

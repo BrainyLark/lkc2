@@ -6,7 +6,7 @@
 			<form>
 				<ng-template matStepLabel>Хэрэглэгчийн нэр</ng-template>
 				<mat-form-field>
-					<input matInput placeholder="Хэрэглэгчийн нэр" required>
+					<input matInput placeholder="Хэрэглэгчийн нэр" [(ngModel)]="username" name="user" required>
 				</mat-form-field>
 				<div>
 					<button mat-button matStepperNext>Дараагийнх</button>
@@ -18,11 +18,11 @@
 			<form>
 				<ng-template matStepLabel>Нууц үг</ng-template>
 				<mat-form-field>
-					<input type="password" matInput placeholder="Нууц үг" required>
+					<input type="password" matInput placeholder="Нууц үг" [(ngModel)]="password" name="pass" required>
 				</mat-form-field>
 				<div>
 					<button mat-button matStepperPrevious>Буцах</button>
-					<button mat-button matStepperNext>Нэвтрэх</button>
+					<button mat-button matStepperNext (click)="login()">Нэвтрэх</button>
 				</div>
 			</form>
 		</mat-step>
@@ -31,7 +31,7 @@
 			<form>
 				<ng-template matStepLabel>Нэвтрэх</ng-template>
 				Түр хүлээнэ үү<br>
-				<mat-spinner></mat-spinner>
+				<mat-spinner [style.display]="isSpinning ? 'block' : 'none'"></mat-spinner>
 			</form>
 		</mat-step>
 	</mat-horizontal-stepper>
