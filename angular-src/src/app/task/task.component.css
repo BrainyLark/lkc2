@@ -2,9 +2,81 @@
     padding-top: 70px;
     width: 100%;
     height: 100%;
-    background: #8000ff;
+    background: #2c3e50;
     color: white;
 }
+
 mat-card-title {
     cursor: pointer;
+}
+
+mat-grid-list {
+}
+
+img {
+	position: absolute;
+	z-index: -1;
+}
+
+p {
+	z-index: 0;
+	font-family: Roboto,"Helvetica Neue",sans-serif;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	font-weight: 100;
+	color: white;
+}
+
+.display {
+	position: absolute;
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.display:hover {
+	transition: 0.5s;
+	background: #B0B0B0;
+	opacity: 0.1;
+}
+
+.title {
+	text-align: center;
+	width: 100%;
+	font-family: Roboto,"Helvetica Neue",sans-serif;
+	color: white;
+	padding: 10px;
+}
+
+h3 {
+	opacity: 1;
+	font-weight: 300;
+}
+
+#done:hover + #mone {
+	display: block;
+}
+
+#mone {
+	display: none;
+}
+
+#dtwo:hover + #mtwo {
+	display: block;
+}
+
+#mtwo {
+	display: none;
+}
+
+#dthree:hover + #mthree {
+	display: block;
+}
+
+#mthree {
+	display: none;
 }
