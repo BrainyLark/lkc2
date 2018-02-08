@@ -1,9 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-  <h1>&nbsp;&nbsp;&nbsp;lkc@mongolian&nbsp;&nbsp;&nbsp;</h1>
+  <button mat-button routerLink="/"><h1>&nbsp;LKC@mongolia&nbsp;</h1></button>
 
-  <button mat-button routerLink="/"><mat-icon>home</mat-icon>нүүр</button>
-  <button mat-button><mat-icon>event_note</mat-icon>даалгавар авах</button>
+  <button mat-button routerLink="/task"><mat-icon>assignment</mat-icon>даалгавар авах</button>
   <button mat-button><mat-icon>info</mat-icon>тухай</button>
   <button mat-button><mat-icon>help_outline</mat-icon>faq</button>
 
@@ -37,7 +36,4 @@
   </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<br>
-
 <router-outlet></router-outlet>

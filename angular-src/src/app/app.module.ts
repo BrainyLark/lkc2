@@ -13,6 +13,7 @@ import { RegisterService } from './register.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './login.service';
 import { ProfileComponent } from './profile/profile.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
