@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { LoginService } from './login.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,9 @@ export class AppComponent {
   title = 'app';
   username = '';
 
-  isAuth(): any {
+  constructor(private router: Router, public snackBar: MatSnackBar) {}
+
+  isAuth(): boolean {
   	var user = JSON.parse(localStorage.getItem('user'));
   	if (user) {
   		this.username = user.username;
@@ -19,5 +22,12 @@ export class AppComponent {
   	} else {
   		return false;
   	}
+  }
+
+  exit(): void {
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('user');
+    this.snackBar.open("Баярлалаа, дараа дахин орж ирж хөгжилдөөрэй~!", "За, тэгнэ өө xD", { duration: 5000 });
+    this.router.navigateByUrl('/login');
   }
 }

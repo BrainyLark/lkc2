@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   username: string = '';
   password: string = '';
   isSpinning: boolean = false;
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     		localStorage.setItem('jwt_token', res.token);
     		localStorage.setItem('user', JSON.stringify(res.user));
     		this.isSpinning = false;
-    		this.snackBar.open("Амжилттай нэвтэрлээ!", "За", { duration: 5000 });
+    		this.snackBar.open("Амжилттай нэвтэрлээ~! Хөгжилтэй цагийг өнгөрүүлээрэй! xD", "За тэгье өө ^_^", { duration: 5000 });
     		this.router.navigateByUrl('/');
     	} else {
     		this.snackBar.open(res.msg, "За", { duration: 5000 });
@@ -45,9 +45,7 @@ export class LoginComponent implements OnInit {
   checkAuth() {
   	let jwt_token = localStorage.getItem('jwt_token');
   	if (jwt_token) {
-  		this.loginService.getProfile(jwt_token).subscribe(res => {
-  			this.router.navigateByUrl('/');
-  		});
+  		this.loginService.getProfile(jwt_token).subscribe(res => { if(res) this.router.navigateByUrl('/') });
   	}
   }
 

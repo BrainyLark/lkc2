@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   getErrorMessage() {
-  	return this.email.hasError('required') ? 'Мейл хаягаа оруулахаа мартуузай :)' : 
+  	return this.email.hasError('required') ? 'Мейл хаягаа оруулахаа мартуузай :)' :
   		this.email.hasError('email') ? 'Зөв мейл хаяг биш байна даа :(' : '';
   }
 
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
     let form_data = { u: this.uname, n: this.name, e: this.email, p: this.password };
     if(this.registerService.isValid(form_data)) {
       this.registerService.signUp(form_data).subscribe(res => {
-        if (res.success) { 
+        if (res.success) {
           this.snackBar.open(res.message, "Ойлголоо", { duration: 5000 });
           this.router.navigateByUrl('/login');
         } else {
@@ -47,9 +47,7 @@ export class RegisterComponent implements OnInit {
   checkAuth() {
     let jwt_token = localStorage.getItem('jwt_token');
     if (jwt_token) {
-      this.loginService.getProfile(jwt_token).subscribe(res => {
-        this.router.navigateByUrl('/');
-      });
+      this.loginService.getProfile(jwt_token).subscribe(res => { if(res) this.router.navigateByUrl('/') });
     }
   }
 
