@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DomainRes } from './model/response';
+import { Domain } from './model/Domain';
 
 @Injectable()
 export class DomainService {
   
   apiRoot: string = 'http://localhost:3000';
-  res: DomainRes[];
+  res: Domain[];
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class DomainService {
 	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	};
 	const url = this.apiRoot + '/domain';
-	return this.http.get<DomainRes[]>(url, httpOptions);
+	return this.http.get<Domain[]>(url, httpOptions);
   }
 
 }

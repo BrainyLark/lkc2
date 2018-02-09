@@ -1,5 +1,9 @@
-<div *ngFor="let domain of domains">
-	<div *ngFor="let synset of domain.synset">
-  		{{ synset.lemma }}
-  	</div>
-</div>
+<button (click)="updateSynsetLanguage(1)">English</button>
+<button (click)="updateSynsetLanguage(101)">Espanish</button>
+<button (click)="updateSynsetLanguage(102)">Italy</button>
+<button (click)="updateSynsetLanguage(106)">Chinese</button>
+<mat-grid-list cols="5">
+	<mat-grid-tile *ngFor="let synset of placeholder">
+		{{ synset.lemma }}
+	</mat-grid-tile>
+</mat-grid-list>

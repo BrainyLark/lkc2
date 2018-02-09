@@ -17,5 +17,5 @@ module.exports = {
 	},
 	// lkc api requires this one
 	// this cookie must be renewed within 3 days, in which one is valid and so that task and domain generation are valid
-	cookie: "connect.sid=s%3ASIVKBipXs9sVHVlOnUjKRTat270yXuyP.D0nCqVx44PpcAHr89Jh%2Br23D7Jf%2BoZyfRANjNQHpqxQ"
+	cookie: "connect.sid=s%3AAndYscV1U4MaUaOk1w03biN9-ZgFfCJs.AybO6bzfOiq1q9lr0bqOUA08Kv0tIPGxWUHLsAtcSio"
 }
