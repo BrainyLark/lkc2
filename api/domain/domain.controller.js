@@ -7,14 +7,13 @@ const meta		= require('../../meta')
 const uids = meta.ub_ids
 
 const selection = {
-	"synset": false,
 	"example": false
 }
 
 module.exports.index = function (req, res, next) {
 	Domain.find({}, selection, function(err, domains) {
-		if (err) throw err
-		return res.json({domains: domains})
+		if (err) return handleError(res, err)
+		return res.json(domains)
 	})
 }
 

@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './login.service';
 import { ProfileComponent } from './profile/profile.component';
 import { TaskComponent } from './task/task.component';
+import { DomainComponent } from './domain/domain.component';
+import { DomainService } from './domain.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { TaskComponent } from './task/task.component';
     LoginComponent,
     ProfileComponent,
     TaskComponent,
+    DomainComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { TaskComponent } from './task/task.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [RegisterService, LoginService],
+  providers: [RegisterService, LoginService, DomainService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
