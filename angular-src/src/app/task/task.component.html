@@ -1,35 +1,58 @@
-<mat-grid-list cols=5 rowHeight="1:1.2" gutterSize="10px">
-    <mat-grid-tile colspan="2" rowspan="1">
-        <img src="https://lh3.googleusercontent.com/-L_dCSEVpXxk/V_PYsELgI0I/AAAAAAAATm8/uw47TnD5M0IPBe19QxpO2yd8UmxikWvPgCJoC/w3840-h2160/d8a86ceb9d31f6f91a6eec24facac178.jpg" width="100%" height="100%">
-        <div class="display" id="done" routerLink="1">
-            <h3 class="title" style="background: #5D3AC1;">ОРЧУУЛГА</h3>
+<mat-grid-list cols=5 rowHeight="1:1.2" gutterSize="5px">
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="1">
+        <div class="layer-one" style="background: #FAD7A0">
+            <img width="30%" class="absolute-center" src="https://i.imgur.com/pbaDHTw.png">
         </div>
-        <p id="mone">синсетийн үгсийг орчуулах</p>
+        <div class="layer-two">
+            <span style="background: #F39C12; width: 100%; text-align: center;">Орчуулах</span>
+        </div>
+        <div class="layer-half">
+            <p>Синсетийн үгсийг эх хэлнээс зорилтот хэл рүү орчуулах</p>
+        </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="1">
-        <img src="https://cdn.dribbble.com/users/13449/screenshots/1828176/attachments/304147/Lakeside_Sunset_1920x1080.jpg" width="100%" height="100%">
-        <div class="display" id="dtwo" routerLink="2">
-            <h3 class="title" style="background: #E75A41;">ЗАСВАРЛАЛТ</h3>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
+        <div class="layer-one" style="background: #D7BDE2">
+            <img width="30%" class="absolute-center" src="https://i.imgur.com/TI1KYNm.png">
         </div>
-        <p id="mone" id="mtwo">орчуулгын алдааг засварлах</p>
+        <div class="layer-two">
+            <span style="background: #8E44AD; width: 100%; text-align: center;">Засварлах</span>
+        </div>
+        <div class="layer-half">
+            <p>Орчуулагдсан синсетийн үгсийг засварлах</p>
+        </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="2" style="margin: auto;">
         <mat-card class="card">
             <br>
-            <mat-card-subtitle><mat-icon>feedback</mat-icon>&nbsp;фийдбэйк явуулах</mat-card-subtitle>
+            <mat-card-content>
+                <ul>
+                    <li><mat-icon color="primary">feedback</mat-icon>&nbsp; Фийдбэйк явуулах</li>
+                
+                    <li><mat-icon color="primary">notifications_active</mat-icon> Фронт-Энд загварыг <a href="https://translate.google.com/community">Google Translate Community</a> - н загвараас санаа авч зохиомжлов!</li>
+                </ul>
+            </mat-card-content>
         </mat-card>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1" routerLink="3">
-        <img src="https://i.imgur.com/zAN6kom.png" width="100%" height="100%">
-        <div class="display" id="dthree">
-            <h3 class="title" style="background: #44B88F;">ҮНЭЛГЭЭ</h3>
+        <div class="layer-one" style="background: #F1948A">
+            <img width="30%" class="absolute-center" src="https://i.imgur.com/xujz2iY.png">
         </div>
-        <p id="mone" id="mthree">орчуулгын үнэлгээг тавих</p>
+        <div class="layer-two">
+            <span style="background: #C0392B; width: 100%; text-align: center;">Үнэлэх</span>
+        </div>
+        <div class="layer-half">
+            <p>Санал болгогдсон үгс тухайн синсетэд тохирох эсэхийг үнэлэх</p>
+        </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
-        <img src="https://i.imgur.com/8tcxHWh.jpg" width="100%" height="100%">
-        <div class="display">
-            <h3 class="title" style="background: #34495E;">SHARE</h3>
+        <div class="layer-one">
+            <img width="100%" src="https://i.imgur.com/Zx9QDp2.png">
+        </div>
+        <div class="layer-two">
+            <span style="background: #2E86C1; width: 100%; text-align: center;">Нутагшуулах</span>
+        </div>
+        <div class="layer-half">
+            <p>Онтологи нутагшуулах үе шатуудтай танилцах</p>
         </div>
     </mat-grid-tile>
 </mat-grid-list>

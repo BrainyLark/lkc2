@@ -1,3 +1,45 @@
+.layer-one {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	position: absolute;
+	z-index: -2;
+}
+
+.layer-half {
+	width: 100%;
+	height: 100%;
+	background: #E5E7E9;
+	position: absolute;
+	z-index: -1;
+	display: none;
+}
+
+.layer-two {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	z-index: 0;
+	position: absolute;
+	align-items: flex-end;
+	font-family: Roboto,sans-serif;
+	font-weight: 200;
+	font-size: 30px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.layer-two:hover + .layer-half {
+	display: block;
+}
+
+.absolute-center {
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
 .card {
     padding-top: 70px;
     width: 100%;
@@ -6,77 +48,9 @@
     color: black;
 }
 
-mat-card-subtitle {
-    cursor: pointer;
-}
-
-mat-grid-list {
-}
-
-img {
-	position: absolute;
-	z-index: -1;
-}
-
 p {
-	z-index: 0;
 	font-family: Roboto,"Helvetica Neue",sans-serif;
-	padding-left: 20px;
-	padding-right: 20px;
+	margin-top: 25%;
 	text-align: center;
-	font-weight: 300;
-	color: white;
-}
-
-.display {
-	position: absolute;
-	display: flex;
-	align-items: flex-end;
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
-	z-index: 1;
-}
-
-.display:hover {
-	transition: 0.3s;
-	background: #B0B0B0;
-	opacity: 0.1;
-}
-
-.title {
-	text-align: center;
-	width: 100%;
-	font-family: Roboto,"Helvetica Neue",sans-serif;
-	color: white;
-	padding: 10px;
-}
-
-h3 {
-	opacity: 1;
-	font-weight: 300;
-}
-
-#done:hover + #mone {
-	display: block;
-}
-
-#mone {
-	display: none;
-}
-
-#dtwo:hover + #mtwo {
-	display: block;
-}
-
-#mtwo {
-	display: none;
-}
-
-#dthree:hover + #mthree {
-	display: block;
-}
-
-#mthree {
-	display: none;
+	color: black;
 }

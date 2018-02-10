@@ -1,11 +1,16 @@
+<mat-card>
+	<mat-card-content>
+		<p><mat-icon color="primary">sms_failed</mat-icon> <b>Зөвлөмж:</b> Та доор өгөгдсөн 25 айгаас өөрийн тань сайн мэдэх нэр томьёонууд агуулагдаж байж магадгүй гэж үзсэн хэсэг рүүгээ сонгон орно уу.</p>
+	</mat-card-content>
+</mat-card>
+
 <nav mat-tab-nav-bar>
 	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }} - Монгол</a>
 </nav>
 
-
 <mat-grid-list cols="5">
 	<mat-grid-tile *ngFor="let synset of placeholder">
-		<mat-card>
+		<mat-card class="domain-card">
 			<mat-card-header>
 				<div mat-card-avatar><button mat-mini-fab color="primary"><mat-icon>navigate_next</mat-icon></button></div>
 				<mat-card-title><h2>{{ synset.concept }}</h2></mat-card-title>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomainService } from '../domain.service';
 import { Router } from '@angular/router';
 import { Domain } from '../model/Domain';
+import { MatDialog } from '@angular/material';
 
 @Component({
 	selector: 'app-domain',
@@ -21,7 +22,7 @@ export class DomainComponent implements OnInit {
 	domains: Domain[];
 	placeholder = [];
 
-	constructor(private domainService: DomainService, private router: Router) { }
+	constructor(private domainService: DomainService, private router: Router, public dialog: MatDialog) { }
 
 	ngOnInit() {
 		let jwt_token = localStorage.getItem('jwt_token');

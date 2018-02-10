@@ -3,8 +3,7 @@
   <button mat-button routerLink="/"><h1>&nbsp;Монгол НМЦ&nbsp;</h1></button>
   <button mat-button><mat-icon>info</mat-icon>төсөл</button>
   <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
-  <button mat-button><mat-icon>language</mat-icon>нийтлэл</button>
-  <button mat-button><mat-icon>spellcheck</mat-icon>нутагшуулалт</button>
+  <button mat-button><mat-icon>public</mat-icon>нийтлэл</button>
 
   <span class="example-spacer"></span>
   <div *ngIf="!isAuth(); else profile">
@@ -24,11 +23,11 @@
             <span>Профайл</span>
         </button>
         <button mat-menu-item disabled>
-            <mat-icon>build</mat-icon>
+            <mat-icon>settings</mat-icon>
             <span>Тохируулга</span>
         </button>
         <button mat-menu-item (click)="exit()">
-            <mat-icon>cancel</mat-icon>
+            <mat-icon>power_settings_new</mat-icon>
             <span>Гарах</span>
         </button>
     </mat-menu>
