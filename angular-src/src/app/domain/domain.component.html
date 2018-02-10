@@ -1,9 +1,19 @@
-<button (click)="updateSynsetLanguage(1)">English</button>
-<button (click)="updateSynsetLanguage(101)">Espanish</button>
-<button (click)="updateSynsetLanguage(102)">Italy</button>
-<button (click)="updateSynsetLanguage(106)">Chinese</button>
+<nav mat-tab-nav-bar>
+	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }} - Монгол</a>
+</nav>
+
+
 <mat-grid-list cols="5">
 	<mat-grid-tile *ngFor="let synset of placeholder">
-		{{ synset.lemma }}
+		<mat-card>
+			<mat-card-header>
+				<div mat-card-avatar><button mat-mini-fab color="primary"><mat-icon>navigate_next</mat-icon></button></div>
+				<mat-card-title><h2>{{ synset.concept }}</h2></mat-card-title>
+				<mat-card-subtitle>{{ synset.lemma }}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				<p>{{ synset.gloss }}</p>
+			</mat-card-content>
+		</mat-card>
 	</mat-grid-tile>
 </mat-grid-list>
