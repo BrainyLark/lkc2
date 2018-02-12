@@ -16,6 +16,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { TaskComponent } from './task/task.component';
 import { DomainComponent } from './domain/domain.component';
 import { DomainService } from './domain.service';
+import { TranslationComponent } from './translation/translation.component';
+import { TranslationService } from './translation.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { DomainService } from './domain.service';
     ProfileComponent,
     TaskComponent,
     DomainComponent,
+    TranslationComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { DomainService } from './domain.service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [RegisterService, LoginService, DomainService],
+  providers: [RegisterService, LoginService, DomainService, TranslationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

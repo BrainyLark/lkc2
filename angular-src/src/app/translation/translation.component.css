@@ -1,0 +1,28 @@
+mat-card {
+	width: 35%;
+	margin: 0 auto;
+}
+mat-form-field {
+}
+.sizer input matInput {
+	width: 60%;
+}
+button {
+	margin-left: 15px;
+}
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 100px !important;
+}
+
+.lemma {
+	font-size: 21px;
+	font-weight: 200px;
+}
+
+.right-side {
+	text-align: right;
+}
+
+mat-card-title {
+	font-size: 30px;
+}

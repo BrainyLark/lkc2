@@ -52,7 +52,7 @@ export class DomainComponent implements OnInit {
 			if (synset.length == 0) {
 				synset = domain.synset.filter((s) => s.vocabularyId == defaultCode);
 			}
-			this.placeholder.push(synset[0]);
+			this.placeholder.push({ globalId: domain.globalId, synset: synset[0] });
 		});
 	}
 

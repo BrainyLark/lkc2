@@ -55,8 +55,7 @@ module.exports.next = function (req, res, next) {
 							if (cnt == 2)
 								Task.findById(taskId, (err, task) => {
 									if (err) return handleError(res, err)
-									task.statusCode = meta.status.ok
-									return res.json(task)
+									return res.json({ statusCode: meta.status.ok, synset: task.synset })
 								})
 						}
 						TaskEvent.findOne({ taskId: taskId, userId: userId }, (err, tevent) => {

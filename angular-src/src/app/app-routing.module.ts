@@ -5,13 +5,15 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TaskComponent } from './task/task.component';
 import { DomainComponent } from './domain/domain.component';
+import { TranslationComponent } from './translation/translation.component';
 
 const routes: Routes = [
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'task', component: TaskComponent },
-	{ path: 'task/:id', component: DomainComponent }
+	{ path: 'task/:id', component: DomainComponent },
+	{ path: 'task/1/:gid', component: TranslationComponent }
 ]
 
 @NgModule({
