@@ -25,19 +25,20 @@ export class DomainComponent implements OnInit {
 	constructor(private domainService: DomainService, private router: Router, public dialog: MatDialog) { }
 
 	ngOnInit() {
+		this.setDomains();
+	}
+
+	setDomains() {
 		let jwt_token = localStorage.getItem('jwt_token');
 		if (jwt_token) {
 			this.domainService.getDomains(jwt_token).subscribe(res => {
-				if (res) { 
-					this.domains = res;
-					this.updateLang(this.current_v);
-				}
-				else { 
-					this.router.navigateByUrl('/');
-				}
-			})
+				this.domains = res;
+				this.updateLang(this.current_v);
+			}, error => { 
+				this.router.navigateByUrl('/login');
+			});
 		} else {
-			this.router.navigateByUrl('/');
+			this.router.navigateByUrl('/login');
 		}
 	}
 

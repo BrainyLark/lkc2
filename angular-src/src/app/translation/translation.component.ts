@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TranslationService } from '../translation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Translation } from '../model/Task';
+import { LoginService } from '../login.service';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-translation',
@@ -26,14 +28,11 @@ export class TranslationComponent implements OnInit {
   constructor(
   	private translationService: TranslationService, 
   	public router: Router, 
-  	private activatedRoute: ActivatedRoute) { }
+  	private activatedRoute: ActivatedRoute,
+    private loginService: LoginService) { }
 
   ngOnInit() {
-    this.jwt_token = localStorage.getItem('jwt_token');
-    if (!this.jwt_token) {
-      this.router.navigateByUrl('/');
-      return;
-    }
+    this.checkAuth();
     this.gid = this.activatedRoute.snapshot.paramMap.get('gid');
     this.isSpinning = true;
   	this.prepareData();
@@ -91,6 +90,22 @@ export class TranslationComponent implements OnInit {
         this.prepareData();
       }
     })
+  }
+
+  checkAuth() {
+    this.jwt_token = localStorage.getItem('jwt_token');
+    if (!this.jwt_token) {
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    this.loginService.getProfile(this.jwt_token).subscribe(
+      user => { },
+      error => {
+      if (error.status == 401) {
+        this.router.navigateByUrl('/login');
+        return;
+      }
+    });
   }
 
 }
