@@ -18,6 +18,7 @@ import { DomainComponent } from './domain/domain.component';
 import { DomainService } from './domain.service';
 import { TranslationComponent } from './translation/translation.component';
 import { TranslationService } from './translation.service';
+import { TaskService } from './task.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { TranslationService } from './translation.service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [RegisterService, LoginService, DomainService, TranslationService],
+  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

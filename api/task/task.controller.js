@@ -48,6 +48,7 @@ module.exports.next = function (req, res, next) {
 					}
 					else {
 						var taskId = pEvent[0].taskId
+						console.log("TASK ID: ", taskId);
 						var cnt = 0
 						var cb = (err, docs) => {
 							if (err) return handleError(res, err)
@@ -55,7 +56,12 @@ module.exports.next = function (req, res, next) {
 							if (cnt == 2)
 								Task.findById(taskId, (err, task) => {
 									if (err) return handleError(res, err)
-									return res.json({ statusCode: meta.status.ok, synset: task.synset })
+									return res.json({ 
+										statusCode: meta.status.ok,
+										_id: task._id,
+										domainId: task.domainId, 
+										synset: task.synset 
+									})
 								})
 						}
 						TaskEvent.findOne({ taskId: taskId, userId: userId }, (err, tevent) => {

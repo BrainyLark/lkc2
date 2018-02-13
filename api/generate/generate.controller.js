@@ -24,7 +24,7 @@ module.exports.index = function(req, res, next) {
 		})
 	})
 	var generateTaskEventCount = function(data) {
-		Task.find({},(err, tasks) => {
+		Task.find({ domainId: uk_id },(err, tasks) => {
 			if (err) return handleError(res, err)
 			var taskIdx = -1, n = tasks.length
 			var generateTaskEventCountInterator = function(err, taskEventCount) {

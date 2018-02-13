@@ -11,7 +11,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
 
     var generateValidTask = (modTaskId, callback) => {
         Modification.find({ taskId: modTaskId }, (err, run) => {
-            if (err) handleError(err)
+            if (err) return handleError(res, err)
             var mset = new Set()
             let userCnt = run.length
             for (let u = 0; u < userCnt; u++) {
@@ -54,7 +54,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
         if (err) handleError(err)
         var con = 0
         var cb = (err, data) => {
-            if (err) handleError(err)
+            if (err) return handleError(res, err)
             con ++
             if (con == 2) {
                 TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, e_count) => {

@@ -11,3 +11,14 @@ export class LoginRes {
 	token: string;
 	user: User;
 }
+
+export class PerformanceRes {
+	translation: number;
+	modification: number;
+	validation: number;
+}
+
+export class TaskrunRes {
+	statusSuccess: boolean;
+	statusMsg: string;
+}

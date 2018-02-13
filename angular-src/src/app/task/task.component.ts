@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../task.service';
+import { PerformanceRes } from '../model/response';
 
 @Component({
   selector: 'app-task',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskComponent implements OnInit {
 
-  constructor() { }
+  performance: PerformanceRes;
+
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
+  	this.showPerformance();
+  }
+
+  showPerformance() {
+  	let jwt_token = localStorage.getItem('jwt_token');
+  	this.taskService.getPerformance(jwt_token).subscribe(res => this.performance = res);
   }
 
 }

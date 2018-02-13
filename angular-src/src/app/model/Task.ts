@@ -1,6 +1,8 @@
 export class Translation {
 	statusCode: number;
 	statusMsg: string;
+	_id: string;
+	domainId: number;
 	synset: [{
 		languageCode: string;
 		vocabularyId: number;

@@ -27,9 +27,9 @@
             <mat-divider></mat-divider>
             <mat-list>
                 <mat-chip-list>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Орчуулсан:&nbsp;<mat-chip selected="true">0</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Засварласан:&nbsp;<mat-chip selected="true">0</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Үнэлсэн:&nbsp;<mat-chip selected="true">0</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Орчуулсан:&nbsp;<mat-chip selected="true">{{ performance.translation }}</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Засварласан:&nbsp;<mat-chip selected="true">{{ performance.modification }}</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Үнэлсэн:&nbsp;<mat-chip selected="true">{{ performance.validation }}</mat-chip></mat-list-item>
                 </mat-chip-list>
             </mat-list>
             <br>

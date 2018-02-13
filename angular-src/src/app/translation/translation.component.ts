@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslationService } from '../translation.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Translation } from '../model/Task';
 
 @Component({
   selector: 'app-translation',
@@ -13,11 +14,14 @@ export class TranslationComponent implements OnInit {
   gid: string;
   statusCode: number = 2;
   statusMsg: string = '';
-  synsets = [];
+  currentTask: Translation;
   rates = [1, 2, 3, 4, 5];
-  taskRun = [{ word: "", score: -1 }];
   alert:string = '';
   isSpinning: boolean = false;
+
+  taskRun = [{ lemma: "", rating: -1 }];
+  start_date;
+  end_date;
 
   constructor(
   	private translationService: TranslationService, 
@@ -25,22 +29,23 @@ export class TranslationComponent implements OnInit {
   	private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.gid = this.activatedRoute.snapshot.paramMap.get('gid');
+    this.isSpinning = true;
   	this.prepareData();
   }
 
   prepareData() {
-    this.isSpinning = true;
   	this.jwt_token = localStorage.getItem('jwt_token');
   	if (!this.jwt_token) {
   		this.router.navigateByUrl('/');
   		return;
   	}
-  	this.gid = this.activatedRoute.snapshot.paramMap.get('gid');
   	this.translationService.getTask(this.jwt_token, this.gid).subscribe(res => {
       this.isSpinning = false;
   		if (res.statusCode == 1) {	
+        this.start_date = new Date();
         this.statusCode = res.statusCode;
-  			this.synsets = res.synset;
+  			this.currentTask = res;
       }
       else if (res.statusCode == 0) {
         this.statusCode = res.statusCode;
@@ -55,16 +60,38 @@ export class TranslationComponent implements OnInit {
 
   addForm(): void {
     let formData = this.taskRun[this.taskRun.length - 1];
-    if (formData.word.length == 0 || formData.score == -1) {
+    if (formData.lemma.length == 0 || formData.rating == -1) {
       this.alert = 'Эхлээд үгээ нэмэх эсвэл оруулсан үгээ үнэлнэ үү!';
       return;
     }
     this.alert = '';
-    this.taskRun.push({ word: "", score: -1 });
+    this.taskRun.push({ lemma: "", rating: -1 });
   }
 
   clearForm(index): void {
     this.taskRun.splice(index, 1);
+  }
+
+  sendData() {
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    this.end_date = new Date();
+    this.taskRun.pop();
+    let payload = {
+      taskId: this.currentTask._id,
+      domainId: this.currentTask.domainId,
+      translation: this.taskRun,
+      start_date: this.start_date,
+      end_date: this.end_date
+    };
+    let jwt_token = localStorage.getItem('jwt_token');
+    this.translationService.sendTranslation(jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.taskRun = [{ lemma: "", rating: -1 }];
+        this.prepareData();
+      }
+    })
   }
 
 }
