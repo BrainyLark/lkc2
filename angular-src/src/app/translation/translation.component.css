@@ -26,3 +26,18 @@ button {
 mat-card-title {
 	font-size: 30px;
 }
+
+.alert {
+	color: red;
+	text-align: center;
+}
+
+.score {
+	width: 10%; 
+	font-size: 18px;
+}
+
+.word {
+	width: 50%; 
+	font-size: 18px;
+}

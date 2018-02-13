@@ -1,38 +1,43 @@
 <br>
 <mat-card>
-	<mat-card-title>Орчуулга</mat-card-title>
+	<mat-card-title><mat-icon>translate</mat-icon>Орчуулга</mat-card-title>
 	<mat-card-subtitle>оноогдож ирсэн синсетийн үгсийг орчуулах</mat-card-subtitle>
-	<mat-card-content>
+	<mat-spinner [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+	<mat-card-content *ngIf="statusCode == 1; else error;">
 		<mat-tab-group>
 			<mat-tab *ngFor="let synset of synsets" label="{{synset.languageCode}} - mn">
-				<br>
-				<p class="lemma"> {{ synset.lemma }}</p>
+				<br><p class="lemma"> {{ synset.lemma }}</p>
 				<p> {{ synset.gloss }} </p>
 			</mat-tab>
-		</mat-tab-group><br>
+		</mat-tab-group><br><br>
 
 		<div *ngFor="let run of taskRun">
-			<mat-form-field style="width: 50%; font-size: 18px;">
-				<input matInput [(ngModel)]="run.str" placeholder="Орчуулах үг">
+			<mat-form-field class="word">
+				<input matInput [(ngModel)]="run.word" placeholder="Орчуулах үг">
 			</mat-form-field>
-			<mat-form-field style="width: 10%; font-size: 18px;">
+			<mat-form-field class="score">
 				<mat-select class="sizer" placeholder="%" [(ngModel)]="run.score">
 					<mat-option *ngFor="let rate of rates" [value]="rate">{{ rate }}</mat-option>
 				</mat-select>
 			</mat-form-field>
-			<button *ngIf="run.index == (taskRun.length - 1); else clearBtn" mat-mini-fab (click)="addForm()" color="primary"><mat-icon>add</mat-icon></button>
+			<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
 			<ng-template #clearBtn>
-				<button mat-mini-fab color="warn"><mat-icon>clear</mat-icon></button>
+				<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
 			</ng-template>
 		</div>
 
+		<mat-divider></mat-divider>
+		<mat-card-footer>
+			<div class="right-side">
+				<p class="alert">{{ alert }}</p>
+				<button mat-button color="warn">Алгасах&nbsp;<mat-icon>sync</mat-icon></button>
+				<button mat-button color="primary">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+			</div>
+		</mat-card-footer>
 	</mat-card-content>
-	<mat-divider></mat-divider>
-	<mat-card-actions>
-		<div class="right-side">
-			<p *ngFor="let run of taskRun">{{ run.str }} : {{ run.score }}</p>
-			<button mat-button color="primary">Илгээх</button>
-			<button mat-button color="warn"> Алгасах</button>
+	<ng-template #error>
+		<div *ngIf="!statusCode" class="alert">
+			<p>{{ statusMsg }}</p>
 		</div>
-	</mat-card-actions>
+	</ng-template>
 </mat-card>

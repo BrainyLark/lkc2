@@ -13,8 +13,8 @@ export class TranslationService {
   	let url = this.apiRoot + gid;
   	let httpOptions = {
   	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
-	};
-	return this.http.get<Translation>(url, httpOptions);
+	  };
+	  return this.http.get<Translation>(url, httpOptions);
   }
 
 }
