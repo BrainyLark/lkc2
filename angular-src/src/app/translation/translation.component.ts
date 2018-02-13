@@ -29,17 +29,17 @@ export class TranslationComponent implements OnInit {
   	private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.jwt_token = localStorage.getItem('jwt_token');
+    if (!this.jwt_token) {
+      this.router.navigateByUrl('/');
+      return;
+    }
     this.gid = this.activatedRoute.snapshot.paramMap.get('gid');
     this.isSpinning = true;
   	this.prepareData();
   }
 
   prepareData() {
-  	this.jwt_token = localStorage.getItem('jwt_token');
-  	if (!this.jwt_token) {
-  		this.router.navigateByUrl('/');
-  		return;
-  	}
   	this.translationService.getTask(this.jwt_token, this.gid).subscribe(res => {
       this.isSpinning = false;
   		if (res.statusCode == 1) {	
@@ -85,8 +85,7 @@ export class TranslationComponent implements OnInit {
       start_date: this.start_date,
       end_date: this.end_date
     };
-    let jwt_token = localStorage.getItem('jwt_token');
-    this.translationService.sendTranslation(jwt_token, payload).subscribe(res => {
+    this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
       if (res.statusSuccess) {
         this.taskRun = [{ lemma: "", rating: -1 }];
         this.prepareData();
