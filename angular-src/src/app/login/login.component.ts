@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
     		localStorage.setItem('jwt_token', res.token);
     		localStorage.setItem('user', JSON.stringify(res.user));
     		this.isSpinning = false;
-    		this.snackBar.open("Амжилттай нэвтэрлээ~! Хөгжилтэй цагийг өнгөрүүлээрэй! xD", "За тэгье өө ^_^", { duration: 5000 });
+    		this.snackBar.open("Амжилттай нэвтэрлээ~! Хөгжилтэй цагийг өнгөрүүлээрэй! xD", "Ok", { duration: 3000 });
     		this.router.navigateByUrl('/');
     	} else {
-    		this.snackBar.open(res.msg, "За", { duration: 5000 });
+    		this.snackBar.open(res.msg, "За", { duration: 3000 });
     		this.isSpinning = false;
     	}
     });

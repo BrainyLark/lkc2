@@ -1,13 +1,25 @@
 mat-card.domain-card {
-	width: 12em;
-	height: 12em;
-	margin-bottom: 10px;
+	width: 11em;
+	height: 9.5em;
+	margin-bottom: 5px;
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: auto;
+}
+.domain-card:hover {
+	background: #ebebe0;
 }
 mat-grid-tile {
 	flex-wrap: wrap;
 }
+h1 {
+	font-size: 1.6em;
+	text-align: center;
+	font-weight: 500;
+}
 h2 {
-	font-size: 1.2em;
+	font-size: 1.5em;
+	font-weight: 500;
 }
 /deep/.mat-tab-link, /deep/.mat-tab-label-active{
  min-width: 100px !important;

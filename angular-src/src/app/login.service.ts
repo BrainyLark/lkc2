@@ -5,6 +5,7 @@ import { User } from './model/User';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { config } from './config';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class LoginService {
 
-  apiRoot: string = 'http://localhost:3000/user';
+  apiRoot: string = config.apiRoot + '/user';
 
   constructor(private http: HttpClient) { }
 

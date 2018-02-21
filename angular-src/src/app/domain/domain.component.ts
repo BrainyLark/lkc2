@@ -14,11 +14,11 @@ export class DomainComponent implements OnInit {
 	colNum = 5;
 	current_v: number = 1;
 	navLinks = [
-		{ vid: 1, lang: "Англи", isActive: true },
-		{ vid: 102, lang: "Итали", isActive: false },
-		{ vid: 101, lang: "Испани", isActive: false },
-		{ vid: 106, lang: "Хятад", isActive: false },
-		{ vid: 401, lang: "Индонез", isActive: false }
+		{ vid: 1, lang: "Англиас", isActive: true },
+		{ vid: 102, lang: "Италиас", isActive: false },
+		{ vid: 101, lang: "Испаниас", isActive: false },
+		{ vid: 106, lang: "Хятадаас", isActive: false },
+		{ vid: 401, lang: "Индонезиэс", isActive: false }
 	];
 	domains: Domain[];
 	placeholder = [];

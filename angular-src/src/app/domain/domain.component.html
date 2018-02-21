@@ -1,14 +1,13 @@
 <mat-card>
-	<h2>Олон хэлээр илэрхийлсэн ойлголтын багцуудаас сонгож Монгол хэлнээ нутагшуулна уу!</h2>
+	<h1>Олон хэлээр илэрхийлсэн ойлголтын багцуудаас сонгож Монгол хэлнээ нутагшуулна уу!</h1>
 </mat-card>
 
 <nav mat-tab-nav-bar fxHide.lt-sm="true" fxShow>
 	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }}</a>
 </nav>
 
-<div fxShow.lt-sm="true" fxHide><br>
+<div style="text-align: center;" fxShow.lt-sm="true" fxHide><br>
 	<button mat-raised-button [matMenuTriggerFor]="langMenu">
-	    <span>Хэл Сонгох</span>
 	    <mat-icon>language</mat-icon>
 	</button>
 	<br><br>
@@ -19,21 +18,19 @@
 </mat-menu>
 
 
-<div fxLayoutWrap fxLayoutGap="10px">
-	<div *ngFor="let domain of placeholder">
-		<mat-card class="domain-card">
-			<mat-card-header>
-				<div mat-card-avatar>
-					<button mat-mini-fab color="primary" routerLink="{{ domain.globalId }}">
-						<mat-icon>navigate_next</mat-icon>
-					</button>
-				</div>
+<div fxLayoutAlign="start stretch" fxLayoutWrap>
+	<mat-card *ngFor="let domain of placeholder" routerLink="{{ domain.globalId }}" class="domain-card">
+		<mat-card-header>
+			<div mat-card-avatar>
+				<button mat-mini-fab color="primary">
+					<mat-icon>navigate_next</mat-icon>
+				</button>
+			</div>
 				<mat-card-title><h2>{{ domain.synset.concept }}</h2></mat-card-title>
-				<mat-card-subtitle>{{ domain.synset.lemma }}</mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content>
-				<p>{{ domain.synset.gloss }}</p>
-			</mat-card-content>
-		</mat-card>
-	</div>
+			<mat-card-subtitle>{{ domain.synset.lemma }}</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<p>{{ domain.synset.gloss }}</p>
+		</mat-card-content>
+	</mat-card>
 </div>

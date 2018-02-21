@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SignRes } from './model/response';
+import { config } from './config';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -10,7 +11,7 @@ const httpOptions = {
 @Injectable()
 export class RegisterService {
 
-  apiRoot: string = 'http://localhost:3000/user';
+  apiRoot: string = config.apiRoot + '/user';
 
   constructor(private http: HttpClient) { }
 

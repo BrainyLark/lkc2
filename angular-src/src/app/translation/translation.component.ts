@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TranslationService } from '../translation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Translation } from '../model/Task';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./translation.component.css']
 })
 export class TranslationComponent implements OnInit {
-
+  
   jwt_token: string;
   gid: string;
   statusCode: number = 2;

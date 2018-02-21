@@ -15,11 +15,7 @@
 			<mat-form-field class="word">
 				<input matInput [(ngModel)]="run.lemma" placeholder="Орчуулах үг">
 			</mat-form-field>
-			<mat-form-field class="score">
-				<mat-select class="sizer" placeholder="%" [(ngModel)]="run.rating">
-					<mat-option *ngFor="let rate of rates" [value]="rate">{{ rate }}</mat-option>
-				</mat-select>
-			</mat-form-field>
+			<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
 			<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
 			<ng-template #clearBtn>
 				<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
