@@ -5,3 +5,8 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+button {
+	font-size: 0.7em;
+	text-transform: uppercase;
+}

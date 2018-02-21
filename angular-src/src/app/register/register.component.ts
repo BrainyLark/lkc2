@@ -24,8 +24,8 @@ export class RegisterComponent implements OnInit {
   }
 
   getErrorMessage() {
-  	return this.email.hasError('required') ? 'Мейл хаягаа оруулахаа мартуузай :)' :
-  		this.email.hasError('email') ? 'Зөв мейл хаяг биш байна даа :(' : '';
+  	return this.email.hasError('required') ? 'Мейл хаягаа оруулаарай!' :
+  		this.email.hasError('email') ? 'Зөв мейл хаяг биш байна' : '';
   }
 
   registerUser() {

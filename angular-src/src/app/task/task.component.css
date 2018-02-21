@@ -55,3 +55,28 @@ p {
 	color: black;
 }
 
+.label {
+	width: 100%; 
+	text-align: center;
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
+
+.yellow {
+	background: #F39C12;
+}
+
+.purple {
+	background: #8E44AD;
+}
+
+.red {
+	background: #C0392B;
+}
+
+.blue {
+	background: #2E86C1;
+}
+#mt {
+	margin-top: 17%;
+}

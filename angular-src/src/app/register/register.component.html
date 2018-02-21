@@ -1,24 +1,28 @@
 <br>
-<mat-card class="card">
+<mat-card class="center-side">
 	<mat-card-title><mat-icon>fingerprint</mat-icon>Бүртгүүлэх</mat-card-title>
 	<mat-card-subtitle>доорх мэдээллийг үнэн зөв бөглөнө үү!</mat-card-subtitle>
 	<mat-card-content>
-		<mat-form-field class="container">
+		<mat-form-field>
 	    	<input matInput placeholder="Хэрэглэгчийн нэр" minlength="4" [(ngModel)]="uname" required>
-	    	<mat-error>Хэрэглэгчийн нэр дор хаяж 4 тэмдэгт байна :)</mat-error>
+	    	<mat-error>Дор хаяж 4 тэмдэгт байна :)</mat-error>
 	  	</mat-form-field>
-	  	<mat-form-field class="container">
+	  	<br>
+	  	<mat-form-field>
 	    	<input matInput placeholder="Өөрийн нэр" [(ngModel)]="name" minlength="2" required>
 	    	<mat-error>Нэрээ оруулна шүү! :(</mat-error>
 	  	</mat-form-field>
-	  	<mat-form-field class="container">
+	  	<br>
+	  	<mat-form-field>
 	  		<input matInput [formControl]="email" placeholder="И-Мейл хаяг" required>
 	  		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
 	  	</mat-form-field>
-	  	<mat-form-field class="container">
+	  	<br>
+	  	<mat-form-field>
 	  		<input matInput type="password" [(ngModel)]="password" placeholder="Нууц үг" minlength="6" required>
-	  		<mat-error>Нууц үг дор хаяж 6 тэмдэгт байна xD</mat-error>
+	  		<mat-error>Дор хаяж 6 тэмдэгт байна xD</mat-error>
 	  	</mat-form-field>
+	  	<br>
 	  	<div class="right-side">
 	  		<button mat-button color="primary" routerLink="/login">нэвтрэх үү?</button>
 	  		<button mat-raised-button color="primary" (click)="registerUser()">Бүртгүүлэх</button>

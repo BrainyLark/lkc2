@@ -1,28 +1,39 @@
 <mat-card>
-	<mat-card-content>
-		<p><mat-icon color="primary">sms_failed</mat-icon> <b>Зөвлөмж:</b> Та доор өгөгдсөн 25 айгаас өөрийн тань сайн мэдэх нэр томьёонууд агуулагдаж байж магадгүй гэж үзсэн хэсэг рүүгээ сонгон орно уу.</p>
-	</mat-card-content>
+	<h2>Олон хэлээр илэрхийлсэн ойлголтын багцуудаас сонгож Монгол хэлнээ нутагшуулна уу!</h2>
 </mat-card>
 
-<nav mat-tab-nav-bar>
-	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }} - Монгол</a>
+<nav mat-tab-nav-bar fxHide.lt-sm="true" fxShow>
+	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }}</a>
 </nav>
 
-<mat-grid-list cols="5">
-	<mat-grid-tile *ngFor="let ph of placeholder">
+<div fxShow.lt-sm="true" fxHide><br>
+	<button mat-raised-button [matMenuTriggerFor]="langMenu">
+	    <span>Хэл Сонгох</span>
+	    <mat-icon>language</mat-icon>
+	</button>
+	<br><br>
+</div>
+
+<mat-menu #langMenu="matMenu">
+    <button mat-menu-item *ngFor="let link of navLinks" (click)="updateLang( link.vid )">{{ link.lang }}</button>
+</mat-menu>
+
+
+<div fxLayoutWrap fxLayoutGap="10px">
+	<div *ngFor="let domain of placeholder">
 		<mat-card class="domain-card">
 			<mat-card-header>
 				<div mat-card-avatar>
-					<button mat-mini-fab color="primary" routerLink="{{ ph.globalId }}">
+					<button mat-mini-fab color="primary" routerLink="{{ domain.globalId }}">
 						<mat-icon>navigate_next</mat-icon>
 					</button>
 				</div>
-				<mat-card-title><h2>{{ ph.synset.concept }}</h2></mat-card-title>
-				<mat-card-subtitle>{{ ph.synset.lemma }}</mat-card-subtitle>
+				<mat-card-title><h2>{{ domain.synset.concept }}</h2></mat-card-title>
+				<mat-card-subtitle>{{ domain.synset.lemma }}</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-content>
-				<p>{{ ph.synset.gloss }}</p>
+				<p>{{ domain.synset.gloss }}</p>
 			</mat-card-content>
 		</mat-card>
-	</mat-grid-tile>
-</mat-grid-list>
+	</div>
+</div>

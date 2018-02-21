@@ -9,7 +9,7 @@ import { PerformanceRes } from '../model/response';
 })
 export class TaskComponent implements OnInit {
 
-  performance: PerformanceRes;
+  performance: PerformanceRes = new PerformanceRes();
 
   constructor(private taskService: TaskService) { }
 

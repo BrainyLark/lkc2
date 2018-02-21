@@ -31,7 +31,7 @@ export class TranslationComponent implements OnInit {
   ngOnInit() {
     this.jwt_token = localStorage.getItem('jwt_token');
     if (!this.jwt_token) {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
       return;
     }
     this.gid = this.activatedRoute.snapshot.paramMap.get('gid');

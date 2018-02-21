@@ -1,18 +1,7 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.center-side {
+	text-align: center;
 }
-
-.container > * {
-  width: 80%;
-}
-
-.card {
-	width: 450px;
-	margin: 0 auto;
-}
-
-.right-side {
-    text-align:right;
+mat-form-field {
+	width: 50%;
+	font-size: 1.3em;
 }

@@ -1,38 +1,77 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-  <button mat-button routerLink="/"><h1>&nbsp;Монгол НМЦ&nbsp;</h1></button>
-  <button mat-button><mat-icon>info</mat-icon>төсөл</button>
-  <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
-  <button mat-button><mat-icon>public</mat-icon>нийтлэл</button>
+<div fxHide.lt-sm fxShow="true">  
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+    <button mat-button routerLink="/"><h1>&nbsp;Монгол НМЦ&nbsp;</h1></button>
+    <button mat-button><mat-icon>info</mat-icon>төсөл</button>
+    <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
+    <button mat-button><mat-icon>public</mat-icon>нийтлэл</button>
 
-  <span class="example-spacer"></span>
-  <div *ngIf="!isAuth(); else profile">
-    <button mat-button routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
-    <button mat-button routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
-  </div>
-  <ng-template #profile>
+    <span class="example-spacer"></span>
+    <div *ngIf="!isAuth(); else profile">
+      <button mat-button routerLink="/login"><mat-icon>lock_open</mat-icon></button>
+      <button mat-button routerLink="/register"><mat-icon>fingerprint</mat-icon></button>
+    </div>
+    <ng-template #profile>
 
-    <button mat-button [matMenuTriggerFor]="menu">
-        <span>{{ username }}</span>
-        <mat-icon>arrow_drop_down</mat-icon>
-    </button>
+      <button mat-button [matMenuTriggerFor]="menu">
+          <span>{{ username }}</span>
+          <mat-icon>arrow_drop_down</mat-icon>
+      </button>
 
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/profile">
-            <mat-icon>account_circle</mat-icon>
-            <span>Профайл</span>
-        </button>
-        <button mat-menu-item disabled>
-            <mat-icon>settings</mat-icon>
-            <span>Тохируулга</span>
-        </button>
-        <button mat-menu-item (click)="exit()">
-            <mat-icon>power_settings_new</mat-icon>
-            <span>Гарах</span>
-        </button>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/profile">
+              <mat-icon>account_circle</mat-icon>
+              <span>Профайл</span>
+          </button>
+          <button mat-menu-item disabled>
+              <mat-icon>settings</mat-icon>
+              <span>Тохируулга</span>
+          </button>
+          <button mat-menu-item (click)="exit()">
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Гарах</span>
+          </button>
+      </mat-menu>
 
-  </ng-template>
-  </mat-toolbar-row>
-</mat-toolbar>
+    </ng-template>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<div fxShow.lt-sm="true" fxHide>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-button routerLink="/"><h1>Монгол НМЦ&nbsp;</h1></button>
+      
+      <span class="example-spacer"></span>
+      
+      <button mat-button [matMenuTriggerFor]="menuMin">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+
+      <mat-menu #menuMin="matMenu">
+        <button mat-menu-item><mat-icon>info</mat-icon>төсөл</button>
+        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
+        <button mat-menu-item><mat-icon>public</mat-icon>нийтлэл</button>
+        <div *ngIf="!isAuth(); else profileMin">
+          <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
+          <button mat-menu-item routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
+        </div>
+        <ng-template #profileMin>
+          <button mat-menu-item routerLink="/profile">
+              <mat-icon>account_circle</mat-icon>
+              <span>Профайл</span>
+          </button>
+          <button mat-menu-item (click)="exit()">
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Гарах</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
 <router-outlet></router-outlet>

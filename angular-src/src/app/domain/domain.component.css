@@ -1,5 +1,14 @@
 mat-card.domain-card {
-	width: 80%;
-	height: 80%;
+	width: 12em;
+	height: 12em;
+	margin-bottom: 10px;
 }
-
+mat-grid-tile {
+	flex-wrap: wrap;
+}
+h2 {
+	font-size: 1.2em;
+}
+/deep/.mat-tab-link, /deep/.mat-tab-label-active{
+ min-width: 100px !important;
+}

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 })
 export class DomainComponent implements OnInit {
 	
+	colNum = 5;
 	current_v: number = 1;
 	navLinks = [
 		{ vid: 1, lang: "Англи", isActive: true },
@@ -33,11 +34,11 @@ export class DomainComponent implements OnInit {
 					this.updateLang(this.current_v);
 				}
 				else { 
-					this.router.navigateByUrl('/');
+					this.router.navigateByUrl('/login');
 				}
 			})
 		} else {
-			this.router.navigateByUrl('/');
+			this.router.navigateByUrl('/login');
 		}
 	}
 
