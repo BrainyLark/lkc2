@@ -33,23 +33,13 @@ export class DomainComponent implements OnInit {
 		let jwt_token = localStorage.getItem('jwt_token');
 		if (jwt_token) {
 			this.domainService.getDomains(jwt_token).subscribe(res => {
-<<<<<<< HEAD
-				if (res) { 
-					this.domains = res;
-					this.updateLang(this.current_v);
-				}
-				else { 
-					this.router.navigateByUrl('/login');
-				}
-			})
-=======
 				this.domains = res;
 				this.updateLang(this.current_v);
 			}, error => { 
 				this.router.navigateByUrl('/login');
-			});
->>>>>>> 75f6f91abeef8015653985c2932b4100352e1727
-		} else {
+			}); 
+		}
+		else {
 			this.router.navigateByUrl('/login');
 		}
 	}
