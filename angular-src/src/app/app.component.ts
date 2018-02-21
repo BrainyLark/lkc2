@@ -27,7 +27,7 @@ export class AppComponent {
   exit(): void {
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('user');
-    this.snackBar.open("Баярлалаа, дараа дахин орж ирж хөгжилдөөрэй~!", "За, тэгнэ өө xD", { duration: 5000 });
+    this.snackBar.open("Баярлалаа, дараа дахин орж ирээрэй!", "Тэгнэ ээ", { duration: 5000 });
     this.router.navigateByUrl('/login');
   }
 }

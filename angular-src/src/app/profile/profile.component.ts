@@ -11,6 +11,7 @@ import { User } from '../model/User';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  jwt_token: string;
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -18,19 +19,20 @@ export class ProfileComponent implements OnInit {
       this.checkAuth();
   }
 
-  checkAuth(): void {
-      let jwt_token = localStorage.getItem('jwt_token');
-      if (jwt_token) {
-          this.loginService.getProfile(jwt_token).subscribe(res => {
-              if (res) {
-                  this.user = res;
-              } else {
-                  this.router.navigateByUrl('/login');
-              }
-          })
-      } else {
-          this.router.navigateByUrl('/login');
+  checkAuth() {
+    this.jwt_token = localStorage.getItem('jwt_token');
+    if (!this.jwt_token) {
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    this.loginService.getProfile(this.jwt_token).subscribe(
+      user => { this.user = user },
+      error => {
+      if (error.status == 401) {
+        this.router.navigateByUrl('/login');
+        return;
       }
+    });
   }
 
 }
