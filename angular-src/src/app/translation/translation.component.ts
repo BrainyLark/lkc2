@@ -41,20 +41,15 @@ export class TranslationComponent implements OnInit {
   prepareData() {
   	this.translationService.getTask(this.jwt_token, this.gid).subscribe(res => {
       this.isSpinning = false;
-  		if (res.statusCode == 1) {	
+      this.statusCode = res.statusCode;
+  		if (res.statusCode) {	
         this.start_date = new Date();
-        this.statusCode = res.statusCode;
   			this.currentTask = res;
       }
-      else if (res.statusCode == 0) {
-        this.statusCode = res.statusCode;
+      else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;
   		}
-      else {
-        this.statusCode = 0;
-        this.statusMsg = "Серверээс алдаа ирлээ! Та дахин нэвтрэх шаардлагатай байж магадгүй!";
-      }
-  	})
+  	}, error => { if (error.status == 401) {this.router.navigateByUrl('/login'); return;} })
   }
 
   addForm(): void {
