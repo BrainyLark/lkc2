@@ -10,7 +10,7 @@ import { User } from '../model/User';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User;
+  user: User = new User();
   jwt_token: string;
 
   constructor(private loginService: LoginService, private router: Router) { }

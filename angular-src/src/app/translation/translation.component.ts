@@ -20,6 +20,7 @@ export class TranslationComponent implements OnInit {
   rates = [1, 2, 3, 4, 5];
   alert:string = '';
   isSpinning: boolean = false;
+  regex = /^[А-Я а-я\u04E9\u04AF\u0451]+$/i;
 
   taskRun = [{ lemma: "", rating: 3 }];
   start_date;
@@ -54,8 +55,13 @@ export class TranslationComponent implements OnInit {
 
   addForm(): void {
     let formData = this.taskRun[this.taskRun.length - 1];
-    if (formData.lemma.length == 0) {
+    if (!formData.lemma.trim().length) {
       this.alert = 'Орчуулах үгээ оруулна уу!';
+      return;
+    }
+    formData.lemma = formData.lemma.trim();
+    if (!this.regex.test(formData.lemma)) {
+      this.alert = 'Тэмдэгт орсон байна, зөвхөн монгол үсэг ашиглана уу!';
       return;
     }
     this.alert = '';
@@ -67,11 +73,21 @@ export class TranslationComponent implements OnInit {
   }
 
   sendData() {
+    this.end_date = new Date();
+    let i = this.taskRun.length - 1;
+    while (!this.taskRun[i].lemma.trim().length) {
+      this.taskRun.pop();
+      i --;
+      if (i < 0) break;
+    }
+    if (!this.taskRun.length) {
+      this.alert = 'Илгээх өгөгдөл байхгүй байна!';
+      this.taskRun.push({ lemma: "", rating: 3 });
+      return;
+    }
     this.statusCode = 2;
     this.statusMsg = '';
     this.isSpinning = true;
-    this.end_date = new Date();
-    this.taskRun.pop();
     let payload = {
       taskId: this.currentTask._id,
       domainId: this.currentTask.domainId,

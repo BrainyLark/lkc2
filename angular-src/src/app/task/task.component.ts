@@ -11,7 +11,7 @@ import { LoginService } from '../login.service';
 })
 export class TaskComponent implements OnInit {
 
-  performance: PerformanceRes;
+  performance: PerformanceRes = new PerformanceRes();
   jwt_token: string;
 
   constructor(private taskService: TaskService, private router: Router, private loginService: LoginService) { }
