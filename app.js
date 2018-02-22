@@ -9,6 +9,8 @@ const config	= require('./config')
 const SlotResolver	= require('./service/SlotResolver')
 const ContentProvider	= require('./service/ContentProvider')
 const meta		= require('./meta')
+const session	= require('express-session');
+const cookieParser	= require('cookie-parser');
 
 //connect database
 ContentProvider.connect(config.database.uri)
@@ -34,6 +36,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //allows to extract data from req from front end
 
+//cookie parser
+app.use(cookieParser())
+
 // Attach morgan
 app.use(morgan('dev'))
 
@@ -55,7 +60,13 @@ const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'm
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
 //Index Route
-app.get('/', function(req, res) { res.json({status: -1, msg: "You have been directed into the wrong endpoint!"}) })
+app.get('/', function(req, res) {
+	console.log(req.cookies)
+	res.cookie('l_tr_id', 178, { maxAge: 60000 })
+	res.cookie('l_tr_did', 161, { maxAge: 60000 })
+	res.cookie('l_tr_trm', false, { maxAge: 60000 })
+	res.json({status: -1, msg: "You have been directed into the wrong endpoint!"}) 
+})
 
 //Start Server
 app.listen(config.port, function() {

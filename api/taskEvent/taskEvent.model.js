@@ -11,11 +11,10 @@ const TaskEventSchema = mongoose.Schema({
 
 const TaskEvent = module.exports = mongoose.model('TaskEvent', TaskEventSchema)
 
-module.exports.findLastEventForUser = function(query, callback) {
+module.exports.lastEvent = function(query, callback) {
 	TaskEvent.findOne({})
 		.where('userId').equals(query[0])
 		.where('domainId').equals(query[1])
 		.where('taskType').equals(query[2])
-		.where('state').equals(state.terminated)
 		.sort('-_id').limit(1).exec(callback);
 }

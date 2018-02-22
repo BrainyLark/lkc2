@@ -32,7 +32,7 @@ module.exports.next = function (req, res, next) {
 	var domainId = req.params.domainId
 	var typeId = req.params.typeId
 	var taskLimit = (typeId == meta.tasktype.modification) ? meta.tasklimit.modification : meta.tasklimit.translation
-	TaskEvent.findLastEventForUser([userId, domainId, typeId], (err, lastEvent) => {
+	TaskEvent.lastEvent([userId, domainId, typeId], (err, lastEvent) => {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
 		var findNextTask = () => {
@@ -83,11 +83,27 @@ module.exports.next = function (req, res, next) {
 				})
 		}
 		if (lastEvent) {
-			TaskEventCount.findOne({ taskId: lastEvent.taskId }, (err, tEvCon) => {
-				if (err) return handleError(res, err)
-				createdAt = tEvCon.createdAt
-				findNextTask()
-			})
+			if (!lastEvent.state) {
+				var cb = (err, docs) => {
+					if (err) return handleError(res, err)
+					Task.findById(lastEvent.taskId, (err, task) => {
+						if (err) handleError(res, err)
+						return res.json({ 
+							statusCode: meta.status.ok, 
+							_id: task._id, 
+							domainId: task.domainId,
+							synset: task.synset
+						})
+					})
+				}
+				TaskEvent.update({ taskId: lastEvent.taskId, userId: userId }, { $set: { updatedAt: new Date() }}, cb)
+			} else {
+				TaskEventCount.findOne({ taskId: lastEvent.taskId }, (err, tEvCon) => {
+					if (err) return handleError(res, err)
+					createdAt = tEvCon.createdAt
+					findNextTask()
+				})
+			}
 		}
 		else findNextTask()
 	})
