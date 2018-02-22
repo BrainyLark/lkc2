@@ -20,7 +20,7 @@ export class TranslationComponent implements OnInit {
   rates = [1, 2, 3, 4, 5];
   alert:string = '';
   isSpinning: boolean = false;
-  regex = /^[А-Я а-я\u04E9\u04AF\u0451]+$/i;
+  regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
 
   taskRun = [{ lemma: "", rating: 3 }];
   start_date;
