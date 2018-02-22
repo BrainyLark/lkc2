@@ -59,8 +59,8 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 			con++
 			if (err) return handleError(res, err)
 			if (con == 2) {
-				TaskEventCount.findOne({ taskId: req.body.taskId }, (err, e_count) => {
-					if (e_count.count >= meta.tasklimit.translation) {
+				TaskEvent.count({ taskId: req.body.taskId, state: meta.taskstate.terminated }, (err, r_count) => {
+					if (r_count >= meta.tasklimit.translation) {
 						generateModTask(req.body.taskId, (err, task) => {
 							if (err) return handleError(res, err)
 							TaskEventCount.create({
@@ -68,11 +68,11 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 								taskType: meta.tasktype.modification,
 								domainId: task.domainId,
 								count: 0
-							}, (err, e_count) => {
+							}, (err, r_count) => {
 								if (err) return handleError(res, err)
 							 	console.log("Modification task successfully generated:\n")
 								console.log("Created task: ", task)
-								console.log("Task log: ", e_count)
+								console.log("Task log: ", r_count)
 							})
 						})
 					}
