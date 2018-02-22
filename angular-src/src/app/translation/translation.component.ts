@@ -21,7 +21,7 @@ export class TranslationComponent implements OnInit {
   alert:string = '';
   isSpinning: boolean = false;
 
-  taskRun = [{ lemma: "", rating: -1 }];
+  taskRun = [{ lemma: "", rating: 3 }];
   start_date;
   end_date;
 
@@ -54,12 +54,12 @@ export class TranslationComponent implements OnInit {
 
   addForm(): void {
     let formData = this.taskRun[this.taskRun.length - 1];
-    if (formData.lemma.length == 0 || formData.rating == -1) {
-      this.alert = 'Эхлээд үгээ нэмэх эсвэл оруулсан үгээ үнэлнэ үү!';
+    if (formData.lemma.length == 0) {
+      this.alert = 'Орчуулах үгээ оруулна уу!';
       return;
     }
     this.alert = '';
-    this.taskRun.push({ lemma: "", rating: -1 });
+    this.taskRun.push({ lemma: "", rating: 3 });
   }
 
   clearForm(index): void {
@@ -81,10 +81,14 @@ export class TranslationComponent implements OnInit {
     };
     this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
       if (res.statusSuccess) {
-        this.taskRun = [{ lemma: "", rating: -1 }];
+        this.taskRun = [{ lemma: "", rating: 3 }];
         this.prepareData();
       }
-    })
+    }, error => { 
+      alert("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!");
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
   }
 
   checkAuth() {
@@ -98,8 +102,8 @@ export class TranslationComponent implements OnInit {
       error => {
       if (error.status == 401) {
         this.router.navigateByUrl('/login');
-        return;
       }
+      return;
     });
   }
 

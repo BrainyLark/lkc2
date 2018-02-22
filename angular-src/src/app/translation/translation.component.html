@@ -1,11 +1,11 @@
 <br>
-<mat-card>
-	<mat-card-title><mat-icon>translate</mat-icon>Орчуулга</mat-card-title>
-	<mat-card-subtitle>оноогдож ирсэн синсетийн үгсийг орчуулах</mat-card-subtitle>
+<mat-card (keydown.control.enter)="sendData()">
+	<mat-card-title>Орчуулга</mat-card-title>
+	<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийг оноож бичнэ үү</mat-card-subtitle>
 	<mat-spinner [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 	<mat-card-content *ngIf="statusCode == 1; else error;">
 		<mat-tab-group>
-			<mat-tab *ngFor="let synset of currentTask.synset" label="{{synset.languageCode}} - mn">
+			<mat-tab *ngFor="let synset of currentTask.synset" label="{{synset.languageCode}}">
 				<br><p class="lemma"> {{ synset.lemma }}</p>
 				<p> {{ synset.gloss }} </p>
 			</mat-tab>
@@ -13,7 +13,7 @@
 
 		<div *ngFor="let run of taskRun">
 			<mat-form-field class="word">
-				<input matInput [(ngModel)]="run.lemma" placeholder="Орчуулах үг">
+				<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder="Орчуулга үг">
 			</mat-form-field>
 			<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
 			<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
