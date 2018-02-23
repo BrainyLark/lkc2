@@ -1,19 +1,15 @@
 mat-card {
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 5%;
 }
 .example-spacer {
   flex: 1 1 auto;
 }
 mat-card.current {
-	width: 50%;
+	width: 45%;
 	height: 100%;
 }
 mat-card.previous {
-	margin-top: 3em;
-	width: 30%;
-	height: 15em;
-	cursor: no-drop;
+	width: 15%;
 }
 mat-form-field {
 }
@@ -22,6 +18,7 @@ mat-form-field {
 }
 button {
 	margin-left: 15px;
+	text-transform: uppercase;
 }
 /deep/.mat-tab-label, /deep/.mat-tab-label-active{
  min-width: 100px !important;

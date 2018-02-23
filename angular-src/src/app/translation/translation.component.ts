@@ -5,11 +5,36 @@ import { Translation } from '../model/Task';
 import { LoginService } from '../login.service';
 import { language } from '../meta';
 import 'rxjs/add/operator/catch';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
-  styleUrls: ['./translation.component.css']
+  styleUrls: ['./translation.component.css'],
+  animations: [
+    trigger('prevCardPosition', [
+      state('active', style({
+        width: '40%',
+        cursor: 'default'
+      })),
+      state('inactive', style({
+        width: '20%',
+        cursor: 'pointer'
+      })),
+      transition('* => *', animate('200ms ease'))
+    ]),
+    trigger('mainCardPosition', [
+      state('active', style({
+        width: '50%',
+        cursor: 'default'
+      })),
+      state('inactive', style({
+        width: '30%',
+        cursor: 'pointer'
+      })),
+      transition('* => *', animate('200ms ease'))
+    ])
+  ]
 })
 export class TranslationComponent implements OnInit {
   
@@ -28,6 +53,9 @@ export class TranslationComponent implements OnInit {
   taskRun = [{ lemma: "", rating: 3 }];
   start_date;
   end_date;
+
+  prevState = 'inactive';
+  mainState = 'active';
 
   constructor(
   	private translationService: TranslationService, 
@@ -127,6 +155,16 @@ export class TranslationComponent implements OnInit {
       }
       return;
     });
+  }
+
+  setPrevState() {
+    this.prevState = 'active';
+    this.mainState = 'inactive';
+  }
+
+  setMainState() {
+    this.mainState = 'active';
+    this.prevState = 'inactive';
   }
 
 }
