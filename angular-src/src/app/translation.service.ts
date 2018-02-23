@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Translation } from './model/Task';
-import { TaskrunRes } from './model/response';
+import { TaskrunRes, TranslationRes } from './model/response';
 import { config } from './config';
 
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ export class TranslationService {
   	let url = this.apiRoot + '/task/1/' + gid;
   	let httpOptions = {
   	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
-	};
+	  };
 	  return this.http.get<Translation>(url, httpOptions);
   }
 
@@ -31,8 +31,16 @@ export class TranslationService {
   	let url = this.apiRoot + '/translation';
   	let httpOptions = {
   	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
-	};
-	return this.http.post<TaskrunRes>(url, payload, httpOptions);
+	  };
+	  return this.http.post<TaskrunRes>(url, payload, httpOptions);
+  }
+
+  getPrevious(jwt_token:string, domainId:number, taskId:string) {
+    let url = this.apiRoot + '/translation/prev?domain=' + domainId + '&task=' + taskId;
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
+    };
+    return this.http.get<TranslationRes>(url, httpOptions);
   }
 
 }

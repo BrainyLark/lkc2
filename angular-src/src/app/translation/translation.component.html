@@ -1,11 +1,25 @@
 <br>
 <div fxLayout>
 	<mat-card [@prevCardPosition]="prevState" (click)="setPrevState()" fxHide.lt-sm="true" fxShow class="previous">
-		<mat-card-title>Өмнөх</mat-card-title>
-		<mat-card-subtitle>Өмнө гүйцэтгэсэн даалгаврын үр дүн</mat-card-subtitle>
-		<mat-card-content>
-			THIS IS THE RESULT
+		<mat-card-title>Сэргээе</mat-card-title>
+		<mat-card-subtitle>
+			Түр байзаарай, би өмнө юу гэж орчууллаа?
+		</mat-card-subtitle>
+		<mat-card-content [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="currentPrevTask.success">
+			<mat-tab-group selectedIndex="{{prevSelectedInd}}">
+				<mat-tab *ngFor="let s of currentPrevTask.data.synset" label="{{ language[s.vocabularyId] }}">
+					<br><p class="lemma"> {{ s.lemma }} </p><br>
+					<p class="gloss"> {{ s.gloss }} </p>
+				</mat-tab>
+			</mat-tab-group>
+			<mat-form-field *ngFor="let t of currentPrevTask.data.translation" class="word">
+				<input matInput value="{{t.lemma}}" disabled>
+			</mat-form-field>
 		</mat-card-content>
+		<mat-divider></mat-divider>
+		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'">
+			<button mat-button color="primary" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;Өмнөх</button>
+		</mat-card-actions>
 	</mat-card>
 	<mat-card [@mainCardPosition]="mainState" (click)="setMainState()" class="current" (keydown.control.enter)="sendData()">
 		<mat-card-title>Орчуулга</mat-card-title>
@@ -36,8 +50,8 @@
 		<mat-card-actions>
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
-				<button mat-button>GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
-				<button mat-button>Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button color="primary">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>
 		</mat-card-actions>

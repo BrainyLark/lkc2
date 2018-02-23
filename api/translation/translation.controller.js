@@ -6,10 +6,23 @@ const request		= require('request')
 const handleError	= require('../../service/ErrorHandler')
 const meta			= require('../../meta')
 
-module.exports.showTranslations = function(req, res, next) {
-	Translation.findBySettings(req.query, (err, data) => {
+module.exports.getPrevious = function(req, res, next) {
+	var domainId = req.query.domain
+	var boundaryTask = req.query.task
+	Translation.findOne({ translatorId: req.user._id, domainId: domainId, skip: false, taskId: { $lt: boundaryTask } }, {}, {sort: { endDate: -1 }}, (err, run) => {
 		if (err) return handleError(res, err)
-		res.json(data)
+		if (!run) {
+			return res.json({ success: false, data: null })
+		}
+		var responseData = {}
+		responseData.taskId = run.taskId
+		responseData.translation = run.translation
+		var cb = (err, task) => {
+			if (err) return handleError(res, err)
+			responseData.synset = task.synset
+			return res.json({ success: true, data: responseData })
+		}
+		Task.findOne({ _id: run.taskId }, cb)
 	})
 }
 

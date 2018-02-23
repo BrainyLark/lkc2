@@ -3,7 +3,7 @@ const controller	= require('./translation.controller')
 
 var router = new Router()
 
-router.get('/', controller.showTranslations)
+router.get('/prev', controller.getPrevious)
 router.post('/', controller.saveUserTranslationData)
 
 exports['default'] = router

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TranslationService } from '../translation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Translation } from '../model/Task';
+import { TranslationRes } from '../model/response';
 import { LoginService } from '../login.service';
 import { language } from '../meta';
 import 'rxjs/add/operator/catch';
@@ -14,25 +15,27 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   animations: [
     trigger('prevCardPosition', [
       state('active', style({
-        width: '40%',
-        cursor: 'default'
+        width: '45%',
+        height: '100%',
+        cursor: 'default',
       })),
       state('inactive', style({
-        width: '20%',
-        cursor: 'pointer'
+        width: '15%',
+        height: '50%',
+        cursor: 'zoom-in',
+        'transform': 'translateY(7em) rotateZ(710deg)',
       })),
-      transition('* => *', animate('200ms ease'))
+      transition('* => *', animate('700ms ease-out'))
     ]),
     trigger('mainCardPosition', [
       state('active', style({
-        width: '50%',
-        cursor: 'default'
+        cursor: 'default',
+        float: 'right'
       })),
       state('inactive', style({
-        width: '30%',
-        cursor: 'pointer'
+        cursor: 'pointer',
       })),
-      transition('* => *', animate('200ms ease'))
+      transition('* => *', animate('700ms ease-out'))
     ])
   ]
 })
@@ -43,12 +46,15 @@ export class TranslationComponent implements OnInit {
   statusCode: number = 2;
   statusMsg: string = '';
   currentTask: Translation;
+  currentPrevTask: TranslationRes = new TranslationRes();
   rates = [1, 2, 3, 4, 5];
   alert:string = '';
   isSpinning: boolean = false;
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
   language = language;
   selectedInd = 0;
+  prevSelectedInd = 0;
+  isPrevExpanded = false;
 
   taskRun = [{ lemma: "", rating: 3 }];
   start_date;
@@ -80,6 +86,7 @@ export class TranslationComponent implements OnInit {
   			this.currentTask = res;
         let cnt = 0;
         this.currentTask.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
+        this.getPrevious(this.currentTask._id);
       }
       else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;
@@ -159,12 +166,31 @@ export class TranslationComponent implements OnInit {
 
   setPrevState() {
     this.prevState = 'active';
+    this.isPrevExpanded = true;
     this.mainState = 'inactive';
   }
 
   setMainState() {
     this.mainState = 'active';
+    this.isPrevExpanded = false;
     this.prevState = 'inactive';
+  }
+
+  getPrevious(boundaryTask) {
+    this.translationService.getPrevious(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
+      if(run.success) {
+        this.currentPrevTask = run;
+        let cnt = 0;
+        this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
+      } else {
+        alert("Та үүнээс өмнө даалгавар гүйцэтгээгүй байна!");
+      }
+    }, error => {
+      if (error.status == 401) {
+        this.router.navigateByUrl('/login');
+      }
+      return;
+    })
   }
 
 }
