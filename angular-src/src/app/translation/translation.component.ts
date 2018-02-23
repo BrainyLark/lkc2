@@ -3,6 +3,7 @@ import { TranslationService } from '../translation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Translation } from '../model/Task';
 import { LoginService } from '../login.service';
+import { language } from '../meta';
 import 'rxjs/add/operator/catch';
 
 @Component({
@@ -21,6 +22,8 @@ export class TranslationComponent implements OnInit {
   alert:string = '';
   isSpinning: boolean = false;
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
+  language = language;
+  selectedInd = 0;
 
   taskRun = [{ lemma: "", rating: 3 }];
   start_date;
@@ -40,12 +43,15 @@ export class TranslationComponent implements OnInit {
   }
 
   prepareData() {
+    this.selectedInd = 0;
   	this.translationService.getTask(this.jwt_token, this.gid).subscribe(res => {
       this.isSpinning = false;
       this.statusCode = res.statusCode;
   		if (res.statusCode) {	
         this.start_date = new Date();
   			this.currentTask = res;
+        let cnt = 0;
+        this.currentTask.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
       }
       else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;

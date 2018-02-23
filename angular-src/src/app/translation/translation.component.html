@@ -1,39 +1,48 @@
 <br>
-<mat-card (keydown.control.enter)="sendData()">
-	<mat-card-title>Орчуулга</mat-card-title>
-	<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийг оноож бичнэ үү</mat-card-subtitle>
-	<mat-spinner [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
-	<mat-card-content *ngIf="statusCode == 1; else error;">
-		<mat-tab-group>
-			<mat-tab *ngFor="let synset of currentTask.synset" label="{{synset.languageCode}}">
-				<br><p class="lemma"> {{ synset.lemma }}</p>
-				<p> {{ synset.gloss }} </p>
-			</mat-tab>
-		</mat-tab-group><br><br>
+<div fxLayoutAlign="start stretch" fxLayoutWrap>
+	<mat-card fxHide.lt-sm="true" fxShow class="previous">
+		<mat-card-title>Өмнөх</mat-card-title>
+		<mat-card-subtitle>Өмнө гүйцэтгэсэн даалгаврын үр дүн</mat-card-subtitle>
+		<mat-card-content>
+			THIS IS THE RESULT
+		</mat-card-content>
+	</mat-card>
+	<mat-card class="current" (keydown.control.enter)="sendData()">
+		<mat-card-title>Орчуулга</mat-card-title>
+		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийг оноож бичнэ үү</mat-card-subtitle>
+		<mat-spinner [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+		<mat-card-content *ngIf="statusCode == 1; else error;">
+			<mat-tab-group selectedIndex="{{ selectedInd }}">
+				<mat-tab *ngFor="let synset of currentTask.synset" label="{{language[synset.vocabularyId]}}">
+					<br><p class="lemma"> {{ synset.lemma }}</p><br>
+					<p class="gloss"> {{ synset.gloss }} </p>
+				</mat-tab>
+			</mat-tab-group><br>
 
-		<div *ngFor="let run of taskRun">
-			<mat-form-field class="word">
-				<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder="Орчуулга үг">
-			</mat-form-field>
-			<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
-			<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
-			<ng-template #clearBtn>
-				<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
-			</ng-template>
-		</div>
-
+			<div *ngFor="let run of taskRun">
+				<mat-form-field class="word">
+					<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder="Орчуулга үг">
+				</mat-form-field>
+				<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
+				<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
+				<ng-template #clearBtn>
+					<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
+				</ng-template>
+			</div>
+		</mat-card-content>
 		<mat-divider></mat-divider>
-		<mat-card-footer>
+		<mat-card-actions>
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
-				<button mat-button color="warn">Алгасах&nbsp;<mat-icon>sync</mat-icon></button>
+				<button mat-button color="accent">GAP - аар тэмдэглэх&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button color="warn">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>
-		</mat-card-footer>
-	</mat-card-content>
-	<ng-template #error>
-		<div *ngIf="!statusCode" class="alert">
-			<p>{{ statusMsg }}</p>
-		</div>
-	</ng-template>
-</mat-card>
+		</mat-card-actions>
+		<ng-template #error>
+			<div *ngIf="!statusCode" class="alert">
+				<p>{{ statusMsg }}</p>
+			</div>
+		</ng-template>
+	</mat-card>
+</div>
