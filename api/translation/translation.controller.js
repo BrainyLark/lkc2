@@ -14,6 +14,7 @@ module.exports.getPrevious = function(req, res, next) {
 		if (!run) {
 			return res.json({ success: false, data: null })
 		}
+		console.log("TID: ", run.taskId)
 		var responseData = {}
 		responseData.taskId = run.taskId
 		responseData.translation = run.translation
@@ -21,6 +22,26 @@ module.exports.getPrevious = function(req, res, next) {
 			if (err) return handleError(res, err)
 			responseData.synset = task.synset
 			return res.json({ success: true, data: responseData })
+		}
+		Task.findOne({ _id: run.taskId }, cb)
+	})
+}
+
+module.exports.getNext = function(req, res, next) {
+	var domainId = req.query.domain
+	var boundaryTask = req.query.task
+	Translation.findOne({ translatorId: req.user._id, domainId: domainId, skip: false, taskId: { $gt: boundaryTask } }, {}, {sort: { endDate: 1 }}, (err, run) => {
+		if (err) return handleError(res, err)
+		if (!run) {
+			return res.json({ success: false, data: null })
+		}
+		var responseData = {}
+		responseData.taskId = run.taskId
+		responseData.translation = run.translation
+		var cb = (err, task) => {
+			if (err) return handleError(res, err)
+			responseData.synset = task.synset
+		return res.json({ success: true, data: responseData })
 		}
 		Task.findOne({ _id: run.taskId }, cb)
 	})

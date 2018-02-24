@@ -13,12 +13,14 @@
 				</mat-tab>
 			</mat-tab-group>
 			<mat-form-field *ngFor="let t of currentPrevTask.data.translation" class="word">
-				<input matInput value="{{t.lemma}}" disabled>
+				<input matInput value="{{t.lemma}} ({{t.rating}})" disabled>
 			</mat-form-field>
 		</mat-card-content>
 		<mat-divider></mat-divider>
-		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'">
-			<button mat-button color="primary" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;Өмнөх</button>
+		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="statusCode == 1">
+			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;Өмнөх</button>
+			<span class="example-spacer"></span>
+			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getNext(currentPrevTask.data.taskId)">Дараах&nbsp;&nbsp;<mat-icon>arrow_forward</mat-icon></button>
 		</mat-card-actions>
 	</mat-card>
 	<mat-card [@mainCardPosition]="mainState" (click)="setMainState()" class="current" (keydown.control.enter)="sendData()">
@@ -47,7 +49,7 @@
 			</div>
 		</mat-card-content>
 		<mat-divider></mat-divider>
-		<mat-card-actions>
+		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
 				<button mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>

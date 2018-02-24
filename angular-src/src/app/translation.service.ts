@@ -43,4 +43,12 @@ export class TranslationService {
     return this.http.get<TranslationRes>(url, httpOptions);
   }
 
+  getNext(jwt_token:string, domainId:number, taskId:string) {
+    let url = this.apiRoot + '/translation/next?domain=' + domainId + '&task=' + taskId;
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
+    };
+    return this.http.get<TranslationRes>(url, httpOptions);
+  }
+
 }

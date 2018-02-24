@@ -5,6 +5,7 @@ import { Translation } from '../model/Task';
 import { TranslationRes } from '../model/response';
 import { LoginService } from '../login.service';
 import { language } from '../meta';
+import { MatSnackBar } from '@angular/material';
 import 'rxjs/add/operator/catch';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -45,8 +46,10 @@ export class TranslationComponent implements OnInit {
   gid: string;
   statusCode: number = 2;
   statusMsg: string = '';
+  
   currentTask: Translation;
   currentPrevTask: TranslationRes = new TranslationRes();
+
   rates = [1, 2, 3, 4, 5];
   alert:string = '';
   isSpinning: boolean = false;
@@ -67,6 +70,7 @@ export class TranslationComponent implements OnInit {
   	private translationService: TranslationService, 
   	public router: Router, 
   	private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
     private loginService: LoginService) { }
 
   ngOnInit() {
@@ -183,14 +187,31 @@ export class TranslationComponent implements OnInit {
         let cnt = 0;
         this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
       } else {
-        alert("Та үүнээс өмнө даалгавар гүйцэтгээгүй байна!");
+        this.snackBar.open("Энэ айд үүнээс өмнө даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
       }
     }, error => {
       if (error.status == 401) {
         this.router.navigateByUrl('/login');
       }
       return;
-    })
+    });
+  }
+
+  getNext(boundaryTask) {
+    this.translationService.getNext(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
+      if (run.success) {
+        this.currentPrevTask = run;
+        let cnt = 0;
+        this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
+      } else {
+        this.snackBar.open("Энэ айд үүний дараа даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
+      }
+    }, error => {
+      if (error.status == 401) {
+        this.router.navigateByUrl('/login');
+      }
+      return;
+    });
   }
 
 }
