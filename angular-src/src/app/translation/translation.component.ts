@@ -24,9 +24,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         width: '15%',
         height: '50%',
         cursor: 'zoom-in',
-        'transform': 'translateY(7em) rotateZ(710deg)',
+        'transform': 'translateY(7em) rotateZ(-10deg)',
       })),
-      transition('* => *', animate('700ms ease-out'))
+      transition('* => *', animate('250ms ease-out'))
     ]),
     trigger('mainCardPosition', [
       state('active', style({
@@ -36,7 +36,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
       state('inactive', style({
         cursor: 'pointer',
       })),
-      transition('* => *', animate('700ms ease-out'))
+      transition('* => *', animate('250ms ease-out'))
     ])
   ]
 })
@@ -53,6 +53,7 @@ export class TranslationComponent implements OnInit {
   rates = [1, 2, 3, 4, 5];
   alert:string = '';
   isSpinning: boolean = false;
+  isPrevSpinning: boolean = false;
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
   language = language;
   selectedInd = 0;
@@ -101,12 +102,12 @@ export class TranslationComponent implements OnInit {
   addForm(): void {
     let formData = this.taskRun[this.taskRun.length - 1];
     if (!formData.lemma.trim().length) {
-      this.alert = 'Орчуулах үгээ оруулна уу!';
+      this.snackBar.open("Орчуулах үгээ оруулаарай!", "ok", {duration:3000});
       return;
     }
     formData.lemma = formData.lemma.trim();
     if (!this.regex.test(formData.lemma)) {
-      this.alert = 'Тэмдэгт орсон байна, зөвхөн монгол үсэг ашиглана уу!';
+      this.snackBar.open("Тэмдэгт, латин үсэг эсвэл тоо орсон байна, зөвхөн монгол үсэг ашиглана!", "ok", {duration:3000});
       return;
     }
     this.alert = '';
@@ -126,7 +127,7 @@ export class TranslationComponent implements OnInit {
       if (i < 0) break;
     }
     if (!this.taskRun.length) {
-      this.alert = 'Илгээх өгөгдөл байхгүй байна!';
+      this.snackBar.open("Илгээх өгөгдөл байхгүй байна!", "ok", {duration:3000});
       this.taskRun.push({ lemma: "", rating: 3 });
       return;
     }
@@ -146,7 +147,7 @@ export class TranslationComponent implements OnInit {
         this.prepareData();
       }
     }, error => { 
-      alert("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!");
+      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });
@@ -181,6 +182,7 @@ export class TranslationComponent implements OnInit {
   }
 
   getPrevious(boundaryTask) {
+    this.isPrevSpinning = true;
     this.translationService.getPrevious(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
       if(run.success) {
         this.currentPrevTask = run;
@@ -189,6 +191,7 @@ export class TranslationComponent implements OnInit {
       } else {
         this.snackBar.open("Энэ айд үүнээс өмнө даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
       }
+      this.isPrevSpinning = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigateByUrl('/login');
@@ -198,6 +201,7 @@ export class TranslationComponent implements OnInit {
   }
 
   getNext(boundaryTask) {
+    this.isPrevSpinning = true;
     this.translationService.getNext(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
       if (run.success) {
         this.currentPrevTask = run;
@@ -206,6 +210,7 @@ export class TranslationComponent implements OnInit {
       } else {
         this.snackBar.open("Энэ айд үүний дараа даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
       }
+      this.isPrevSpinning = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigateByUrl('/login');

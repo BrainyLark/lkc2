@@ -15,6 +15,7 @@
 			<mat-form-field *ngFor="let t of currentPrevTask.data.translation" class="word">
 				<input matInput value="{{t.lemma}} ({{t.rating}})" disabled>
 			</mat-form-field>
+			<mat-spinner [diameter]="60" *ngIf="isPrevSpinning"></mat-spinner>
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="statusCode == 1">
@@ -26,7 +27,7 @@
 	<mat-card [@mainCardPosition]="mainState" (click)="setMainState()" class="current" (keydown.control.enter)="sendData()">
 		<mat-card-title>Орчуулга</mat-card-title>
 		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийг оноож бичнэ үү</mat-card-subtitle>
-		<mat-spinner [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 		<mat-card-content *ngIf="statusCode == 1; else error;">
 			<mat-tab-group selectedIndex="{{ selectedInd }}">
 				<mat-tab *ngFor="let synset of currentTask.synset" label="{{language[synset.vocabularyId]}}">
