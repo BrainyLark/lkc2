@@ -17,3 +17,26 @@ export class Translation {
 		}]
 	}
 }
+
+export class Modification {
+	statusCode: number;
+	statusMsg: string;
+	task: {
+		_id: string,
+		conceptId: number,
+		domainId: number,
+		_translationTaskId: string,
+		synset: [{
+			languageCode: string,
+			vocabularyId: number,
+			concept: string,
+			gloss: string,
+			lemma: string,
+			_id: string
+		}],
+		translatedWords: [{
+			word: string,
+			_id: string
+		}]
+	}
+}
