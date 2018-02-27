@@ -90,8 +90,8 @@ export class TranslationComponent implements OnInit {
         this.start_date = new Date();
   			this.currentTask = res;
         let cnt = 0;
-        this.currentTask.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
-        this.getPrevious(this.currentTask._id);
+        this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
+        this.getPrevious(this.currentTask.task._id);
       }
       else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;
@@ -135,8 +135,8 @@ export class TranslationComponent implements OnInit {
     this.statusMsg = '';
     this.isSpinning = true;
     let payload = {
-      taskId: this.currentTask._id,
-      domainId: this.currentTask.domainId,
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
       translation: this.taskRun,
       start_date: this.start_date,
       end_date: this.end_date
@@ -183,7 +183,7 @@ export class TranslationComponent implements OnInit {
 
   getPrevious(boundaryTask) {
     this.isPrevSpinning = true;
-    this.translationService.getPrevious(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
+    this.translationService.getPrevious(this.jwt_token, this.currentTask.task.domainId, boundaryTask).subscribe(run => {
       if(run.success) {
         this.currentPrevTask = run;
         let cnt = 0;
@@ -202,7 +202,7 @@ export class TranslationComponent implements OnInit {
 
   getNext(boundaryTask) {
     this.isPrevSpinning = true;
-    this.translationService.getNext(this.jwt_token, this.currentTask.domainId, boundaryTask).subscribe(run => {
+    this.translationService.getNext(this.jwt_token, this.currentTask.task.domainId, boundaryTask).subscribe(run => {
       if (run.success) {
         this.currentPrevTask = run;
         let cnt = 0;
@@ -215,6 +215,30 @@ export class TranslationComponent implements OnInit {
       if (error.status == 401) {
         this.router.navigateByUrl('/login');
       }
+      return;
+    });
+  }
+
+  skip() {
+    this.end_date = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.start_date,
+      end_date: this.end_date,
+      skip: true
+    };
+    this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.taskRun = [{ lemma: "", rating: 3 }];
+        this.prepareData();
+      }
+    }, error => { 
+      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });
   }

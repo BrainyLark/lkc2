@@ -61,11 +61,12 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 			for (let w = 0; w < tlist.length; w++) {
 				words.push({word: tlist[w]})
 			}
-			Task.findById(translationTaskId, 'conceptId lemma gloss domainId', (err, origin) => {
+			Task.findById(translationTaskId, 'conceptId synset lemma gloss domainId', (err, origin) => {
 				if (err) return handleError(res, err)
 				Task.create({
 					conceptId: origin.conceptId,
 					gloss: origin.gloss,
+					synset: origin.synset,
 					lemma: origin.lemma,
 					domainId: origin.domainId,
 					taskType: meta.tasktype.modification,

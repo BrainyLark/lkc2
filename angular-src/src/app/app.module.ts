@@ -20,6 +20,8 @@ import { DomainService } from './domain.service';
 import { TranslationComponent } from './translation/translation.component';
 import { TranslationService } from './translation.service';
 import { TaskService } from './task.service';
+import { ModificationComponent } from './modification/modification.component';
+import { ModificationService } from './modification.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { TaskService } from './task.service';
     TaskComponent,
     DomainComponent,
     TranslationComponent,
+    ModificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { TaskService } from './task.service';
     HttpClientModule,
     FlexLayoutModule
   ],
-  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService],
+  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService, ModificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

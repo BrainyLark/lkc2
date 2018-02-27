@@ -1,30 +1,33 @@
-const TaskEvent = require('../taskEvent/taskEvent.model')
+const Translation = require('../translation/translation.model')
+const Modification = require('../modification/modification.model')
+const Validation = require('../validation/validation.model')
 const meta		= require('../../meta')
 const handleError = require('../../service/ErrorHandler')
 
 module.exports.getPerformance = (req, res, next) => {
 	var userId = req.user._id
-
-	var cntData = { translation: -1, modification: -1, validation: -1 }
-
-	var getCount = (taskType, cb) => {
-		TaskEvent.count({ 
-			taskType: taskType, userId: userId, state: meta.taskstate.terminated 
-		}, (err, count) => {
+	var cntData = { }
+	var cnt = 0
+	var getCount = () => {
+		var done = () => {
+			cnt ++
+			if (cnt == 3) return res.json(cntData)
+		}
+		Translation.count({ translatorId: userId, skip: false }, (err, count) => {
 			if (err) return handleError(res, err)
-			cb(count)
+			cntData.translation = count
+			done()
+		})
+		Validation.count({ validatorId: userId, skip: false }, (err, count) => {
+			if (err) return handleError(res, err)
+			cntData.validation = count
+			done()
+		})
+		Modification.count({ modifierId: userId, skip: false }, (err, count) => {
+			if (err) return handleError(res, err)
+			cntData.modification = count
+			done()
 		})
 	}
-
-	getCount(meta.tasktype.translation, (tcnt) => {
-		getCount(meta.tasktype.modification, (mcnt) => {
-			getCount(meta.tasktype.validation, (vcnt) => {
-				cntData.translation = tcnt
-				cntData.modification = mcnt
-				cntData.validation = vcnt
-				return res.json(cntData)
-			})
-		})
-	})
-
+	getCount()
 }

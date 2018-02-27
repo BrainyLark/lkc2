@@ -58,9 +58,7 @@ module.exports.next = function (req, res, next) {
 									if (err) return handleError(res, err)
 									return res.json({ 
 										statusCode: meta.status.ok,
-										_id: task._id,
-										domainId: task.domainId, 
-										synset: task.synset 
+										task: task
 									})
 								})
 						}
@@ -90,9 +88,7 @@ module.exports.next = function (req, res, next) {
 						if (err) handleError(res, err)
 						return res.json({ 
 							statusCode: meta.status.ok, 
-							_id: task._id, 
-							domainId: task.domainId,
-							synset: task.synset
+							task: task
 						})
 					})
 				}
