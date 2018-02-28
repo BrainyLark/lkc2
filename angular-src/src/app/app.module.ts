@@ -24,6 +24,7 @@ import { ModificationComponent } from './modification/modification.component';
 import { ModificationService } from './modification.service';
 import { ValidationComponent } from './validation/validation.component';
 import { ValidationService } from './validation.service';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ValidationService } from './validation.service';
     TranslationComponent,
     ModificationComponent,
     ValidationComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

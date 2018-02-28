@@ -68,6 +68,7 @@ export class ModificationComponent implements OnInit {
   			this.currentTask.task.translatedWords.forEach(w => this.modifications.push({ preWord: w.word, postWord: '' }));
   			let cnt = 0;
         this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
+        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
   		}
   		else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;

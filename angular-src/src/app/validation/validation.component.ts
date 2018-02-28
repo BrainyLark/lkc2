@@ -52,6 +52,7 @@ export class ValidationComponent implements OnInit {
         this.currentTask.task.modifiedWords.forEach( w => this.validations.push({ word: w.word, rating: -1 }) );
         let cnt = 0;
         this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt ++; });
+        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
       }
       else if (!res.statusCode) {
         this.statusMsg = res.statusMsg;

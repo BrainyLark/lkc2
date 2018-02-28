@@ -23,7 +23,6 @@
 	z-index: 0;
 	position: absolute;
 	align-items: flex-end;
-	font-family: Roboto,sans-serif;
 	font-weight: 200;
 	font-size: 30px;
 	color: #fff;
@@ -50,7 +49,6 @@
 }
 
 p {
-	font-family: Roboto,"Helvetica Neue",sans-serif;
 	margin-top: 25%;
 	text-align: center;
 	color: black;
