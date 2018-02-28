@@ -60,7 +60,7 @@ export class TranslationComponent implements OnInit {
   prevSelectedInd = 0;
   isPrevExpanded = false;
 
-  taskRun = [{ lemma: "", rating: 3 }];
+  taskRun = [{ lemma: "", rating: -1 }];
   start_date;
   end_date;
 
@@ -105,13 +105,17 @@ export class TranslationComponent implements OnInit {
       this.snackBar.open("Орчуулах үгээ оруулаарай!", "ok", {duration:3000});
       return;
     }
+    if (formData.rating == -1) {
+      this.snackBar.open("Орчуулгын үнэлгээгээ оруулна уу!", "ok", {duration:3000});
+      return;
+    }
     formData.lemma = formData.lemma.trim();
     if (!this.regex.test(formData.lemma)) {
       this.snackBar.open("Тэмдэгт, латин үсэг эсвэл тоо орсон байна, зөвхөн монгол үсэг ашиглана!", "ok", {duration:3000});
       return;
     }
     this.alert = '';
-    this.taskRun.push({ lemma: "", rating: 3 });
+    this.taskRun.push({ lemma: "", rating: -1 });
   }
 
   clearForm(index): void {
@@ -128,7 +132,11 @@ export class TranslationComponent implements OnInit {
     }
     if (!this.taskRun.length) {
       this.snackBar.open("Илгээх өгөгдөл байхгүй байна!", "ok", {duration:3000});
-      this.taskRun.push({ lemma: "", rating: 3 });
+      this.taskRun.push({ lemma: "", rating: -1 });
+      return;
+    }
+    if (this.taskRun[i].rating == -1) {
+      this.snackBar.open("Орчуулгын үнэлгээгээ оруулна уу!", "ok", {duration:3000});
       return;
     }
     this.statusCode = 2;
@@ -143,7 +151,7 @@ export class TranslationComponent implements OnInit {
     };
     this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
       if (res.statusSuccess) {
-        this.taskRun = [{ lemma: "", rating: 3 }];
+        this.taskRun = [{ lemma: "", rating: -1 }];
         this.prepareData();
       }
     }, error => { 
@@ -233,7 +241,7 @@ export class TranslationComponent implements OnInit {
     };
     this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
       if (res.statusSuccess) {
-        this.taskRun = [{ lemma: "", rating: 3 }];
+        this.taskRun = [{ lemma: "", rating: -1 }];
         this.prepareData();
       }
     }, error => { 

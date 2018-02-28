@@ -2,7 +2,7 @@
 <div fxLayout>
 	<mat-card>
 		<mat-card-title>Засварлах</mat-card-title>
-		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийн алдааг засах <br> эсвэл алдаатай үгсийг хасна уу</mat-card-subtitle>
+		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийн алдааг засах эсвэл алдаатай үгсийг хасна уу</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 		<mat-card-content *ngIf="statusCode==1; else error;">
 			<mat-tab-group selectedIndex = "{{ selectedInd }}">
@@ -21,7 +21,7 @@
 						<input matInput placeholder="Засвар үг" [(ngModel)]="m.postWord">
 					</mat-form-field>
 					<button mat-mini-fab (click)="copyPreword(modifications.indexOf(m))" matTooltip="Энэ үгэнд засвар шаардлагагүй!" color="primary"><mat-icon>spellcheck</mat-icon></button>
-					<button mat-mini-fab (click)="clearForm(modifications.indexOf(m))" matTooltip="Энэ үг уг ойлголтод харьяалагдахгүй!" color="warn"><mat-icon>clear</mat-icon></button><br>
+					<button mat-mini-fab (click)="clearForm(modifications.indexOf(m))" matTooltip="Энэ үг уг ойлголтод харьяалагдахгүй!" color="warn"><mat-icon>clear</mat-icon></button>
 				</span>
 			</div>
 		</mat-card-content>

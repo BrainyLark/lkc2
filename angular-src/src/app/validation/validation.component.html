@@ -14,9 +14,9 @@
 			<mat-list-item *ngFor="let v of validations">
 				<p class="vwords">{{ v.word }}</p>
 				<mat-radio-group [(ngModel)]="v.rating">
-					<mat-radio-button color="primary" value="0" matTooltip="ЗӨВ"></mat-radio-button>
-					<mat-radio-button color="primary" value="1" matTooltip="БУРУУ"></mat-radio-button>
-					<mat-radio-button color="primary" value="2" matTooltip="МЭДЭХГҮЙ"></mat-radio-button>
+					<mat-radio-button color="primary" value="0" matTooltip="ЗӨВ ҮГ"><mat-icon color="primary">done</mat-icon></mat-radio-button>
+					<mat-radio-button color="warn" value="1" matTooltip="БУРУУ ҮГ"><mat-icon color="warn">clear</mat-icon></mat-radio-button>
+					<mat-radio-button color="accent" value="2" matTooltip="МЭДЭХГҮЙ БАЙНА"><mat-icon color="accent">mood_bad</mat-icon></mat-radio-button>
 				</mat-radio-group>
 				<mat-divider></mat-divider>
 			</mat-list-item>
