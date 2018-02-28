@@ -18,10 +18,10 @@ module.exports.saveUserValidationData = (req, res, next) => {
 		startDate: req.body.start_date,
 		endDate: req.body.end_date
 	}, (err, validation) => {
-		if (err) handleError(err)
+		if (err) return handleError(res, err)
 		var con = 0
 		var cb = (err, data) => {
-			if (err) handleError(err)
+			if (err) return handleError(res, err)
 			con++
 			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.validsaved.ok })
 		}

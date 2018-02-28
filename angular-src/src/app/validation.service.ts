@@ -23,4 +23,12 @@ export class ValidationService {
 	  	return this.http.get<Validation>(url, httpOptions);
     }
 
+    sendValidation(jwt_token:string, payload) {
+    	let url = this.apiRoot + '/validation';
+    	let httpOptions = {
+    		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
+    	};
+    	return this.http.post<TaskrunRes>(url, payload, httpOptions);
+    }
+
 }

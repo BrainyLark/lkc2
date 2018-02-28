@@ -32,7 +32,8 @@ export class ValidationComponent implements OnInit {
   	private loginService: LoginService, 
   	private router: Router,
   	private activatedRoute: ActivatedRoute,
-    private validationService: ValidationService) { }
+    private validationService: ValidationService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   	this.checkAuth();
@@ -84,11 +85,37 @@ export class ValidationComponent implements OnInit {
   }
 
   sendData() {
-    let a = [];
-    for (let i = 0; i < this.validations.length; i ++) {
-      a.push(this.validations[i].rating);
+    this.endDate = new Date();
+
+    //validation process
+    if (!this.isComplete()) {
+      this.snackBar.open("Шаардлагатай талбаруудыг бүрэн бөглөөрэй.", "ok", {duration:3000});
+      return;
     }
-    alert(a);
+
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.gid,
+      validations: this.validations,
+      start_date: this.startDate,
+      end_date: this.endDate
+    };
+
+    this.validationService.sendValidation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.validations = [];
+        this.prepareData();
+      }
+    }, error => {
+      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    })
+
   }
 
 }
