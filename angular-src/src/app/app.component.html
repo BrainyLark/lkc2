@@ -51,12 +51,12 @@
 
 
       <mat-menu #menuMin="matMenu">
-        <button mat-menu-item><mat-icon>info</mat-icon>төсөл</button>
-        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
-        <button mat-menu-item><mat-icon>public</mat-icon>нийтлэл</button>
+        <button mat-menu-item><mat-icon>info</mat-icon><span>төсөл</span></button>
+        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon><span>оролцох</span></button>
+        <button mat-menu-item><mat-icon>public</mat-icon><span>нийтлэл</span></button>
         <div *ngIf="!isAuth(); else profileMin">
-          <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon>нэвтрэх</button>
-          <button mat-menu-item routerLink="/register"><mat-icon>fingerprint</mat-icon>бүртгүүлэх</button>
+          <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon><span>нэвтрэх</span></button>
+          <button mat-menu-item routerLink="/register"><mat-icon>fingerprint</mat-icon><span>бүртгүүлэх</span></button>
         </div>
         <ng-template #profileMin>
           <button mat-menu-item routerLink="/profile">

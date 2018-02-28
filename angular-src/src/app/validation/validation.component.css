@@ -9,12 +9,8 @@ mat-card-title {
 	font-size: 1.8em;
 	text-transform: uppercase;
 }
-
 mat-card-subtitle {
 	font-size: 0.9em;
-}
-.example-spacer {
-  flex: 1 1 auto;
 }
 .lemma {
 	font-size: 2em;
@@ -30,15 +26,14 @@ mat-card-subtitle {
 	text-align: center;
 	width: 100%;
 }
-input {
-	font-size: 1.2em;
+.vwords {
+	font-size: 1.1em;
 }
-mat-form-field {
-	width: 30%;
-	margin: 10px;
+mat-radio-group {
+	margin-left: auto;
 }
-/deep/ label.mat-input-placeholder {
-  font-size: 1.1em;
+mat-radio-group#icons {
+	cursor: pointer;
 }
 button {
 	margin: 10px;
@@ -49,4 +44,7 @@ button {
 button.mat-button {
 	margin-left: 15px;
 	text-transform: uppercase;
+}
+mat-list-item:hover {
+	background-color: #f2f2f2;
 }

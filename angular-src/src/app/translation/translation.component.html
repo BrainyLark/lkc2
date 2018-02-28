@@ -21,7 +21,7 @@
 		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="statusCode == 1">
 			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;Өмнөх</button>
 			<span class="example-spacer"></span>
-			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getNext(currentPrevTask.data.taskId)">Дараах&nbsp;&nbsp;<mat-icon>arrow_forward</mat-icon></button>
+			<button mat-button color="primary" style="float: right;" *ngIf="currentPrevTask.success" (click)="getNext(currentPrevTask.data.taskId)">Дараах&nbsp;&nbsp;<mat-icon>arrow_forward</mat-icon></button>
 		</mat-card-actions>
 	</mat-card>
 	<mat-card [@mainCardPosition]="mainState" (click)="setMainState()" class="current" (keydown.control.enter)="sendData()">
@@ -53,7 +53,7 @@
 		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
-				<button mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button style="float: left;" color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
 				<button mat-button color="primary" (click)="skip()">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>

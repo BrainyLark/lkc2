@@ -17,8 +17,8 @@ export class ModificationComponent implements OnInit {
   gid: string;
   statusCode: number = 2;
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
-  startDate;
-  endDate;
+  startDate: Date;
+  endDate: Date;
 
   currentTask: Modification;
   language = language;
@@ -67,7 +67,7 @@ export class ModificationComponent implements OnInit {
   			this.currentTask = res;
   			this.currentTask.task.translatedWords.forEach(w => this.modifications.push({ preWord: w.word, postWord: '' }));
   			let cnt = 0;
-        	this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
+        this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
   		}
   		else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;

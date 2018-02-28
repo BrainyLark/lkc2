@@ -1,0 +1,38 @@
+<br>
+<mat-card>
+	<mat-card-title>Үнэлэх</mat-card-title>
+	<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ээс оновчтой тохирохыг нь үнэлнэ үү</mat-card-subtitle>
+	<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+	<mat-card-content *ngIf="statusCode==1; else error;">
+		<mat-tab-group selectedIndex = "{{ selectedInd }}">
+			<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId]}}">
+				<br><p class="lemma"> {{ synset.lemma }}</p><br>
+				<p class="gloss"> {{ synset.gloss }} </p>
+			</mat-tab>
+		</mat-tab-group>
+		<mat-list>
+			<mat-list-item *ngFor="let v of validations">
+				<p class="vwords">{{ v.word }}</p>
+				<mat-radio-group [(ngModel)]="v.rating">
+					<mat-radio-button color="primary" value="0" matTooltip="ЗӨВ"></mat-radio-button>
+					<mat-radio-button color="primary" value="1" matTooltip="БУРУУ"></mat-radio-button>
+					<mat-radio-button color="primary" value="2" matTooltip="МЭДЭХГҮЙ"></mat-radio-button>
+				</mat-radio-group>
+				<mat-divider></mat-divider>
+			</mat-list-item>
+		</mat-list>
+	</mat-card-content>
+	<mat-divider></mat-divider>
+	<mat-card-actions *ngIf="statusCode == 1">
+		<div class="right-side">
+			<button [style.float]="'left'" mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+			<button mat-button color="primary">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+			<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+		</div>
+	</mat-card-actions>
+	<ng-template #error>
+		<div *ngIf="!statusCode" class="alert">
+			<p>{{ statusMsg }}</p>
+		</div>
+	</ng-template>
+</mat-card>

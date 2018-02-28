@@ -5,7 +5,8 @@ mat-card {
   flex: 1 1 auto;
 }
 mat-card.current {
-	width: 50%;
+	max-width: 660px;
+	min-width: 50%;
 	height: 100%;
 }
 mat-card.previous {
@@ -28,7 +29,7 @@ button {
 
 .lemma {
 	font-size: 2em;
-	font-weight: 600px;
+	font-weight: 500;
 }
 
 .right-side {
@@ -42,7 +43,6 @@ mat-card-title {
 
 mat-card-subtitle {
 	font-size: 0.9em;
-	text-transform: uppercase;
 }
 
 .alert {
@@ -69,5 +69,5 @@ mat-card-subtitle {
 	font-size: 2.9em;
 }
 .gloss {
-	font-size: 1.5em;
+	font-size: 1.3em;
 }

@@ -12,7 +12,8 @@
 	background: #E5E7E9;
 	position: absolute;
 	z-index: -1;
-	display: none;
+	opacity: 0;
+	transition: 0.3s ease;
 }
 
 .layer-two {
@@ -30,7 +31,7 @@
 }
 
 .layer-two:hover + .layer-half {
-	display: block;
+	opacity: 1;
 }
 
 .absolute-center {

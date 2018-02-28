@@ -7,6 +7,7 @@ import { TaskComponent } from './task/task.component';
 import { DomainComponent } from './domain/domain.component';
 import { TranslationComponent } from './translation/translation.component';
 import { ModificationComponent } from './modification/modification.component';
+import { ValidationComponent } from './validation/validation.component';
 
 const routes: Routes = [
 	{ path: 'register', component: RegisterComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
 	{ path: 'task', component: TaskComponent },
 	{ path: 'task/:id', component: DomainComponent },
 	{ path: 'task/1/:gid', component: TranslationComponent },
-	{ path: 'task/2/:gid', component: ModificationComponent }
+	{ path: 'task/2/:gid', component: ModificationComponent },
+	{ path: 'task/3/:gid', component: ValidationComponent }
 ]
 
 @NgModule({

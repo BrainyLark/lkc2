@@ -40,3 +40,26 @@ export class Modification {
 		}]
 	}
 }
+
+export class Validation {
+	statusCode: number;
+	statusMsg: string;
+	task: {
+		_id: string,
+		conceptId: number,
+		domainId: number,
+		_modificationTaskId: string,
+		synset: [{
+			languageCode: string,
+			vocabularyId: number,
+			concept: string,
+			gloss: string,
+			lemma: string,
+			_id: string
+		}],
+		modifiedWords: [{
+			word: string,
+			_id: string
+		}]
+	}
+}
