@@ -24,6 +24,10 @@ export class AppComponent {
   	}
   }
 
+  ngOnInit() {
+    document.body.classList.add('bg-img');
+  }
+
   exit(): void {
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('user');
