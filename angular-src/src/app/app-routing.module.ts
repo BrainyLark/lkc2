@@ -9,8 +9,10 @@ import { TranslationComponent } from './translation/translation.component';
 import { ModificationComponent } from './modification/modification.component';
 import { ValidationComponent } from './validation/validation.component';
 import { ProjectComponent } from './project/project.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+	{ path: '', component: HomeComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'profile', component: ProfileComponent },

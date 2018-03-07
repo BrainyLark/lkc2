@@ -1,0 +1,26 @@
+.center-side {
+	text-align: center;
+}
+mat-form-field {
+	width: 30%;
+}
+input {
+	font-size: 1.3em;
+}
+/deep/ label.mat-input-placeholder {
+  font-size: 1.1em;
+}
+mat-card {
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 660px;
+	min-width: 50%;
+	height: 100%;
+}
+mat-card-title {
+	font-size: 1.8em;
+	text-transform: uppercase;
+}
+button {
+	text-transform: uppercase;
+}

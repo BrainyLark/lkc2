@@ -1,10 +1,10 @@
 <div fxHide.lt-sm fxShow="true">  
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-    <button mat-button routerLink="/">Нутгийн Мэдлэгийн Цөм</button>
-    <button mat-button routerLink="/project"><mat-icon>info</mat-icon>төсөл</button>
-    <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>оролцох</button>
-    <button mat-button><mat-icon>public</mat-icon>нийтлэл</button>
+    <button mat-button routerLink="/">{{ "nav.title" | translate }}</button>
+    <button mat-button routerLink="/project"><mat-icon>info</mat-icon>{{ "nav.project" | translate }}</button>
+    <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>{{ "nav.challenge" | translate }}</button>
+    <button mat-button><mat-icon>public</mat-icon>{{ "nav.publication" | translate }}</button>
 
     <span class="example-spacer"></span>
     <div *ngIf="!isAuth(); else profile">
@@ -21,15 +21,15 @@
       <mat-menu #menu="matMenu">
           <button mat-menu-item routerLink="/profile">
               <mat-icon>account_circle</mat-icon>
-              <span>Профайл</span>
+              <span>{{ "nav.profile" | translate }}</span>
           </button>
           <button mat-menu-item disabled>
               <mat-icon>settings</mat-icon>
-              <span>Тохируулга</span>
+              <span>{{ "nav.config" | translate }}</span>
           </button>
           <button mat-menu-item (click)="exit()">
               <mat-icon>power_settings_new</mat-icon>
-              <span>Гарах</span>
+              <span>{{ "nav.logout" | translate }}</span>
           </button>
       </mat-menu>
 
@@ -41,7 +41,7 @@
 <div fxShow.lt-sm="true" fxHide>
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button mat-button routerLink="/">Нутгийн Мэдлэгийн Цөм</button>
+      <button mat-button routerLink="/">{{ "nav.title" | translate }}</button>
       
       <span class="example-spacer"></span>
       
@@ -51,21 +51,21 @@
 
 
       <mat-menu #menuMin="matMenu">
-        <button mat-menu-item routerLink="/project"><mat-icon>info</mat-icon><span>төсөл</span></button>
-        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon><span>оролцох</span></button>
-        <button mat-menu-item><mat-icon>public</mat-icon><span>нийтлэл</span></button>
+        <button mat-menu-item routerLink="/project"><mat-icon>info</mat-icon><span>{{ "nav.project" | translate }}</span></button>
+        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon><span>{{ "nav.challenge" | translate }}</span></button>
+        <button mat-menu-item><mat-icon>public</mat-icon><span>{{ "nav.publication" | translate }}</span></button>
         <div *ngIf="!isAuth(); else profileMin">
-          <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon><span>нэвтрэх</span></button>
-          <button mat-menu-item routerLink="/register"><mat-icon>fingerprint</mat-icon><span>бүртгүүлэх</span></button>
+          <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon><span>{{ "nav.login" | translate }}</span></button>
+          <button mat-menu-item routerLink="/register"><mat-icon>fingerprint</mat-icon><span>{{ "nav.register" | translate }}</span></button>
         </div>
         <ng-template #profileMin>
           <button mat-menu-item routerLink="/profile">
               <mat-icon>account_circle</mat-icon>
-              <span>Профайл</span>
+              <span>{{ "nav.profile" | translate }}</span>
           </button>
           <button mat-menu-item (click)="exit()">
               <mat-icon>power_settings_new</mat-icon>
-              <span>Гарах</span>
+              <span>{{ "nav.logout" | translate }}</span>
           </button>
         </ng-template>
       </mat-menu>

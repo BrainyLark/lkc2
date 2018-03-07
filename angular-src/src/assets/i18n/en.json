@@ -1,0 +1,44 @@
+{
+	"nav": {
+	    "title" : "local knowledge core",
+	    "project" : "project",
+	    "challenge" : "challenge",
+	    "publication" : "publications",
+	    "login" : "login",
+	    "register" : "sign up",
+	    "profile" : "profile",
+	    "config" : "configurations",
+	    "logout" : "log out"
+	},
+	"home": {
+		"welcome": "Welcome!",
+		"choose": "Choose your language",
+		"challenge": "Challenge"
+	},
+	"task": {
+		"translate": "Translate",
+		"modify": "Modify",
+		"validate": "Validate",
+		"localize": "Localize",
+		"progress": "My Participation",
+		"translated": "Translated",
+		"modified": "Modified",
+		"validated": "Validated",
+		"send_feedback": "Send feedback!",
+		"design_notification": "The Front-End design has been motivated by <a href='https://translate.google.com/community'>Google Translate Community</a>!",
+		"tr_desc": "Allocate mongolian words corresponding to a given concept in multilingual forms",
+		"md_desc": "Correct mistakes found in given mongolian words of a concept",
+		"vd_desc": "Validate list of mongolian words that define its concept",
+		"loc_desc": "Get introduced to primary stages of localizing ontology"
+	},
+	"from": {
+		"en": "English",
+		"it": "Italian",
+		"es": "Espanish",
+		"zh": "Chinese",
+		"in": "Indonesian"
+	},
+	"domain": {
+		"headline": "Please localize concept sets in multilingual terms into Mongolian!"
+	}
+}

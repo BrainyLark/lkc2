@@ -1,9 +1,9 @@
 <mat-card>
-	<h1>Олон хэлээр илэрхийлсэн ойлголтын багцуудаас сонгож Монгол хэлнээ нутагшуулна уу!</h1>
+	<h1>{{ "domain.headline" | translate }}</h1>
 </mat-card>
 
 <nav mat-tab-nav-bar fxHide.lt-sm="true" fxShow>
-	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang }}</a>
+	<a mat-tab-link *ngFor="let link of navLinks" [active]="link.isActive" (click)="updateLang( link.vid )">{{ link.lang | translate }}</a>
 </nav>
 
 <div style="text-align: center;" fxShow.lt-sm="true" fxHide><br>

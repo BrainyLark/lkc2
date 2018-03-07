@@ -4,10 +4,10 @@
             <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label yellow">Орчуулах</span>
+            <span class="label yellow">{{ "task.translate" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Олон хэлээр илэрхийлсэн ойлголтод тохирох<br> монгол үг(с)ийг оноож бичих</p>
+            <p>{{ "task.tr_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
@@ -15,21 +15,21 @@
             <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label purple">Засварлах</span>
+            <span class="label purple">{{ "task.modify" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Ойлголтод тохирох монгол үг(с)ийн алдааг засах</p>
+            <p>{{ "task.md_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="2" style="margin: auto;">
         <mat-card class="card">
-            <mat-card-title>Миний оролцоо</mat-card-title>
+            <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
             <mat-divider></mat-divider>
             <mat-list>
                 <mat-chip-list>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Орчуулсан:&nbsp;<mat-chip selected="true">{{ performance.translation }}</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Засварласан:&nbsp;<mat-chip selected="true">{{ performance.modification }}</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>Үнэлсэн:&nbsp;<mat-chip selected="true">{{ performance.validation }}</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.translated" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.translation }}</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.modified" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.modification }}</mat-chip></mat-list-item>
+                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.validated" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.validation }}</mat-chip></mat-list-item>
                 </mat-chip-list>
             </mat-list>
             <br>
@@ -37,9 +37,9 @@
             <br>
                 <mat-card-content>
                     <ul>
-                        <li><mat-icon color="primary">feedback</mat-icon>&nbsp; Фийдбэйк явуулах</li>
+                        <li><mat-icon color="primary">feedback</mat-icon>&nbsp; {{ "task.send_feedback" | translate }}</li>
                     
-                        <li><mat-icon color="primary">notifications_active</mat-icon> Фронт-Энд загварыг <a href="https://translate.google.com/community">Google Translate Community</a> - н загвараас санаа авч зохиомжлов!</li>
+                        <li><mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div></li>
                     </ul>
                 </mat-card-content>
         </mat-card>
@@ -49,10 +49,10 @@
             <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label red">Үнэлэх</span>
+            <span class="label red">{{ "task.validate" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Ойлголтыг оновчтой илэрхийлэх монгол үг(с)ийг үнэлэх</p>
+            <p>{{ "task.vd_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
@@ -60,10 +60,10 @@
             <img width="100%" src="assets/img/guide.png">
         </div>
         <div class="layer-two">
-            <span class="label blue">Нутагшуулах</span>
+            <span class="label blue">{{ "task.localize" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Онтологи нутагшуулах үе шатуудтай танилцах</p>
+            <p>{{ "task.loc_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
 </mat-grid-list>
@@ -74,10 +74,10 @@
             <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label yellow">Орчуулах</span>
+            <span class="label yellow">{{ "task.translate" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Олон хэлээр илэрхийлсэн ойлголтод тохирох монгол үг(с)ийг оноож бичих</p>
+            <p>{{ "task.tr_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile rowspan="1" routerLink="2">
@@ -85,10 +85,10 @@
             <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label purple">Засварлах</span>
+            <span class="label purple">{{ "task.modify" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Ойлголтод тохирох монгол үг(с)ийн алдааг засах</p>
+            <p>{{ "task.md_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile rowspan="1" routerLink="3">
@@ -96,10 +96,10 @@
             <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label red">Үнэлэх</span>
+            <span class="label red">{{ "task.validate" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Ойлголтыг оновчтой илэрхийлэх монгол үг(с)ийг үнэлэх</p>
+            <p>{{ "task.vd_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
     <mat-grid-tile rowspan="1">
@@ -107,10 +107,10 @@
             <img width="100%" src="assets/img/guide.png">
         </div>
         <div class="layer-two">
-            <span class="label blue">Нутагшуулах</span>
+            <span class="label blue">{{ "task.localize" | translate }}</span>
         </div>
         <div class="layer-half">
-            <p>Онтологи нутагшуулах үе шатуудтай танилцах</p>
+            <p>{{ "task.loc_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
 </mat-grid-list>

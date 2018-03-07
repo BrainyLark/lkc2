@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     		localStorage.setItem('user', JSON.stringify(res.user));
     		this.isSpinning = false;
     		this.snackBar.open("Амжилттай нэвтэрлээ~! Хөгжилтэй цагийг өнгөрүүлээрэй! xD", "Ok", { duration: 3000 });
-    		this.router.navigateByUrl('/');
+    		this.router.navigateByUrl('/task');
     	} else {
     		this.snackBar.open(res.msg, "За", { duration: 3000 });
     		this.isSpinning = false;

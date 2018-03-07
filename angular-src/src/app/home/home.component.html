@@ -1,0 +1,17 @@
+<br><mat-card>
+	<mat-card-title>{{ "home.welcome" | translate }}</mat-card-title>
+	<mat-card-content>
+		
+		<mat-form-field>
+		  <mat-select placeholder='{{ "home.choose" |translate }}'>
+		    <mat-option (click)="changeLang('mn')">Монгол (mn)</mat-option>
+		    <mat-option (click)="changeLang('en')">English (en)</mat-option>
+		  </mat-select>
+		</mat-form-field>
+		<br>
+		<button mat-raised-button color="primary" routerLink="task">
+			{{ "home.challenge" | translate }}
+		</button>
+
+	</mat-card-content>
+</mat-card>

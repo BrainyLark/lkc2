@@ -26,7 +26,7 @@ button {
 }
 /deep/.mat-tab-label, /deep/.mat-tab-label-active{
  min-width: 100px !important;
- font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
  font-size: 1.2em;
 }
 .lemma {

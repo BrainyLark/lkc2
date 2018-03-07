@@ -26,6 +26,16 @@ import { ValidationComponent } from './validation/validation.component';
 import { ValidationService } from './validation.service';
 import { ProjectComponent } from './project/project.component';
 
+import {HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HomeComponent } from './home/home.component';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +48,7 @@ import { ProjectComponent } from './project/project.component';
     ModificationComponent,
     ValidationComponent,
     ProjectComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +58,14 @@ import { ProjectComponent } from './project/project.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService, ModificationService, ValidationService],
   bootstrap: [AppComponent]
