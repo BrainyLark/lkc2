@@ -7,12 +7,13 @@ const TranslationSchema = mongoose.Schema({
       translatorId:	{ type: String, required: true },
       translation:	[{ lemma: String, rating: Number }],
       gap:			{ type: Boolean, required: true, default: false },
+      gapReason: 	{ type: String, default: null },
       skip:			{ type: Boolean, required: true, default: false },
       startDate:		{ type: Date, required: true },
       endDate:		{ type: Date, required: true }
-}, { timestamps: true })
+}, { discriminatorKey: 'gap', timestamps: true })
 
-const Translation = module.exports = mongoose.model('Translation', TranslationSchema);
+const Translation = module.exports = mongoose.model('Translation', TranslationSchema)
 
 module.exports.findBySettings = function(settings, callback) {
 	const query = {}

@@ -1,7 +1,7 @@
 <br>
 <div fxLayout>
 	<mat-card [@prevCardPosition]="prevState" (click)="setPrevState()" fxHide.lt-sm="true" fxShow class="previous">
-		<mat-card-title>Сэргээе</mat-card-title>
+		<mat-card-title>Өмнө нь</mat-card-title>
 		<mat-card-subtitle>
 			Түр байзаарай, би өмнө юу гэж орчууллаа?
 		</mat-card-subtitle>
@@ -48,12 +48,19 @@
 					<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
 				</ng-template>
 			</div>
+
+			<div *ngIf="isGapActivated">
+				<mat-form-field>
+					<input type="text" placeholder="Дүйцэлгүй ойлголт гэж дүгнэсэн шалтгаанаа оруулна уу">
+				</mat-form-field>
+				<button mat-mini-fab color="primary"><mat-icon>send</mat-icon></button>
+			</div>
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
-				<button mat-button style="float: left;" color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button style="float: left;" color="primary" (click)="activateGap()">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
 				<button mat-button color="primary" (click)="skip()">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>

@@ -67,6 +67,8 @@ export class TranslationComponent implements OnInit {
   prevState = 'inactive';
   mainState = 'active';
 
+  isGapActivated = false;
+
   constructor(
   	private translationService: TranslationService, 
   	public router: Router, 
@@ -252,6 +254,10 @@ export class TranslationComponent implements OnInit {
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });
+  }
+
+  activateGap() {
+    this.isGapActivated = !this.isGapActivated;
   }
 
 }

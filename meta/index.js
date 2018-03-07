@@ -22,6 +22,10 @@ module.exports = {
 		ongoing: false,
 		terminated: true
 	},
+	gapState: {
+		isgap: true,
+		notgap: false
+	},
 	ub_ids: [
 		161, 119, 124, 129, 15355, 127, 145, 138,
 		131, 123, 40, 132, 83505, 121, 61558, 118, 120,

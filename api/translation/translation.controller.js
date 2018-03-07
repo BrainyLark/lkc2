@@ -85,6 +85,7 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 		translation: req.body.translation,
 		skip: req.body.skip || false,
 		gap: req.body.gap || false,
+		gapReason: req.body.gapReason || null,
 		startDate: req.body.start_date,
 		endDate: req.body.end_date
 	}, (err, translation) => {
