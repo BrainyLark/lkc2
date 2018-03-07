@@ -1,6 +1,6 @@
-# Mongolian LKC
+# LKC Crowdsourcing platform
 
-Нутгийн Мэдлэгийн цөмийг олны хүчээр үүсгэх MnLKC систем
+This is a crowdsourcing system dedicated to the LKC.
 
 ## Getting Started
 
@@ -78,6 +78,7 @@ $ nodemon
 * **Erdenebileg Byambadorj** - *Back&Front* - [BrainyLark](https://github.com/BrainyLark)
 * **Javkhlan Batsaikhan** - *Front* - [bjavkhlan](https://github.com/bjavkhlan)
 * **Enkhsanaa Natsagdorj** - *Back&Front* [enkhsanaa](https://github.com/enkhsanaa)
+* **Amarsanaa Ganbold** - *Front* [amarsanaa](https://github.com/amarsanaag)
 
 
 ## License
