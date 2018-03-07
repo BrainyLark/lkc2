@@ -6,6 +6,7 @@ import { TranslationRes } from '../model/response';
 import { LoginService } from '../login.service';
 import { language } from '../meta';
 import { MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 import 'rxjs/add/operator/catch';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -74,7 +75,8 @@ export class TranslationComponent implements OnInit {
   	public router: Router, 
   	private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.checkAuth();
@@ -93,7 +95,7 @@ export class TranslationComponent implements OnInit {
   			this.currentTask = res;
         let cnt = 0;
         this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
-        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
+        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
         this.getPrevious(this.currentTask.task._id);
       }
       else if (!res.statusCode) {
@@ -105,16 +107,22 @@ export class TranslationComponent implements OnInit {
   addForm(): void {
     let formData = this.taskRun[this.taskRun.length - 1];
     if (!formData.lemma.trim().length) {
-      this.snackBar.open("Орчуулах үгээ оруулаарай!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.no_word").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       return;
     }
     if (formData.rating == -1) {
-      this.snackBar.open("Орчуулгын үнэлгээгээ оруулна уу!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.no_rating").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       return;
     }
     formData.lemma = formData.lemma.trim();
     if (!this.regex.test(formData.lemma)) {
-      this.snackBar.open("Тэмдэгт, латин үсэг эсвэл тоо орсон байна, зөвхөн монгол үсэг ашиглана!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.no_char").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       return;
     }
     this.alert = '';
@@ -134,12 +142,16 @@ export class TranslationComponent implements OnInit {
       if (i < 0) break;
     }
     if (!this.taskRun.length) {
-      this.snackBar.open("Илгээх өгөгдөл байхгүй байна!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.no_data").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       this.taskRun.push({ lemma: "", rating: -1 });
       return;
     }
     if (this.taskRun[i].rating == -1) {
-      this.snackBar.open("Орчуулгын үнэлгээгээ оруулна уу!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.no_rating").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       return;
     }
     this.statusCode = 2;
@@ -158,7 +170,9 @@ export class TranslationComponent implements OnInit {
         this.prepareData();
       }
     }, error => { 
-      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.save_err").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });
@@ -199,9 +213,11 @@ export class TranslationComponent implements OnInit {
         this.currentPrevTask = run;
         let cnt = 0;
         this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
-        this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
+        this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
       } else {
-        this.snackBar.open("Энэ айд үүнээс өмнө даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
+        this.translate.get("tr_alerts.no_prev").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       }
       this.isPrevSpinning = false;
     }, error => {
@@ -219,9 +235,11 @@ export class TranslationComponent implements OnInit {
         this.currentPrevTask = run;
         let cnt = 0;
         this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
-        this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
+        this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
       } else {
-        this.snackBar.open("Энэ айд үүний дараа даалгавар гүйцэтгээгүй байна!", "ok", {duration:3000});
+        this.translate.get("tr_alerts.no_next").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       }
       this.isPrevSpinning = false;
     }, error => {
@@ -250,7 +268,9 @@ export class TranslationComponent implements OnInit {
         this.prepareData();
       }
     }, error => { 
-      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      this.translate.get("tr_alerts.save_err").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });

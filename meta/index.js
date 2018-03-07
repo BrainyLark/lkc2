@@ -46,34 +46,34 @@ module.exports = {
 				desc: "Энэ оройн бүх хүүхдийн даалгавар үүсгэгдлээ! Дараагийн хүүхэд рүү шилжиж байна! Үүссэн: "
 			},
 			task: {
-				unavailable: "Энэ айд таны сонгосон төрлийн идэвхитэй даалгавар байхгүй байна, өөр айд шилжинэ үү!"
+				unavailable: "res.task.unavail"
 			},
 			transaved: {
-				ok: "Орчуулгыг амжилттай хадгаллаа! Таны хувь нэмэрт талархлаа!",
-				null: "Орчуулгыг хадгалахад алдаа гарлаа!"
+				ok: "res.trans.saved",
+				null: "res.trans.err"
 			},
 			modsaved: {
-				ok: "Засварлалтын даалгаврын хувь нэмэр амжилттай хадгалагдлаа!",
-				null: "Засварлалтын өгөгдлийг хадгалахад алдаа гарлаа, дахин хянана уу!"
+				ok: "res.mod.saved",
+				null: "res.mod.err"
 			},
 			truncated: {
 				ok: "Коллекцийг хоослож дууслаа!",
 				null: "Коллекцийг хоослоход алдаа гарлаа, хянана уу!"
 			},
 			user: {
-				changeuname: " оролцогч бүртгэлтэй байна. Өөр нэр сонгоно уу!",
+				changeuname: "res.auth.change_uname",
 				register: {
-					ok: "Оролцогч амжилттай бүртгэгдлээ!",
-					null: "Оролцогчийг бүртгэх боломжгүй байна!"
+					ok: "res.auth.reg_success",
+					null: "res.auth.not_possible"
 				},
 				auth: {
-					notfound: "Оролцогч олдсонгүй!",
-					wpass: "Нууц үг буруу байна!"
+					notfound: "res.auth.not_found",
+					wpass: "res.auth.wrong_pass"
 				}
 			},
 			validsaved: {
-				ok: "Үнэлгээ амжилттай хадгалагдлаа! Баярлалаа!",
-				null: "Үнэлгээг хадгалахад алдаа гарлаа! Дахин хянана уу!"
+				ok: "res.valid.saved",
+				null: "res.valid.err"
 			}
 		},
 		en: {

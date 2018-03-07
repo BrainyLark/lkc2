@@ -32,7 +32,7 @@
 	</mat-card-actions>
 	<ng-template #error>
 		<div *ngIf="!statusCode" class="alert">
-			<p>{{ statusMsg }}</p>
+			<p>{{ statusMsg | translate }}</p>
 		</div>
 	</ng-template>
 </mat-card>

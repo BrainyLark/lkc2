@@ -1,13 +1,13 @@
 <br>
 <div fxLayout>
 	<mat-card [@prevCardPosition]="prevState" (click)="setPrevState()" fxHide.lt-sm="true" fxShow class="previous">
-		<mat-card-title>Өмнө нь</mat-card-title>
+		<mat-card-title>{{ "translation.ptitle" | translate }}</mat-card-title>
 		<mat-card-subtitle>
-			Түр байзаарай, би өмнө юу гэж орчууллаа?
+			{{ "translation.psubtitle" | translate }}
 		</mat-card-subtitle>
 		<mat-card-content [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="currentPrevTask.success">
 			<mat-tab-group selectedIndex="{{prevSelectedInd}}">
-				<mat-tab *ngFor="let s of currentPrevTask.data.synset" label="{{ language[s.vocabularyId] }}">
+				<mat-tab *ngFor="let s of currentPrevTask.data.synset" label="{{ language[s.vocabularyId] | translate }}">
 					<br><p class="lemma"> {{ s.lemma }} </p><br>
 					<p class="gloss"> {{ s.gloss }} </p>
 				</mat-tab>
@@ -19,18 +19,18 @@
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions [style.display]="isPrevExpanded ? 'block' : 'none'" *ngIf="statusCode == 1">
-			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;Өмнөх</button>
+			<button mat-button color="primary" *ngIf="currentPrevTask.success" (click)="getPrevious(currentPrevTask.data.taskId)"><mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;{{ "translation.prev" | translate }}</button>
 			<span class="example-spacer"></span>
-			<button mat-button color="primary" style="float: right;" *ngIf="currentPrevTask.success" (click)="getNext(currentPrevTask.data.taskId)">Дараах&nbsp;&nbsp;<mat-icon>arrow_forward</mat-icon></button>
+			<button mat-button color="primary" style="float: right;" *ngIf="currentPrevTask.success" (click)="getNext(currentPrevTask.data.taskId)">{{ "translation.next" | translate }}&nbsp;&nbsp;<mat-icon>arrow_forward</mat-icon></button>
 		</mat-card-actions>
 	</mat-card>
 	<mat-card [@mainCardPosition]="mainState" (click)="setMainState()" class="current" (keydown.control.enter)="sendData()">
-		<mat-card-title>Орчуулга</mat-card-title>
-		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийг оноож бичнэ үү</mat-card-subtitle>
+		<mat-card-title>{{ "translation.title" | translate }}</mat-card-title>
+		<mat-card-subtitle>{{ "translation.subtitle" | translate }}</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 		<mat-card-content *ngIf="statusCode == 1; else error;">
 			<mat-tab-group selectedIndex="{{ selectedInd }}">
-				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId]}}">
+				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
 					<br><p class="lemma"> {{ synset.lemma }}</p><br>
 					<p class="gloss"> {{ synset.gloss }} </p>
 				</mat-tab>
@@ -38,36 +38,30 @@
 
 			<div *ngFor="let run of taskRun">
 				<mat-form-field class="word">
-					<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder="Орчуулга үг">
+					<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder='{{ "translation.lemma" | translate }}'>
 				</mat-form-field>
-				<span matTooltip="Миний орчуулсан үгийн үнэлгээ!">
+				<span matTooltip='{{ "translation.prating" | translate }}'>
 					<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
 				</span>
-				<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip="Синсетийн шинэ үг нэмэх!" matTooltipPosition="after"><mat-icon>add</mat-icon></button>
+				<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip='{{ "translation.add" | translate }}' matTooltipPosition="after"><mat-icon>add</mat-icon></button>
 				<ng-template #clearBtn>
-					<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip="Энэ үгийг арилгах!" matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
+					<button mat-mini-fab color="warn" (click)="clearForm(taskRun.indexOf(run))" matTooltip='{{ "translation.clear" | translate }}' matTooltipPosition="after"><mat-icon>clear</mat-icon></button>
 				</ng-template>
 			</div>
 
-			<div *ngIf="isGapActivated">
-				<mat-form-field>
-					<input type="text" placeholder="Дүйцэлгүй ойлголт гэж дүгнэсэн шалтгаанаа оруулна уу">
-				</mat-form-field>
-				<button mat-mini-fab color="primary"><mat-icon>send</mat-icon></button>
-			</div>
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
 				<p class="alert">{{ alert }}</p>
 				<button mat-button style="float: left;" color="primary" (click)="activateGap()">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
-				<button mat-button color="primary" (click)="skip()">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
-				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+				<button mat-button color="primary" (click)="skip()">{{ "translation.skip" | translate }}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button color="primary" (click)="sendData()">{{ "translation.send" | translate }}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>
 		</mat-card-actions>
 		<ng-template #error>
 			<div *ngIf="!statusCode" class="alert">
-				<p>{{ statusMsg }}</p>
+				<p>{{ statusMsg | translate }}</p>
 			</div>
 		</ng-template>
 	</mat-card>

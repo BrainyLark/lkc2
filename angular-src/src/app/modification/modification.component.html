@@ -1,12 +1,12 @@
 <br>
 <div fxLayout>
 	<mat-card>
-		<mat-card-title>Засварлах</mat-card-title>
-		<mat-card-subtitle>Дараах ойлголтыг илэрхийлэх монгол үг(с)ийн алдааг засах эсвэл алдаатай үгсийг хасна уу</mat-card-subtitle>
+		<mat-card-title>{{"modification.title" | translate}}</mat-card-title>
+		<mat-card-subtitle>{{"modification.subtitle" | translate}}</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 		<mat-card-content *ngIf="statusCode==1; else error;">
 			<mat-tab-group selectedIndex = "{{ selectedInd }}">
-				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId]}}">
+				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
 					<br><p class="lemma"> {{ synset.lemma }}</p><br>
 					<p class="gloss"> {{ synset.gloss }} </p>
 				</mat-tab>
@@ -18,25 +18,24 @@
 						<input matInput [value]="m.preWord" disabled>
 					</mat-form-field>
 					<mat-form-field>
-						<input matInput placeholder="Засвар үг" [(ngModel)]="m.postWord">
+						<input matInput placeholder='{{"modification.lemma" | translate}}' [(ngModel)]="m.postWord">
 					</mat-form-field>
-					<button mat-mini-fab (click)="copyPreword(modifications.indexOf(m))" matTooltip="Энэ үгэнд засвар шаардлагагүй!" color="primary"><mat-icon>spellcheck</mat-icon></button>
-					<button mat-mini-fab (click)="clearForm(modifications.indexOf(m))" matTooltip="Энэ үг уг ойлголтод харьяалагдахгүй!" color="warn"><mat-icon>clear</mat-icon></button>
+					<button mat-mini-fab (click)="copyPreword(modifications.indexOf(m))" matTooltip='{{"modification.check" | translate}}' color="primary"><mat-icon>spellcheck</mat-icon></button>
+					<button mat-mini-fab (click)="clearForm(modifications.indexOf(m))" matTooltip='{{"modification.clear" | translate}}' color="warn"><mat-icon>clear</mat-icon></button>
 				</span>
 			</div>
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
-				<p class="alert">{{ alert }}</p>
-				<button mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
-				<button mat-button color="primary">Алгасах&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
-				<button mat-button color="primary" (click)="sendData()">Илгээх&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+				<button mat-button style="float: left;" color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button color="primary">{{"modification.skip" | translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button color="primary" (click)="sendData()">{{"modification.send" | translate}}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>
 		</mat-card-actions>
 		<ng-template #error>
 			<div *ngIf="!statusCode" class="alert">
-				<p>{{ statusMsg }}</p>
+				<p>{{ statusMsg | translate }}</p>
 			</div>
 		</ng-template>
 	</mat-card>

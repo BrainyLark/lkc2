@@ -5,6 +5,7 @@ import { LoginService } from '../login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { language } from '../meta';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-modification',
@@ -33,7 +34,8 @@ export class ModificationComponent implements OnInit {
   	private router: Router, 
   	private loginService: LoginService,
   	private activatedRoute: ActivatedRoute,
-  	private snackBar: MatSnackBar) { }
+  	private snackBar: MatSnackBar,
+    private translate: TranslateService) { }
 
   ngOnInit() {
   	this.checkAuth();
@@ -68,7 +70,7 @@ export class ModificationComponent implements OnInit {
   			this.currentTask.task.translatedWords.forEach(w => this.modifications.push({ preWord: w.word, postWord: '' }));
   			let cnt = 0;
         this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
-        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  'Тайлбар байхгүй байна.' });
+        this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
   		}
   		else if (!res.statusCode) {
   			this.statusMsg = res.statusMsg;
@@ -83,7 +85,9 @@ export class ModificationComponent implements OnInit {
     for(let w = 0; w < this.modifications.length; w++) {
       let cWord = this.modifications[w].postWord;
       if (!cWord.trim().length || !this.regex.test(cWord)) {
-        this.snackBar.open("Хүчинтэй утга оруулна уу!", "ok", {duration:3000});
+        this.translate.get("md_alerts.invalid").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
         return;
       }
     }
@@ -106,7 +110,9 @@ export class ModificationComponent implements OnInit {
         this.prepareData();
       }
     }, error => {
-      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      this.translate.get("md_alerts.save_err").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     });
@@ -114,7 +120,9 @@ export class ModificationComponent implements OnInit {
 
   clearForm(index):void {
   	if (this.modifications.length == 1) {
-  		this.snackBar.open("Сүүлийн үгийг устгах боломжгүй тул засварлана уу!", "Ok", {duration: 3000});
+  		this.translate.get("md_alerts.last").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
   		return;
   	}
   	this.modifications.splice(index, 1)
