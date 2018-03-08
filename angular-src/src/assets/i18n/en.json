@@ -64,6 +64,15 @@
 		"skip": "Skip",
 		"send": "Send"
 	},
+	"validation": {
+		"title": "Validate",
+		"subtitle": "Label given words of a concept accordingly",
+		"correct": "Correct",
+		"incorrect": "Incorrect",
+		"dunno": "Can't tell",
+		"skip": "Skip",
+		"send": "Send"
+	},
 	"lang": {
 		"en": "English",
 		"it": "Italian",
