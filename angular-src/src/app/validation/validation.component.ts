@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { language } from '../meta';
 import { ValidationService } from '../validation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-validation',
@@ -19,6 +20,8 @@ export class ValidationComponent implements OnInit {
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
   startDate: Date;
   endDate: Date;
+  isGap:boolean = false;
+  gapReason:string = '';
 
   currentTask: Validation;
   language = language;
@@ -29,6 +32,7 @@ export class ValidationComponent implements OnInit {
   validations = [];
 
   constructor(
+    private translate: TranslateService,
   	private loginService: LoginService, 
   	private router: Router,
   	private activatedRoute: ActivatedRoute,
@@ -85,12 +89,60 @@ export class ValidationComponent implements OnInit {
     return true;
   }
 
+  checkGapReason() {
+    if (!this.gapReason.trim().length) {
+      this.translate.get('tr_alerts.no_gapreason').subscribe(msg => {
+        this.snackBar.open(msg, 'Ok', {duration: 3000});
+      });
+      return false;
+    }
+    return true;
+  }
+
+  sendAsGap() {
+    if (!this.checkGapReason()) return;
+    this.endDate = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      gap: true,
+      gapReason: this.gapReason,
+      validations: [{ word: "GAP", rating: 5 }]
+    };
+    this.isGap = false;
+    this.gapReason = '';
+    this.validationService.sendValidation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.validations = [];
+        this.prepareData();
+      }
+    }, error => {
+      this.translate.get("vd_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    })
+  }
+
   sendData() {
+    if (this.isGap) {
+      this.sendAsGap();
+      return;
+    }
+
     this.endDate = new Date();
 
     //validation process
     if (!this.isComplete()) {
-      this.snackBar.open("Шаардлагатай талбаруудыг бүрэн бөглөөрэй.", "ok", {duration:3000});
+      this.translate.get("vd_alerts.invalid").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       return;
     }
 
@@ -112,11 +164,42 @@ export class ValidationComponent implements OnInit {
         this.prepareData();
       }
     }, error => {
-      this.snackBar.open("Орчуулгыг хадгалахад алдаа гарлаа, та дахин оролдоно уу!", "ok", {duration:3000});
+      this.translate.get("vd_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       if (error.status == 401) this.router.navigateByUrl('/login');
       return;
     })
+  }
 
+  skip() {
+    this.endDate = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      skip: true
+    };
+    this.validationService.sendValidation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.validations = [];
+        this.prepareData();
+      }
+    }, error => { 
+      this.translate.get("vd_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
+  }
+
+  activateGap() {
+    this.isGap = !this.isGap;
   }
 
 }

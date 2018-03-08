@@ -55,3 +55,6 @@ button.mat-button {
 	margin-left: 15px;
 	text-transform: uppercase;
 }
+mat-form-field#gap {
+	width: 80%;
+}

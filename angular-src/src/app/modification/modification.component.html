@@ -24,12 +24,19 @@
 					<button mat-mini-fab (click)="clearForm(modifications.indexOf(m))" matTooltip='{{"modification.clear" | translate}}' color="warn"><mat-icon>clear</mat-icon></button>
 				</span>
 			</div>
+
+			<div [style.display]="isGap ? 'block' : 'none'">
+				<mat-form-field id="gap">
+					<input matInput [(ngModel)]="gapReason" placeholder="{{'gap'|translate}}">
+				</mat-form-field>
+			</div>
+
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions *ngIf="statusCode == 1">
 			<div class="right-side">
-				<button mat-button style="float: left;" color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
-				<button mat-button color="primary">{{"modification.skip" | translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button style="float: left;" color="primary" (click)="activateGap()">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+				<button mat-button color="primary" (click)="skip()">{{"modification.skip" | translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 				<button mat-button color="primary" (click)="sendData()">{{"modification.send" | translate}}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 			</div>
 		</mat-card-actions>

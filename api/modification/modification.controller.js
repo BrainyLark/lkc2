@@ -48,6 +48,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
         modifierId: user._id,
         modifiedWords: req.body.modifiedWords,
         gap: req.body.gap || false,
+        gapReason: req.body.gapReason || null,
         skip: req.body.skip || false,
         startDate: req.body.start_date,
         endDate: req.body.end_date

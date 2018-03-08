@@ -54,3 +54,6 @@ mat-radio-button {
 	margin-left: 1em;
 	margin-right: 1em;
 }
+mat-form-field#gap {
+	width: 80%;
+}

@@ -14,6 +14,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 		validator: user.username,
 		validations: req.body.validations,
 		gap: req.body.gap || false,
+		gapReason: req.body.gapReason || null,
 		skip: req.body.skip || false,
 		startDate: req.body.start_date,
 		endDate: req.body.end_date

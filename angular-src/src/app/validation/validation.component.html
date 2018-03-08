@@ -21,12 +21,20 @@
 				<mat-divider></mat-divider>
 			</mat-list-item>
 		</mat-list>
+
+		<div [style.display]="isGap ? 'block' : 'none'">
+			<br>
+			<mat-form-field id="gap">
+				<input matInput [(ngModel)]="gapReason" placeholder="{{'gap'|translate}}">
+			</mat-form-field>
+		</div>
+
 	</mat-card-content>
 	<mat-divider></mat-divider>
 	<mat-card-actions *ngIf="statusCode == 1">
 		<div class="right-side">
-			<button [style.float]="'left'" mat-button color="primary">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
-			<button mat-button color="primary">{{"validation.skip"|translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+			<button [style.float]="'left'" mat-button color="primary" (click)="activateGap()">GAP&nbsp;&nbsp;<mat-icon>event_busy</mat-icon></button>
+			<button mat-button color="primary" (click)="skip()">{{"validation.skip"|translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
 			<button mat-button color="primary" (click)="sendData()">{{"validation.send"|translate}}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
 		</div>
 	</mat-card-actions>

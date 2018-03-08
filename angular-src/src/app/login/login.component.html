@@ -8,6 +8,10 @@
 	  	<mat-form-field>
 			<input (keyup.enter)="login()" type="password" matInput placeholder='{{"login.pass"|translate}}' [(ngModel)]="password" name="pass" required>
 		</mat-form-field>
+		<div [style.display]="isSpinning ? 'block' : 'none'">
+	  		<mat-spinner [diameter]="60" style="margin: 0 auto;"></mat-spinner>
+	  		<br>
+	  	</div>
 	  	<div>
 	  		<button mat-button color="primary" routerLink="/register">{{"login.register"|translate}}</button>
 	  		<button mat-raised-button color="primary" (click)="login()">{{"login.login"|translate}}</button>

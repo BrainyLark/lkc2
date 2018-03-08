@@ -49,6 +49,12 @@
 				</ng-template>
 			</div>
 
+			<div [style.display]="isGap ? 'block' : 'none'">
+				<mat-form-field id="gap">
+					<input matInput [(ngModel)]="gapReason" placeholder="{{'gap'|translate}}">
+				</mat-form-field>
+			</div>
+
 		</mat-card-content>
 		<mat-divider></mat-divider>
 		<mat-card-actions *ngIf="statusCode == 1">

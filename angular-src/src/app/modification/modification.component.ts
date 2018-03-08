@@ -20,6 +20,8 @@ export class ModificationComponent implements OnInit {
   regex = /^[А-Я а-я\u04E9\u04AF\u0451\u04AE\u04E8\u0401]+$/i;
   startDate: Date;
   endDate: Date;
+  isGap:boolean = false;
+  gapReason:string = '';
 
   currentTask: Modification;
   language = language;
@@ -78,13 +80,59 @@ export class ModificationComponent implements OnInit {
   	}, error => { if (error.status == 401) {this.router.navigateByUrl('/login'); return;} })
   }
 
+  checkGapReason() {
+    if (!this.gapReason.trim().length) {
+      this.translate.get('tr_alerts.no_gapreason').subscribe(msg => {
+        this.snackBar.open(msg, 'Ok', {duration: 3000});
+      });
+      return false;
+    }
+    return true;
+  }
+
+  sendAsGap() {
+    if (!this.checkGapReason()) return;
+    this.endDate = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      gap: true,
+      gapReason: this.gapReason,
+      modifiedWords: [{ preWord: "GAP", postWord: "GAP" }]
+    };
+    this.isGap = false;
+    this.gapReason = '';
+    this.modificationService.sendModification(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.modifications = [];
+        this.prepareData();
+      }
+    }, error => {
+      this.translate.get("md_alerts.save_err").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
+  }
+
   sendData() {
+    if (this.isGap) {
+      this.sendAsGap();
+      return;
+    }
+
     this.endDate = new Date();
 
     // forum validation process
     for(let w = 0; w < this.modifications.length; w++) {
       let cWord = this.modifications[w].postWord;
-      if (!cWord.trim().length || !this.regex.test(cWord)) {
+      if (!cWord.trim().length) {
         this.translate.get("md_alerts.invalid").subscribe(msg => {
           this.snackBar.open(msg, "Ok", {duration:3000});
       })
@@ -118,6 +166,32 @@ export class ModificationComponent implements OnInit {
     });
   }
 
+  skip() {
+    this.endDate = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      skip: true
+    };
+    this.modificationService.sendModification(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.modifications = [];
+        this.prepareData();
+      }
+    }, error => { 
+      this.translate.get("md_alerts.save_err").subscribe(msg => {
+          this.snackBar.open(msg, "Ok", {duration:3000});
+        })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
+  }
+
   clearForm(index):void {
   	if (this.modifications.length == 1) {
   		this.translate.get("md_alerts.last").subscribe(msg => {
@@ -130,6 +204,10 @@ export class ModificationComponent implements OnInit {
 
   copyPreword(index):void {
   	this.modifications[index].postWord = this.modifications[index].preWord;
+  }
+
+  activateGap() {
+    this.isGap = !this.isGap;
   }
 
 }

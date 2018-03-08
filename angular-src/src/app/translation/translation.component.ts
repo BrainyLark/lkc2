@@ -47,7 +47,9 @@ export class TranslationComponent implements OnInit {
   gid: string;
   statusCode: number = 2;
   statusMsg: string = '';
-  
+  isGap:boolean = false;
+  gapReason:string = '';
+
   currentTask: Translation;
   currentPrevTask: TranslationRes = new TranslationRes();
 
@@ -67,8 +69,6 @@ export class TranslationComponent implements OnInit {
 
   prevState = 'inactive';
   mainState = 'active';
-
-  isGapActivated = false;
 
   constructor(
   	private translationService: TranslationService, 
@@ -133,7 +133,52 @@ export class TranslationComponent implements OnInit {
     this.taskRun.splice(index, 1);
   }
 
+  checkGapReason() {
+    if (!this.gapReason.trim().length) {
+      this.translate.get('tr_alerts.no_gapreason').subscribe(msg => {
+        this.snackBar.open(msg, 'Ok', {duration: 3000});
+      });
+      return false;
+    }
+    return true;
+  }
+
+  sendAsGap() {
+    if (!this.checkGapReason()) return;
+    this.end_date = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.start_date,
+      end_date: this.end_date,
+      gap: true,
+      gapReason: this.gapReason,
+      translation: [{ lemma: "GAP", rating: 5 }]
+    };
+    this.isGap = false;
+    this.gapReason = '';
+    this.translationService.sendTranslation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.taskRun = [{ lemma: "", rating: -1 }];
+        this.prepareData();
+      }
+    }, error => { 
+      this.translate.get("tr_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
+  }
+
   sendData() {
+    if (this.isGap) {
+      this.sendAsGap();
+      return;
+    }
     this.end_date = new Date();
     let i = this.taskRun.length - 1;
     while (!this.taskRun[i].lemma.trim().length) {
@@ -143,15 +188,15 @@ export class TranslationComponent implements OnInit {
     }
     if (!this.taskRun.length) {
       this.translate.get("tr_alerts.no_data").subscribe(msg => {
-          this.snackBar.open(msg, "Ok", {duration:3000});
-        })
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       this.taskRun.push({ lemma: "", rating: -1 });
       return;
     }
     if (this.taskRun[i].rating == -1) {
       this.translate.get("tr_alerts.no_rating").subscribe(msg => {
-          this.snackBar.open(msg, "Ok", {duration:3000});
-        })
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
       return;
     }
     this.statusCode = 2;
@@ -277,7 +322,7 @@ export class TranslationComponent implements OnInit {
   }
 
   activateGap() {
-    this.isGapActivated = !this.isGapActivated;
+    this.isGap = !this.isGap;
   }
 
 }

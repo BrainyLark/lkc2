@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   name: string = '';
   password: string = '';
   email = new FormControl('', [Validators.required, Validators.email]);
+  isSpinning = false;
 
   constructor(private translate: TranslateService,
     private registerService: RegisterService, 
@@ -36,7 +37,9 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     let form_data = { u: this.uname, n: this.name, e: this.email, p: this.password };
     if(this.registerService.isValid(form_data)) {
+      this.isSpinning = true;
       this.registerService.signUp(form_data).subscribe(res => {
+        this.isSpinning = false;
         if (res.success) {
           this.translate.get([res.message, 'register.msg.ok']).subscribe(msg => {
             this.snackBar.open(msg[res.message], msg['register.msg.ok'], {duration: 3000});

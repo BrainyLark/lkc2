@@ -24,6 +24,10 @@
 	  	</mat-form-field>
 	  	<br>
 	  	<div class="right-side">
+	  		<div [style.display]="isSpinning ? 'block' : 'none'">
+	  			<mat-spinner [diameter]="60" style="margin: 0 auto;"></mat-spinner>
+	  			<br>
+	  		</div>
 	  		<button mat-button color="primary" routerLink="/login">{{"register.login"|translate}}</button>
 	  		<button mat-raised-button color="primary" (click)="registerUser()">{{"register.signup"|translate}}</button>
 	  	</div>

@@ -120,12 +120,17 @@
 		"no_data": "There is no data to send!",
 		"save_err": "There is an error while saving your translation, try again!",
 		"no_prev": "There is no previous record in this domain.",
-		"no_next": "There is no next record in this domain."
+		"no_next": "There is no next record in this domain.",
+		"no_gapreason": "You need to provide gap reason prior to send!"
 	},
 	"md_alerts": {
 		"invalid": "Your modifications are invalid. Please look over every word!",
-		"save_err": "There is an error while saving your translation, try again!",
+		"save_err": "There is an error while saving your modification, try again!",
 		"last": "You cannot remove the last remnant!"
+	},
+	"vd_alerts": {
+		"invalid": "Your validations are invalid. Please look over every word!",
+		"save_err": "There is an error while saving your validation, try again!"
 	},
 	"res": {
 		"auth": {
@@ -150,5 +155,6 @@
 			"saved": "Validation saved successfully, thanks for your contributions!",
 			"err": "Validation not saved properly, try again!"
 		}
-	}
+	},
+	"gap": "Please provide concrete evidence about why you find this gap"
 }
