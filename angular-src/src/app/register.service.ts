@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable()
 export class RegisterService {
 
-  apiRoot: string = config.apiRoot + '/user';
+  apiRoot: string = config.apiRoot + 'user';
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class RegisterService {
   }
 
   signUp(data) {
-  	let url = this.apiRoot + '/register';
+  	let url = this.apiRoot + 'register';
   	let payload_data = {
   		username: data.u,
   		name: data.n,

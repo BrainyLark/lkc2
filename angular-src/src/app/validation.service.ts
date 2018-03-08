@@ -16,7 +16,7 @@ export class ValidationService {
 	constructor(private http: HttpClient) { }
 
 	getTask(jwt_token:string, gid:string) {
-    	let url = this.apiRoot + '/task/3/' + gid;
+    	let url = this.apiRoot + 'task/3/' + gid;
     	let httpOptions = {
   	  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	  	};
@@ -24,7 +24,7 @@ export class ValidationService {
     }
 
     sendValidation(jwt_token:string, payload) {
-    	let url = this.apiRoot + '/validation';
+    	let url = this.apiRoot + 'validation';
     	let httpOptions = {
     		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
     	};

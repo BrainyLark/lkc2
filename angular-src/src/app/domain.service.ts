@@ -15,7 +15,7 @@ export class DomainService {
 	const httpOptions = {
 	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	};
-	const url = this.apiRoot + '/domain';
+	const url = this.apiRoot + 'domain';
 	return this.http.get<Domain[]>(url, httpOptions);
   }
 

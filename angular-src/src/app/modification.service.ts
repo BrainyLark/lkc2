@@ -16,7 +16,7 @@ export class ModificationService {
     constructor(private http: HttpClient) { }
 
     getTask(jwt_token:string, gid:string) {
-    	let url = this.apiRoot + '/task/2/' + gid;
+    	let url = this.apiRoot + 'task/2/' + gid;
     	let httpOptions = {
   	  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	  	};
@@ -24,7 +24,7 @@ export class ModificationService {
     }
 
     sendModification(jwt_token:string, payload) {
-    	let url = this.apiRoot + '/modification';
+    	let url = this.apiRoot + 'modification';
     	let httpOptions = {
     		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
     	};

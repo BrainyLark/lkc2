@@ -10,7 +10,7 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   getPerformance(jwt_token) {
-  	let url = this.apiRoot + '/performance';
+  	let url = this.apiRoot + 'performance';
   	let httpOptions = {
 	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	};
