@@ -15,6 +15,39 @@
 		"choose": "Choose your language",
 		"challenge": "Challenge"
 	},
+	"login": {
+		"title": "Sign in",
+		"uname": "Username",
+		"pass": "Password",
+		"register": "sign up?",
+		"login": "Login",
+		"msg": {
+			"invalid": "Complete invalid form!",
+			"ok": "Got it!",
+			"welcome": "Successfully logged in!"
+		}
+	},
+	"register": {
+		"title": "Sign up",
+		"subtitle" : "please provide the following personal information",
+		"uname": "Username",
+		"name": "Your name",
+		"email": "Email address",
+		"pass": "Password",
+		"login": "sign in?",
+		"signup": "Sign Up",
+		"err": {
+			"uname": "At least 4 characters required",
+			"name": "Please provide your name",
+			"pass": "At least 6 characters required",
+			"supply_mail": "Please supply your email address",
+			"invalid_mail": "Your email address is invalid"
+		},
+		"msg": {
+			"invalid": "Please make sure you have issued every form fields properly!",
+			"ok": "Got it!"
+		}
+	},
 	"task": {
 		"translate": "Translate",
 		"modify": "Modify",

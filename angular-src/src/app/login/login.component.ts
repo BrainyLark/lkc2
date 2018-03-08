@@ -3,6 +3,7 @@ import { LoginService } from '../login.service';
 import { MatSnackBar } from '@angular/material';
 import { LoginRes } from '../model/response';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
   password: string = '';
   isSpinning: boolean = false;
 
-  constructor(private loginService: LoginService, public snackBar: MatSnackBar, private router: Router) { }
+  constructor(private translate: TranslateService, 
+    private loginService: LoginService, 
+    public snackBar: MatSnackBar, 
+    private router: Router) { }
 
   ngOnInit() {
     this.checkAuth();
@@ -24,7 +28,9 @@ export class LoginComponent implements OnInit {
   login() {
   	this.isSpinning = true;
   	if(!this.username.length || !this.password.length) {
-  		this.snackBar.open("Шаардлагатай талбаруудыг бүрэн бөглөнө үү!", "За, ойлголоо", { duration: 5000 });
+      this.translate.get(["login.msg.ok", "login.msg.invalid"]).subscribe(msg => {
+        this.snackBar.open(msg['login.msg.invalid'], msg['login.msg.ok'], { duration: 3000 });
+      })
   		this.isSpinning = false;
   		return;
   	}
@@ -33,10 +39,14 @@ export class LoginComponent implements OnInit {
     		localStorage.setItem('jwt_token', res.token);
     		localStorage.setItem('user', JSON.stringify(res.user));
     		this.isSpinning = false;
-    		this.snackBar.open("Амжилттай нэвтэрлээ~! Хөгжилтэй цагийг өнгөрүүлээрэй! xD", "Ok", { duration: 3000 });
+    		this.translate.get(["login.msg.ok", "login.msg.welcome"]).subscribe(msg => {
+          this.snackBar.open(msg['login.msg.welcome'], msg['login.msg.ok'], { duration: 3000 });
+        })
     		this.router.navigateByUrl('/task');
     	} else {
-    		this.snackBar.open(res.msg, "За", { duration: 3000 });
+    		this.translate.get([res.msg, 'register.msg.ok']).subscribe(msg => {
+          this.snackBar.open(msg[res.msg], msg['register.msg.ok'], {duration: 3000});
+        })
     		this.isSpinning = false;
     	}
     });

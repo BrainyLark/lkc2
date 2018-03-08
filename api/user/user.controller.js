@@ -11,7 +11,7 @@ exports.register = function(req, res, next) {
 	User.getByUsername(username, function(err, result){
 		if (err) handleError(res, err)
 		if (result != null){
-			res.json({success: false, message: username + meta.msg.mn.user.changeuname})
+			res.json({success: false, message: meta.msg.mn.user.changeuname})
 		} else {
 			let newUser = new User({
 				name: req.body.name,

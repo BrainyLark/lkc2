@@ -1,31 +1,31 @@
 <br>
 <mat-card class="center-side">
-	<mat-card-title><mat-icon>fingerprint</mat-icon>Бүртгүүлэх</mat-card-title>
-	<mat-card-subtitle>доорх мэдээллийг үнэн зөв бөглөнө үү!</mat-card-subtitle>
+	<mat-card-title><mat-icon>fingerprint</mat-icon>{{"register.title"|translate}}</mat-card-title>
+	<mat-card-subtitle>{{"register.subtitle"|translate}}</mat-card-subtitle>
 	<mat-card-content>
 		<mat-form-field>
-	    	<input matInput placeholder="Хэрэглэгчийн нэр" minlength="4" [(ngModel)]="uname" required>
-	    	<mat-error>Дор хаяж 4 тэмдэгт байна :)</mat-error>
+	    	<input matInput placeholder='{{"register.uname"|translate}}' minlength="4" [(ngModel)]="uname" required>
+	    	<mat-error>{{"register.err.uname"|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
 	  	<mat-form-field>
-	    	<input matInput placeholder="Өөрийн нэр" [(ngModel)]="name" minlength="2" required>
-	    	<mat-error>Нэрээ оруулна шүү! :(</mat-error>
+	    	<input matInput placeholder='{{"register.name"|translate}}' [(ngModel)]="name" minlength="2" required>
+	    	<mat-error>{{"register.err.name"|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
 	  	<mat-form-field>
-	  		<input matInput [formControl]="email" placeholder="И-Мейл хаяг" required>
-	  		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+	  		<input matInput [formControl]="email" placeholder='{{"register.email"|translate}}' required>
+	  		<mat-error *ngIf="email.invalid">{{getErrorMessage()|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
 	  	<mat-form-field>
-	  		<input matInput type="password" [(ngModel)]="password" placeholder="Нууц үг" minlength="6" required>
-	  		<mat-error>Дор хаяж 6 тэмдэгт байна xD</mat-error>
+	  		<input matInput type="password" [(ngModel)]="password" placeholder='{{"register.pass"|translate}}' minlength="6" required>
+	  		<mat-error>{{"register.err.pass"|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
 	  	<div class="right-side">
-	  		<button mat-button color="primary" routerLink="/login">нэвтрэх үү?</button>
-	  		<button mat-raised-button color="primary" (click)="registerUser()">Бүртгүүлэх</button>
+	  		<button mat-button color="primary" routerLink="/login">{{"register.login"|translate}}</button>
+	  		<button mat-raised-button color="primary" (click)="registerUser()">{{"register.signup"|translate}}</button>
 	  	</div>
   	</mat-card-content>
 </mat-card>

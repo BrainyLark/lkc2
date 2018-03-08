@@ -4,6 +4,7 @@ import { RegisterService } from '../register.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -17,15 +18,19 @@ export class RegisterComponent implements OnInit {
   password: string = '';
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor(private registerService: RegisterService, public snackBar: MatSnackBar, private router: Router, private loginService: LoginService) { }
+  constructor(private translate: TranslateService,
+    private registerService: RegisterService, 
+    public snackBar: MatSnackBar, 
+    private router: Router, 
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.checkAuth();
   }
 
   getErrorMessage() {
-  	return this.email.hasError('required') ? 'Мейл хаягаа оруулаарай!' :
-  		this.email.hasError('email') ? 'Зөв мейл хаяг биш байна' : '';
+  	return this.email.hasError('required') ? 'register.err.supply_mail' :
+  		this.email.hasError('email') ? 'register.err.invalid_mail' : '';
   }
 
   registerUser() {
@@ -33,14 +38,20 @@ export class RegisterComponent implements OnInit {
     if(this.registerService.isValid(form_data)) {
       this.registerService.signUp(form_data).subscribe(res => {
         if (res.success) {
-          this.snackBar.open(res.message, "Ойлголоо", { duration: 5000 });
+          this.translate.get([res.message, 'register.msg.ok']).subscribe(msg => {
+            this.snackBar.open(msg[res.message], msg['register.msg.ok'], {duration: 3000});
+          })
           this.router.navigateByUrl('/login');
         } else {
-          this.snackBar.open(res.message, "Ойлголоо", { duration: 5000 });
+          this.translate.get([res.message, 'register.msg.ok']).subscribe(msg => {
+            this.snackBar.open(msg[res.message], msg['register.msg.ok'], {duration: 3000});
+          })
         }
       });
     } else {
-      this.snackBar.open("Бүртгэл амжилтгүй! Дээрх шаардлагад нийцсэн өгөгдөл оруулна уу!", "За, ойлголоо", { duration: 3000 });
+      this.translate.get(['register.msg.invalid', 'register.msg.ok']).subscribe(msg => {
+        this.snackBar.open(msg['register.msg.invalid'], msg['register.msg.ok'], {duration: 3000});
+      })
     }
   }
 
