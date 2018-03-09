@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class LoginService {
 
-  apiRoot: string = config.apiRoot + 'user';
+  apiRoot: string = config.apiRoot + 'user/';
 
   constructor(private http: HttpClient) { }
 

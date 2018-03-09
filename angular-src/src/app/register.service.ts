@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable()
 export class RegisterService {
 
-  apiRoot: string = config.apiRoot + 'user';
+  apiRoot: string = config.apiRoot + 'user/';
 
   constructor(private http: HttpClient) { }
 
