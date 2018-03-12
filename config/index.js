@@ -12,7 +12,7 @@ module.exports = {
 	ip: process.env.IP || '0.0.0.0',
 	// Secret for session, you will want to change this and make it an environment variable
 	database: {
-		uri: "mongodb://root:mn1kcM0ng0Db@35.224.100.149:27017/lkc2",
+		uri: "mongodb://localhost:27017/lkc2",
 		secret: "gew&*HFE*&QQ)@2(jdmoiJF(*#R"
 	},
 	// lkc api requires this one
