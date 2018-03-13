@@ -13,7 +13,19 @@
 	"home": {
 		"welcome": "Тавтай морилно уу!",
 		"choose": "Хэлээ сонгоно уу",
-		"challenge": "Оролцох"
+		"challenge": "Оролцох",
+		"stepper": {
+			"clabel": "Хэл сонгох",
+			"plabel": "Төсөл",
+			"pcontent": "<a href='/project' target='_blank'>Энд</a> дарж манай төсөлтэй танилцана уу.",
+			"return": "Буцах",
+			"done": "Болсон",
+			"loclabel": "Нутагшуулалт",
+			"loccontent": "<a href='/localization' target='_blank'>Энд</a> дарж ойлголтыг нутагшуулах зааварчилгаатай танилцана уу",
+			"tlabel": "Даалгавар",
+			"tcontent": "Та өмнөх шаардлагуудыг хангасан бол \"Оролцох\" товчийг дарна уу.",
+			"participate": "Оролцох"
+		}
 	},
 	"login": {
 		"title": "Нэвтрэх",

@@ -13,7 +13,19 @@
 	"home": {
 		"welcome": "Welcome!",
 		"choose": "Choose your language",
-		"challenge": "Challenge"
+		"challenge": "Challenge",
+		"stepper": {
+			"clabel": "Choose language",
+			"plabel": "Project",
+			"pcontent": "<a href='/project' target='_blank'>Click here</a> to look over our project particulars.",
+			"return": "Return",
+			"done": "Done",
+			"loclabel": "Localization",
+			"loccontent": "<a href='/localization' target='_blank'>Click here</a> to check out how to perform various tasks properly.",
+			"tlabel": "Tasks",
+			"tcontent": "Click \"participate\" if you have already met previous requirements.",
+			"participate": "Participate"
+		}
 	},
 	"login": {
 		"title": "Sign in",
