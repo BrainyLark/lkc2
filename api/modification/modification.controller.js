@@ -59,8 +59,8 @@ module.exports.saveUserModificationData = (req, res, next) => {
             if (err) return handleError(res, err)
             con ++
             if (con == 2) {
-                TaskEventCount.findOne({ taskId: modification.taskId }, 'count', (err, e_count) => {
-                    if (e_count.count >= meta.tasklimit.modification) {
+                TaskEvent.count({ taskId: modification.taskId, state: meta.taskstate.terminated }, (err, e_count) => {
+                    if (e_count >= meta.tasklimit.modification) {
                         generateValidTask(modification.taskId, (err, task) => {
                             if (err) handleError(err)
                             TaskEventCount.create({

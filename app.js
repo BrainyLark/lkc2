@@ -29,6 +29,8 @@ app.use(function(req, res, next){
 	next()
 })
 
+//set static folder
+app.use(express.static(path.join(__dirname, 'angular-src/dist')))
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -58,14 +60,9 @@ app.use('/generate', require('./api/generate'))
 const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'modification', 'validation', 'performance']
 APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: false}), require('./api/' + api)) })
 
-//Index Route
-app.get('/', function(req, res) {
-	res.json({status: -1, msg: "You have been directed into the wrong endpoint!"}) 
-})
-
 //Start Server
 app.listen(config.port, function() {
 	console.log("server started on port " + config.port)
 })
 
-app.all('*', function(req, res) { require('./service/ErrorHandler').notFound(res) })
+app.all('*', function(req, res) { res.sendFile(path.join(__dirname, 'angular-src/dist/index.html')) })

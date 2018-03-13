@@ -1,4 +1,4 @@
 export const config = {
-	apiRoot: 'http://35.192.234.188:8080/'
+	apiRoot: 'http://35.192.234.188/'
 }
 
