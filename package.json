@@ -7,7 +7,6 @@
     "start": "node app"
   },
   "dependencies": {
-    "@angular/flex-layout": "^2.0.0-beta.12",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",

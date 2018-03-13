@@ -22,8 +22,7 @@ const app = express()
 app.use(cors())
 
 app.use(function(req, res, next){
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
-	//res.setHeader('Access-Control-Allow-Origin', 'http://192.168.0.104:4200')
+	res.setHeader('Access-Control-Allow-Origin', 'http://35.192.234.188')
 	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 	res.setHeader('Access-Control-Allow-Credentials', true)
@@ -61,10 +60,6 @@ APIs.forEach(api => { app.use('/' + api, passport.authenticate('jwt', {session: 
 
 //Index Route
 app.get('/', function(req, res) {
-	console.log(req.cookies)
-	res.cookie('l_tr_id', 178, { maxAge: 60000 })
-	res.cookie('l_tr_did', 161, { maxAge: 60000 })
-	res.cookie('l_tr_trm', false, { maxAge: 60000 })
 	res.json({status: -1, msg: "You have been directed into the wrong endpoint!"}) 
 })
 
