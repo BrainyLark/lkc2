@@ -27,6 +27,7 @@ img {
 	margin-left: auto;
 	margin-right: auto;
     width: 60%;
+    border-radius: 10px 10px;
 }
 
 h2 {
@@ -41,13 +42,6 @@ img.profile {
 	max-height: 50px;
 }
 
-div.left-profile {
-	float: left; 
-	text-align: center;
-}
-
-
-div.right-profile {
-	float: right; 
-	text-align: center;
+mat-drawer {
+	width: 30%;
 }

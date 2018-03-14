@@ -11,6 +11,7 @@ import { ValidationComponent } from './validation/validation.component';
 import { ProjectComponent } from './project/project.component';
 import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
+import { GuidelinesComponent } from './guidelines/guidelines.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
 	{ path: 'task/2/:gid', component: ModificationComponent },
 	{ path: 'task/3/:gid', component: ValidationComponent },
 	{ path: 'project', component: ProjectComponent },
-	{ path: 'publications', component: PublicationComponent }
+	{ path: 'publications', component: PublicationComponent },
+	{ path: 'guidelines', component: GuidelinesComponent }
 ]
 
 @NgModule({

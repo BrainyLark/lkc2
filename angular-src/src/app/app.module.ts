@@ -31,6 +31,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
+import { GuidelinesComponent } from './guidelines/guidelines.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,6 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProjectComponent,
     HomeComponent,
     PublicationComponent,
+    GuidelinesComponent,
   ],
   imports: [
     BrowserModule,
