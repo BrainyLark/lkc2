@@ -41,6 +41,10 @@ img.profile {
 	max-height: 50px;
 }
 
+span.authors {
+	flex: 1 1 auto;
+}
+
 div.left-profile {
 	float: left; 
 	text-align: center;
