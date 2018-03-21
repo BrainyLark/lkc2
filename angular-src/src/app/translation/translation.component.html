@@ -38,10 +38,10 @@
 
 			<div *ngFor="let run of taskRun">
 				<mat-form-field class="word">
-					<input matInput (keyup.enter)="addForm()" [(ngModel)]="run.lemma" placeholder='{{ "translation.lemma" | translate }}'>
+					<input matInput [(ngModel)]="run.lemma" placeholder='{{ "translation.lemma" | translate }}'>
 				</mat-form-field>
 				<span matTooltip='{{ "translation.prating" | translate }}'>
-					<mat-icon *ngFor="let i of rates" (click)="run.rating=i" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
+					<mat-icon *ngFor="let i of rates" (click)="run.rating=i; addForm();" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
 				</span>
 				<button *ngIf="taskRun.indexOf(run) == taskRun.length-1; else clearBtn" mat-mini-fab (click)="addForm()" color="primary" matTooltip='{{ "translation.add" | translate }}' matTooltipPosition="after"><mat-icon>add</mat-icon></button>
 				<ng-template #clearBtn>

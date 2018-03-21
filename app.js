@@ -22,7 +22,8 @@ const app = express()
 app.use(cors())
 
 app.use(function(req, res, next){
-	res.setHeader('Access-Control-Allow-Origin', 'http://35.192.234.188/')
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+	//res.setHeader('Access-Control-Allow-Origin', 'http://35.192.234.188/')
 	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 	res.setHeader('Access-Control-Allow-Credentials', true)
@@ -30,7 +31,7 @@ app.use(function(req, res, next){
 })
 
 //set static folder
-app.use(express.static(path.join(__dirname, 'angular-src/dist')))
+//app.use(express.static(path.join(__dirname, 'angular-src/dist')))
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }))

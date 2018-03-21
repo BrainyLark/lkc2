@@ -10,3 +10,8 @@ button {
 	font-size: 0.7em;
 	text-transform: uppercase;
 }
+
+img {
+	cursor: pointer;
+	width: 28px;
+}
