@@ -14,7 +14,7 @@
 </div>
 
 <mat-menu #langMenu="matMenu">
-    <button mat-menu-item *ngFor="let link of navLinks" (click)="updateLang( link.vid )">{{ link.lang }}</button>
+    <button mat-menu-item *ngFor="let link of navLinks" (click)="updateLang( link.vid )">{{ link.lang | translate }}</button>
 </mat-menu>
 
 <div [style.display]="loadState ? 'block' : 'none'">

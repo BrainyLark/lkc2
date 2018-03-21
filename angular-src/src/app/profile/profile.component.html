@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-title>Сайн уу? {{ user.username | uppercase }}</mat-card-title>
-    <mat-card-content>Жинхэнэ нэр: {{ user.name }}</mat-card-content>
-    <mat-card-content>Имэйл хаяг: {{ user.email }}</mat-card-content>
+    <mat-card-title>{{ user.username | uppercase }}</mat-card-title>
+    <mat-card-content>{{ "profile.name" | translate }} {{ user.name }}</mat-card-content>
+    <mat-card-content>{{ "profile.email" | translate }} {{ user.email }}</mat-card-content>
 </mat-card>

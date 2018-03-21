@@ -10,6 +10,10 @@
 	    "config" : "configurations",
 	    "logout" : "log out"
 	},
+	"profile": {
+		"name": "Your name: ",
+		"email": "Email address: "
+	},
 	"home": {
 		"welcome": "Welcome!",
 		"choose": "Choose your language",

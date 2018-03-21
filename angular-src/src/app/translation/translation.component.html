@@ -38,7 +38,7 @@
 
 			<div *ngFor="let run of taskRun">
 				<mat-form-field class="word">
-					<input matInput [(ngModel)]="run.lemma" placeholder='{{ "translation.lemma" | translate }}'>
+					<input matInput (keydown.enter)="addForm()" [(ngModel)]="run.lemma" placeholder='{{ "translation.lemma" | translate }}'>
 				</mat-form-field>
 				<span matTooltip='{{ "translation.prating" | translate }}'>
 					<mat-icon *ngFor="let i of rates" (click)="run.rating=i; addForm();" [style.color]="(run.rating >= i) ? '#FAE10A' : 'gray'" class="grades">grade</mat-icon>
