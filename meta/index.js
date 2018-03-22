@@ -19,8 +19,9 @@ module.exports = {
 	},
 	exp_days: 2,
 	taskstate: {
-		ongoing: false,
-		terminated: true
+		skipped: 0,
+		ongoing: 1,
+		terminated: 2
 	},
 	gapState: {
 		isgap: true,

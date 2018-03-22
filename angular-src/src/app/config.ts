@@ -1,5 +1,5 @@
 export const config = {
 	apiRoot: 'http://35.192.234.188/'
-	//apiRoot: 'http://localhost:80/'
+	//apiRoot: 'http://localhost:8080/'
 }
 

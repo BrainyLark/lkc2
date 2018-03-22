@@ -27,9 +27,14 @@ module.exports.saveUserValidationData = (req, res, next) => {
 			if (con == 2) return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.validsaved.ok })
 		}
 
-		TaskEvent.update({ taskId: validation.taskId, userId: validation.validatorId }, { $set: { state: meta.taskstate.terminated } }, cb)
-		if (validation.skip) TaskEventCount.update({ taskId: validation.taskId }, { $inc: { count: -1 } }, cb)
-		else cb(null, null)
+		if (validation.skip) {
+			TaskEventCount.update({ taskId: validation.taskId }, { $inc: { count: -1 } }, cb)
+			TaskEvent.update({ taskId: validation.taskId, userId: validation.validatorId }, { $set: { state: meta.taskstate.skipped } }, cb)
+		}
+		else {
+			TaskEvent.update({ taskId: validation.taskId, userId: validation.validatorId }, { $set: { state: meta.taskstate.terminated } }, cb)
+			cb(null, null)
+		}
 
 	})
 }

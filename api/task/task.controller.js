@@ -48,7 +48,6 @@ module.exports.next = function (req, res, next) {
 					}
 					else {
 						var taskId = pEvent[0].taskId
-						console.log("TASK ID: ", taskId);
 						var cnt = 0
 						var cb = (err, docs) => {
 							if (err) return handleError(res, err)
@@ -81,7 +80,7 @@ module.exports.next = function (req, res, next) {
 				})
 		}
 		if (lastEvent) {
-			if (!lastEvent.state) {
+			if (lastEvent.state == meta.taskstate.ongoing) {
 				var cb = (err, docs) => {
 					if (err) return handleError(res, err)
 					Task.findById(lastEvent.taskId, (err, task) => {

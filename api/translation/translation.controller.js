@@ -108,8 +108,6 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 							}, (err, r_count) => {
 								if (err) return handleError(res, err)
 							 	console.log("Modification task successfully generated:\n")
-								console.log("Created task: ", task)
-								console.log("Task log: ", r_count)
 							})
 						})
 					}
@@ -117,8 +115,13 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 				})
 			}
 		}
-		TaskEvent.update({ taskId: translation.taskId, userId: translation.translatorId }, { $set: { state: meta.taskstate.terminated } }, cb)
-		if (translation.skip) TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: -1 } }, cb)
-		else cb(null, null)
+		if (translation.skip) {
+			TaskEventCount.update({ taskId: translation.taskId }, { $inc: { count: -1 } }, cb)
+			TaskEvent.update({ taskId: translation.taskId, userId: translation.translatorId }, { $set: { state: meta.taskstate.skipped } }, cb)
+		}
+		else {
+			TaskEvent.update({ taskId: translation.taskId, userId: translation.translatorId }, { $set: { state: meta.taskstate.terminated } }, cb)
+			cb(null, null)
+		}
 	})
 }

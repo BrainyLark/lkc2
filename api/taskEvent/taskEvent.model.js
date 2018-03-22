@@ -6,7 +6,7 @@ const TaskEventSchema = mongoose.Schema({
 	taskType: 		{ type: Number, min: 1, max: 10, required: true },
 	domainId: 		{ type: Number, required: true },
 	userId: 		{ type: String, required: true },
-	state:		{ type: Boolean, required: true, default: state.ongoing }
+	state:		{ type: Number, required: true, default: state.ongoing }
 }, { timestamps: true })
 
 const TaskEvent = module.exports = mongoose.model('TaskEvent', TaskEventSchema)

@@ -80,8 +80,13 @@ module.exports.saveUserModificationData = (req, res, next) => {
                 })
             }
         }
-        TaskEvent.update({ taskId: modification.taskId, userId: modification.modifierId }, { $set: { state: meta.taskstate.terminated } }, cb)
-        if(modification.skip) TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: -1 } }, cb)
-        else cb(null, null)
+        if (modification.skip) {
+            TaskEventCount.update({ taskId: modification.taskId }, { $inc: { count: -1 } }, cb)
+            TaskEvent.update({ taskId: modification.taskId, userId: modification.modifierId }, { $set: { state: meta.taskstate.skipped } }, cb)
+        }
+        else {
+            TaskEvent.update({ taskId: modification.taskId, userId: modification.modifierId }, { $set: { state: meta.taskstate.terminated } }, cb)
+            cb(null, null)
+        }
     })
 }
