@@ -12,6 +12,7 @@ import { ProjectComponent } from './project/project.component';
 import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
+import { ResetPassComponent } from './reset-pass/reset-pass.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
 	{ path: 'task/3/:gid', component: ValidationComponent },
 	{ path: 'project', component: ProjectComponent },
 	{ path: 'publications', component: PublicationComponent },
-	{ path: 'guidelines', component: GuidelinesComponent }
+	{ path: 'guidelines', component: GuidelinesComponent },
+	{ path: 'resetpass', component: ResetPassComponent }
 ]
 
 @NgModule({

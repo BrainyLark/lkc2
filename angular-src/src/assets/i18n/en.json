@@ -37,6 +37,7 @@
 		"pass": "Password",
 		"register": "sign up?",
 		"login": "Login",
+		"forgot": "forgot password?",
 		"msg": {
 			"invalid": "Complete invalid form!",
 			"ok": "Got it!",

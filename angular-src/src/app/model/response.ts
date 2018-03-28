@@ -12,6 +12,11 @@ export class LoginRes {
 	user: User;
 }
 
+export class ResetPasswordRes {
+	success: boolean;
+	msg: string;
+}
+
 export class PerformanceRes {
 	translation: number;
 	modification: number;

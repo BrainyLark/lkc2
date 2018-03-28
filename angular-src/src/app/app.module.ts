@@ -32,6 +32,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
+import { ResetPassComponent } from './reset-pass/reset-pass.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -53,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     PublicationComponent,
     GuidelinesComponent,
+    ResetPassComponent,
   ],
   imports: [
     BrowserModule,

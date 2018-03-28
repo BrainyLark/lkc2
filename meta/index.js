@@ -70,6 +70,12 @@ module.exports = {
 				auth: {
 					notfound: "res.auth.not_found",
 					wpass: "res.auth.wrong_pass"
+				},
+				reset: {
+					wrong: "res.reset.wrong",
+					success: "res.reset.success",
+					allowed: "res.reset.allowed",
+					denied: "res.reset.denied"
 				}
 			},
 			validsaved: {

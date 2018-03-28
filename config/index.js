@@ -15,6 +15,10 @@ module.exports = {
 		uri: "mongodb://localhost:27017/lkc2",
 		secret: "gew&*HFE*&QQ)@2(jdmoiJF(*#R"
 	},
+	email: {
+		address: "mnlkcproject@gmail.com",
+		pass: "eventhorizon"
+	},
 	// lkc api requires this one
 	// this cookie must be renewed within 3 days, in which one is valid and so that task and domain generation are valid
 	cookie: "connect.sid=s%3AxNeTUTuhXlKiJrl9ubcKP6aEPNbQcm1e.eeaRuMRHUMrcA8AGCFRlcpkMaaWoa4lO%2BrdpTskaRV0"

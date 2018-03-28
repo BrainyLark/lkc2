@@ -1,0 +1,58 @@
+<br><mat-card class="center-side">
+	<mat-card-title>Нууц үг өөрчлөх</mat-card-title>
+	<br>
+	<mat-card-content>
+
+		<div *ngIf="isUserfieldAllowed">
+			<br>
+			<mat-form-field>
+				<input (keyup.enter)="sendEmail()" matInput placeholder='Хэрэглэгчийн нэр' [(ngModel)]="username" minlength="2" required>
+			</mat-form-field>
+			<div [style.display]="isSendingEmail ? 'block' : 'none'">
+	  			<mat-spinner style="margin: 0 auto;" [diameter]="60"></mat-spinner>
+	  			<br>
+	  			<p style="margin: 0 auto;">Таны мейл рүү баталгаажуулах код илгээж байна, түр хүлээнэ үү...</p>
+	  		</div><br>
+			<button mat-button color="primary" *ngIf="!isSendingEmail" (click)="sendEmail()">Илгээх</button>
+			<br>
+		</div>
+
+		<div *ngIf="isTokenAllowed">
+			<br>
+			<mat-form-field>
+				<input (keyup.enter)="checkToken()" matInput placeholder='Баталгаажуулах код' [(ngModel)]="token" required>
+			</mat-form-field>
+			<div [style.display]="isSendingToken ? 'block' : 'none'">
+	  			<mat-spinner [diameter]="60" style="margin: 0 auto;"></mat-spinner>
+	  			<br>
+	  			<p style="margin: 0 auto;">Баталгаажуулах кодыг шалгаж байна, түр хүлээнэ үү...</p>
+	  		</div><br>
+			<button mat-button *ngIf="!isSendingToken" color="primary" (click)="checkToken()">Илгээх</button>
+			<br>
+		</div>
+
+		<div *ngIf="isResetAllowed">
+			<br>
+			<mat-form-field>
+				<input matInput minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үг' [(ngModel)]="password" required>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үгээ давтана уу' [(ngModel)]="repassword" required>
+			</mat-form-field>
+			<div [style.display]="isSendingPass ? 'block' : 'none'">
+	  			<mat-spinner style="margin: 0 auto;" [diameter]="60"></mat-spinner>
+	  			<br>
+	  			<p style="margin: 0 auto;">Нууц үгийг шинэчилж байна, түр хүлээнэ үү...</p>
+	  		</div><br>
+			<button mat-button *ngIf="!isSendingPass" color="primary" (click)="resetPass()">Илгээх</button>
+			<br>
+		</div>
+
+		<div>
+			<br>
+			<p *ngIf="isSuccess" style="margin: 0 auto; color: green;">Таны нууц үг амжилттай шинэчлэгдлээ! <a href="/login">Энд дарж нэвтрэнэ үү...</a></p>
+			<p *ngIf="isFailure" style="margin: 0 auto; color: red;">Уучлаарай таны нууц үгийг шинэчлэхэд алдаа гарлаа, дахин оролдоно уу!</p>
+		</div>
+
+	</mat-card-content>
+</mat-card>

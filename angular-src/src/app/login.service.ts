@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginRes } from './model/response';
+import { LoginRes, ResetPasswordRes } from './model/response';
 import { User } from './model/User';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -30,6 +30,24 @@ export class LoginService {
   		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
   	};
   	return this.http.get<User>(url, httpOptions);
+  }
+
+  resetPass(username) {
+    let url = this.apiRoot + 'reset';
+    let payload_data = { username: username };
+    return this.http.post<ResetPasswordRes>(url, payload_data, httpOptions);
+  }
+
+  checkToken(username, resetCode) {
+    let url = this.apiRoot + 'checkreset';
+    let payload_data = { username: username, resetCode: resetCode };
+    return this.http.post<ResetPasswordRes>(url, payload_data, httpOptions);
+  }
+
+  updatePass(username, resetCode, password) {
+    let url = this.apiRoot + 'updatepass';
+    let payload_data = { username: username, resetCode: resetCode, password: password };
+    return this.http.post<ResetPasswordRes>(url, payload_data, httpOptions);
   }
 
 }

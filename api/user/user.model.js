@@ -6,7 +6,8 @@ const UserSchema = mongoose.Schema({
 	name:		{type: String, trim: true },
 	email: 	{type: String, lowercase: true, requried: true },
 	username: 	{type: String, lowercase: true, trim: true, required: true },
-	password: 	{type: String, required: true }
+	password: 	{type: String, required: true },
+	resetCode:  {type: String, required: false}
 }, { timestamps: true })
 
 const User = module.exports = mongoose.model('User', UserSchema)
