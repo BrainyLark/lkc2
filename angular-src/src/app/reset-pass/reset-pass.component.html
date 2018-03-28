@@ -19,6 +19,8 @@
 
 		<div *ngIf="isTokenAllowed">
 			<br>
+	  		<p style="margin: 0 auto;">Таны мейл рүү илгээсэн <b>баталгаажуулах кодыг</b> доор оруулна уу...</p>
+			<br>
 			<mat-form-field>
 				<input (keyup.enter)="checkToken()" matInput placeholder='Баталгаажуулах код' [(ngModel)]="token" required>
 			</mat-form-field>
@@ -34,10 +36,10 @@
 		<div *ngIf="isResetAllowed">
 			<br>
 			<mat-form-field>
-				<input matInput minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үг' [(ngModel)]="password" required>
+				<input matInput type="password" minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үг' [(ngModel)]="password" required>
 			</mat-form-field>
 			<mat-form-field>
-				<input matInput minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үгээ давтана уу' [(ngModel)]="repassword" required>
+				<input matInput type="password" minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үгээ давтана уу' [(ngModel)]="repassword" required>
 			</mat-form-field>
 			<div [style.display]="isSendingPass ? 'block' : 'none'">
 	  			<mat-spinner style="margin: 0 auto;" [diameter]="60"></mat-spinner>
