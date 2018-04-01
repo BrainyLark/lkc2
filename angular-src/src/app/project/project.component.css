@@ -3,21 +3,6 @@ p {
 	text-align: justify;
 }
 
-mat-card-title {
-	font-size: 1.8em;
-}
-
-mat-card-subtitle {
-	font-size: 0.9em;
-}
-
-mat-card {
-	width: 75%;
-	margin: 0 auto;
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
 div {
 	text-align: justify;
 }
@@ -26,7 +11,7 @@ img {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-    width: 60%;
+	width: 60%;
 }
 
 h2 {
@@ -40,9 +25,19 @@ img.profile {
 	max-width: 50px; 
 	max-height: 50px;
 }
+#contact {
+	max-width: 560px;
+	margin: 0 auto;
+	text-align: center;
+}
 
 span.authors {
 	flex: 1 1 auto;
+}
+@media only screen and (max-width: 573px) {
+	span.authors {
+		display: none;
+	}
 }
 
 div.left-profile {
@@ -50,8 +45,14 @@ div.left-profile {
 	text-align: center;
 }
 
-
 div.right-profile {
 	float: right; 
+	text-align: center;
+}
+.flex-wrap {
+	flex-wrap: wrap;
+}
+.flex-wrap > div {
+	margin: 0 auto;
 	text-align: center;
 }

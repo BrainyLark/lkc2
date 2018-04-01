@@ -11,7 +11,7 @@
 	    "logout" : "log out"
 	},
 	"profile": {
-		"name": "Your name: ",
+		"name": "Full name: ",
 		"email": "Email address: "
 	},
 	"home": {
@@ -19,16 +19,16 @@
 		"choose": "Choose your language",
 		"challenge": "Challenge",
 		"stepper": {
-			"clabel": "Choose language",
+			"clabel": "Choose a language",
 			"plabel": "Project",
-			"pcontent": "<a href='/project' target='_blank'>Click here</a> to look over our project particulars.",
+			"pcontent": "<a href='/project' target='_blank'>Click here</a> for the project particulars.",
 			"return": "Return",
-			"done": "Done",
+			"done": "Proceed",
 			"loclabel": "Localization",
-			"loccontent": "<a href='/guidelines' target='_blank'>Click here</a> to check out how to perform various tasks properly.",
+			"loccontent": "<a href='/guidelines' target='_blank'>Click here</a>  for the proper procedures of each task.",
 			"tlabel": "Tasks",
-			"tcontent": "Click \"participate\" if you have already met previous requirements.",
-			"participate": "Participate"
+			"tcontent": "Great job! We appreciate your every contribution towards our project.",
+			"participate": "Start contributing!"
 		}
 	},
 	"login": {
@@ -70,12 +70,12 @@
 		"modify": "Modify",
 		"validate": "Validate",
 		"localize": "Localize",
-		"progress": "My Participation", 
-		"translated": "Translated",
-		"modified": "Modified",
-		"validated": "Validated",
-		"send_feedback": "Send feedback!",
-		"design_notification": "The Front-End design has been motivated by <a href='https://translate.google.com/community'>Google Translate Community</a>!",
+		"progress": "My Contributions", 
+		"translated": "Translations",
+		"modified": "Modifications",
+		"validated": "Validations",
+		"send_feedback": "Give feedback!",
+		"design_notification": "The design was motivated by <a href='https://translate.google.com/community'>Google Translate Community</a>!",
 		"tr_desc": "Allocate mongolian words corresponding to <br> a given concept in multilingual forms",
 		"md_desc": "Correct mistakes found in given mongolian words of a concept",
 		"vd_desc": "Validate list of mongolian words that define its concept",
@@ -97,7 +97,7 @@
 		"prev": "Previous",
 		"next": "Next",
 		"title": "Translate",
-		"subtitle": "Define mongolian words that indicate following concepts",
+		"subtitle": "Define mongolian words that indicate the following concepts",
 		"lemma": "My lemma",
 		"prating": "My personal rating",
 		"add": "Add a new word!",
@@ -131,29 +131,29 @@
 		"in": "Indonesian"
 	},
 	"tr_alerts": {
-		"no_word": "Please put a word.",
+		"no_word": "Please insert a word.",
 		"no_rating": "Please rate your word.",
 		"no_char": "Please use only cyrillic characters.",
 		"no_data": "There is no data to send!",
-		"save_err": "There is an error while saving your translation, try again!",
+		"save_err": "There was an error while saving your translation, try again!",
 		"no_prev": "There is no previous record in this domain.",
 		"no_next": "There is no next record in this domain.",
 		"no_gapreason": "You need to provide gap reason prior to send!"
 	},
 	"md_alerts": {
-		"invalid": "Your modifications are invalid. Please look over every word!",
-		"save_err": "There is an error while saving your modification, try again!",
+		"invalid": "Your modifications are invalid. Please look over each word!",
+		"save_err": "There was an error while saving your modification, try again!",
 		"last": "You cannot remove the last remnant!"
 	},
 	"vd_alerts": {
-		"invalid": "Your validations are invalid. Please look over every word!",
-		"save_err": "There is an error while saving your validation, try again!"
+		"invalid": "Your validations are invalid. Please look over each word!",
+		"save_err": "There was an error while saving your validation, try again!"
 	},
 	"res": {
 		"auth": {
 			"change_uname": "Username has already been taken. Please choose another one!",
 			"reg_success": "You have successfully signed up!",
-			"not_possible": "There is an error.",
+			"not_possible": "There was an error.",
 			"not_found": "User not found.",
 			"wrong_pass": "Wrong username or password."
 		},
@@ -161,17 +161,17 @@
 			"unavail": "There is no task left for this domain, please choose another."
 		},
 		"trans": {
-			"saved": "Translation saved successfully, thanks for your contributions!",
+			"saved": "Translation saved successfully, thank you for your contributions!",
 			"err": "Translation not saved properly, try again!"
 		},
 		"mod": {
-			"saved": "Modification saved successfully, thanks for your contributions!",
+			"saved": "Modification saved successfully, thank you for your contributions!",
 			"err": "Modification not saved properly, try again!"
 		},
 		"valid": {
-			"saved": "Validation saved successfully, thanks for your contributions!",
+			"saved": "Validation saved successfully, thank you for your contributions!",
 			"err": "Validation not saved properly, try again!"
 		}
 	},
-	"gap": "Please provide concrete evidence about why you find this gap"
+	"gap": "Please provide concrete evidence about why you find this word a gap"
 }

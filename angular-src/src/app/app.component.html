@@ -2,9 +2,9 @@
   <mat-toolbar color="primary">
     <mat-toolbar-row>
     <button mat-button routerLink="/">{{ "nav.title" | translate }}</button>
-    <button mat-button routerLink="/project"><mat-icon>info</mat-icon>{{ "nav.project" | translate }}</button>
-    <button mat-button routerLink="/task"><mat-icon>translate</mat-icon>{{ "nav.challenge" | translate }}</button>
-    <button mat-button routerLink="/publications"><mat-icon>public</mat-icon>{{ "nav.publication" | translate }}</button>
+    <button mat-button routerLink="/project"><mat-icon class="mr-1">info</mat-icon>{{ "nav.project" | translate }}</button>
+    <button mat-button routerLink="/task"><mat-icon class="mr-1">translate</mat-icon>{{ "nav.challenge" | translate }}</button>
+    <button mat-button routerLink="/publications"><mat-icon class="mr-1">public</mat-icon>{{ "nav.publication" | translate }}</button>
 
     <span class="example-spacer"></span>
 
@@ -26,15 +26,15 @@
 
       <mat-menu #menu="matMenu">
           <button mat-menu-item routerLink="/profile">
-              <mat-icon>account_circle</mat-icon>
+              <mat-icon class="mr-1">account_circle</mat-icon>
               <span>{{ "nav.profile" | translate }}</span>
           </button>
           <button mat-menu-item disabled>
-              <mat-icon>settings</mat-icon>
+              <mat-icon class="mr-1">settings</mat-icon>
               <span>{{ "nav.config" | translate }}</span>
           </button>
           <button mat-menu-item (click)="exit()">
-              <mat-icon>power_settings_new</mat-icon>
+              <mat-icon class="mr-1">power_settings_new</mat-icon>
               <span>{{ "nav.logout" | translate }}</span>
           </button>
       </mat-menu>

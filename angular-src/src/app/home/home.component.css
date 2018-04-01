@@ -1,6 +1,3 @@
-.center-side {
-	text-align: center;
-}
 mat-form-field {
 	width: 30%;
 }
@@ -10,17 +7,36 @@ input {
 /deep/ label.mat-input-placeholder {
   font-size: 1.1em;
 }
-mat-card {
-	margin-right: auto;
-	margin-left: auto;
-	max-width: 660px;
-	min-width: 50%;
-	height: 100%;
+.mat-card-content {
+    margin-top: 32px;
 }
-mat-card-title {
-	font-size: 1.8em;
-	text-transform: uppercase;
+.stepInfo {
+	height: 80px;
+	margin: 20px;
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+    --x-height-multiplier: 0.375;
+    --baseline-multiplier: 0.17;
+    letter-spacing: .01rem;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+}
+.stepInfo p {
+	font-size: inherit;
+}
+.stepInfo > p > a {
+    font-size: inherit;
+}
+.stepInfo mat-form-field {
+    width: 350px;
 }
 button {
 	text-transform: uppercase;
+}
+.mat-horizontal-content-container {
+    padding-bottom: 0;
 }

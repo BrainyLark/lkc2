@@ -26,21 +26,40 @@
             <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
             <mat-divider></mat-divider>
             <mat-list>
-                <mat-chip-list>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.translated" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.translation }}</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.modified" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.modification }}</mat-chip></mat-list-item>
-                    <mat-list-item><mat-icon mat-list-icon>playlist_add_check</mat-icon>{{ "task.validated" | translate }}:&nbsp;<mat-chip selected="true">{{ performance.validation }}</mat-chip></mat-list-item>
+                <mat-chip-list class="w-200">
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>playlist_add_check</mat-icon>
+                        {{ "task.translated" | translate }}:&nbsp;
+                        <mat-chip selected="true" style="margin-left: auto;">
+                            {{ performance.translation }}
+                        </mat-chip>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>playlist_add_check</mat-icon>
+                        {{ "task.modified" | translate }}:&nbsp;
+                        <mat-chip selected="true" style="margin-left: auto;">
+                            {{ performance.modification }}
+                        </mat-chip>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>playlist_add_check</mat-icon>
+                        {{ "task.validated" | translate }}:&nbsp;
+                        <mat-chip selected="true" style="margin-left: auto;">
+                            {{ performance.validation }}
+                        </mat-chip>
+                    </mat-list-item>
                 </mat-chip-list>
             </mat-list>
             <br>
             <mat-divider></mat-divider>
             <br>
                 <mat-card-content>
-                    <ul>
-                        <li><mat-icon color="primary">feedback</mat-icon>&nbsp; {{ "task.send_feedback" | translate }}</li>
-                    
-                        <li><mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div></li>
-                    </ul>
+                    <div class="info-list-item">
+                        <mat-icon color="primary">feedback</mat-icon> <div>{{ "task.send_feedback" | translate }}</div>
+                    </div>
+                    <div class="info-list-item">
+                        <mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div>
+                    </div>
                 </mat-card-content>
         </mat-card>
     </mat-grid-tile>

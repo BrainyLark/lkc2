@@ -3,21 +3,6 @@ p {
 	text-align: justify;
 }
 
-mat-card-title {
-	font-size: 1.8em;
-}
-
-mat-card-subtitle {
-	font-size: 0.9em;
-}
-
-mat-card {
-	width: 75%;
-	margin: 0 auto;
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
 div {
 	text-align: justify;
 }

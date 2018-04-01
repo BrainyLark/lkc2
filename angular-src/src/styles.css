@@ -14,3 +14,138 @@
 	background-size: 100vw 100vh;
 	background-attachment: fixed;
 }
+.mat-icon {
+    vertical-align: middle;
+}
+.text-center {
+    text-align: center;
+}
+.w-200 .mat-list-item-content {
+    width: 200px;
+}
+.info-list-item {
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.info-list-item mat-icon {
+    height: 36px;
+    width: 36px;
+    font-size: 36px;
+    margin-bottom: 0.3em;
+}
+.mList {
+    padding-left: 2em;
+}
+.mList .mat-list-item {
+  height: auto !important;
+  padding: 5px 0;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+.mt-2 {
+    margin-top: 2em;
+}
+.mr-1 {
+    margin-right: 0.3em;
+}
+
+.lkc-card i {
+    font-size: 0.9em;
+}
+
+.lkc-card {
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 1em;
+    padding: 24px 50px;
+}
+
+.lkc-card mat-card-content > div {
+    padding: 2em 0;
+    --x-height-multiplier: 0.375;
+    --baseline-multiplier: 0.17;
+    letter-spacing: .01rem;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+}
+.lkc-card mat-card-title {
+    font-size: 2.6em;
+    font-weight: 800;
+    color: rgba(0,0,0,.84)
+}
+.lkc-card mat-card-title p {
+    color: rgba(0,0,0,.54);
+    margin-top: 5px;
+    margin-bottom: 22px;
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: -1.75px;
+    line-height: 1.22;
+    letter-spacing: -.012em;
+    --x-height-multiplier: 0.342;
+    --baseline-multiplier: 0.22;
+}
+
+.lkc-card mat-card-subtitle {
+    font-size: 0.9em;
+}
+
+.lkc-card mat-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.lkc-card  mat-form-field {
+    width: 80%;
+    max-width: 350px;
+}
+@media only screen and (max-width: 767px) {
+    .mList {
+        padding-left: 1em;
+    }
+    .lkc-card .mat-card-content {
+        font-size: 18px;
+        line-height: 1.58;
+        letter-spacing: -.004em;
+    }
+    .lkc-card {
+        margin: 20px 10px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .bg-img {
+        background-size: cover;
+        background-attachment: auto;
+    }
+    .lkc-card mat-card-content > div {
+        padding: 0.7em 0;
+    }
+    .lkc-card mat-card-title {
+        font-size: 2em;
+        text-align: center;
+    }
+    .lkc-card mat-card-title p {
+        text-align: center;
+    }
+    .lkc-card .mat-card-content {
+        font-size: 14px;
+        line-height: 1.48;
+        letter-spacing: -.004em;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .mList {
+        padding-left: 0.3em;
+    }
+}

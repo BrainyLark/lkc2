@@ -1,9 +1,8 @@
-<br><mat-card class="center-side">
+<mat-card class="lkc-card text-center">
 	<mat-card-title>Нууц үг өөрчлөх</mat-card-title>
 	<br>
 	<mat-card-content>
-
-		<div *ngIf="isUserfieldAllowed">
+		<section *ngIf="isUserfieldAllowed">
 			<br>
 			<mat-form-field>
 				<input (keyup.enter)="sendEmail()" matInput placeholder='Хэрэглэгчийн нэр' [(ngModel)]="username" minlength="2" required>
@@ -15,9 +14,9 @@
 	  		</div><br>
 			<button mat-button color="primary" *ngIf="!isSendingEmail" (click)="sendEmail()">Илгээх</button>
 			<br>
-		</div>
+		</section>
 
-		<div *ngIf="isTokenAllowed">
+		<section *ngIf="isTokenAllowed">
 			<br>
 	  		<p style="margin: 0 auto;">Таны мейл рүү илгээсэн <b>баталгаажуулах кодыг</b> доор оруулна уу...</p>
 			<br>
@@ -31,9 +30,9 @@
 	  		</div><br>
 			<button mat-button *ngIf="!isSendingToken" color="primary" (click)="checkToken()">Илгээх</button>
 			<br>
-		</div>
+		</section>
 
-		<div *ngIf="isResetAllowed">
+		<section *ngIf="isResetAllowed">
 			<br>
 			<mat-form-field>
 				<input matInput type="password" minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үг' [(ngModel)]="password" required>
@@ -45,16 +44,16 @@
 	  			<mat-spinner style="margin: 0 auto;" [diameter]="60"></mat-spinner>
 	  			<br>
 	  			<p style="margin: 0 auto;">Нууц үгийг шинэчилж байна, түр хүлээнэ үү...</p>
-	  		</div><br>
-			<button mat-button *ngIf="!isSendingPass" color="primary" (click)="resetPass()">Илгээх</button>
+	  		</div><br><br>
+			<button mat-raised-button *ngIf="!isSendingPass" color="primary" (click)="resetPass()">Илгээх</button>
 			<br>
-		</div>
+		</section>
 
-		<div>
+		<section>
 			<br>
 			<p *ngIf="isSuccess" style="margin: 0 auto; color: green;">Таны нууц үг амжилттай шинэчлэгдлээ! <a href="/login">Энд дарж нэвтрэнэ үү...</a></p>
 			<p *ngIf="isFailure" style="margin: 0 auto; color: red;">Уучлаарай таны нууц үгийг шинэчлэхэд алдаа гарлаа, дахин оролдоно уу!</p>
-		</div>
+		</section>
 
 	</mat-card-content>
 </mat-card>
