@@ -33,6 +33,11 @@ module.exports = {
 		143, 139, 28162, 142, 133, 130, 122, 134
 	],
 	interval: 1 * dayInMilli,
+	agreement: {
+		alpha: -0.1,
+		kappa: 0,
+		categories: 3
+	},
 	languageCodes: [
 		'en', 'in', 'it', 'es', 'zh'
 	],

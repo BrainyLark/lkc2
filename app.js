@@ -12,6 +12,8 @@ const meta		= require('./meta')
 const session	= require('express-session');
 const cookieParser	= require('cookie-parser');
 
+const Estimator = require('./service/Estimator')
+
 //connect database
 ContentProvider.connect(config.database.uri)
 
@@ -22,8 +24,8 @@ const app = express()
 app.use(cors())
 
 app.use(function(req, res, next){
-	//res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
-	res.setHeader('Access-Control-Allow-Origin', 'http://lkc.num.edu.mn')
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+	//res.setHeader('Access-Control-Allow-Origin', 'http://lkc.num.edu.mn')
 	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 	res.setHeader('Access-Control-Allow-Credentials', true)
@@ -31,7 +33,7 @@ app.use(function(req, res, next){
 })
 
 //set static folder
-app.use(express.static(path.join(__dirname, 'angular-src/dist')))
+//app.use(express.static(path.join(__dirname, 'angular-src/dist')))
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -56,6 +58,12 @@ setInterval(SlotResolver.purge, meta.interval)
 // API routes of our server
 app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
+
+app.get('/alpha', (req, res, next) => {
+	var reliMatrix = [[0,0,0,0,0], [1,1,1,1,1], [1,1,1,1,1], [1,1,1,1,1], [0,1,0,2,1]]
+	var alpha = Estimator.calculateAlpha(reliMatrix, 5, 5)
+	return res.json({ agreement: alpha })
+})
 
 // Authorized APIs
 const APIs = ['taskEvent', 'taskEventCount', 'domain', 'task', 'translation', 'modification', 'validation', 'performance']
