@@ -25,12 +25,10 @@ module.exports.saveUserModificationData = (req, res, next) => {
             for (let i = 0; i < mlist.length; i++) {
                 words.push({ word: mlist[i] })
             }
-            Task.findById(modTaskId, 'conceptId synset lemma gloss domainId', (err, origin) => {
+            Task.findById(modTaskId, 'conceptId synset domainId', (err, origin) => {
                 if (err) handleError(err)
                 Task.create({
                     conceptId: origin.conceptId,
-                    gloss: origin.gloss,
-                    lemma: origin.lemma,
                     synset: origin.synset,
                     domainId: origin.domainId,
                     taskType: meta.tasktype.validation,

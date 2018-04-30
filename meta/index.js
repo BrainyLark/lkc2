@@ -6,7 +6,14 @@ module.exports = {
 	tasktype: {
 		translation: 1,
 		modification: 2,
-		validation: 3
+		validation: 3,
+		gtranslation: 4,
+		gmodification: 5,
+		gvalidation: 6
+	},
+	runType: {
+		synset: 0,
+		gloss: 1
 	},
 	status: {
 		ok: 1,

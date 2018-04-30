@@ -48,21 +48,43 @@ module.exports.getNext = function(req, res, next) {
 }
 
 module.exports.saveUserTranslationData = (req, res, next) => {
-	var generateModTask = (translationTaskId, callback) => {
+	var generateModTask = (translationTaskId, trType, callback) => {
 		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
 			if (err) return handleError(res, err)
-			var tset = new Set()
-			for (let user = 0; user < meta.tasklimit.translation; user++) {
-				for (let ind = 0; ind < run[user].translation.length; ind++)
-					tset.add(run[user].translation[ind].lemma)
+			var words, glosses
+			if (trType == meta.runType.synset) {
+				var tset = new Set()
+				for (let user = 0; user < meta.tasklimit.translation; user++) {
+					for (let ind = 0; ind < run[user].translation.length; ind++)
+						tset.add(run[user].translation[ind].lemma)
+				}
+				var tlist = Array.from(tset)
+				words = []
+				for (let w = 0; w < tlist.length; w++) {
+					words.push({word: tlist[w]})
+				}
+			} else if (trType == meta.runType.gloss) {
+				glosses = []
+				for (let user = 0; user < meta.tasklimit.translation; user++) {
+					glosses.push(run[user].translation)
+				}
 			}
-			var tlist = Array.from(tset)
-			var words = []
-			for (let w = 0; w < tlist.length; w++) {
-				words.push({word: tlist[w]})
-			}
-			Task.findById(translationTaskId, 'conceptId synset lemma gloss domainId', (err, origin) => {
+			Task.findById(translationTaskId, 'conceptId synset lemma gloss domainId taskType', (err, origin) => {
 				if (err) return handleError(res, err)
+				var modificationData = {
+					conceptId: origin.conceptId,
+					gloss: origin.gloss,
+					synset: origin.synset,
+					lemma: origin.lemma,
+					domainId: origin.domainId,
+					taskType: origin.taskType + 1,
+					_translationTaskId: translationTaskId
+				}
+				if (trType == meta.runType.synset) {
+					modificationData.translatedWords = words
+				} else if (trType == meta.runType.gloss) {
+					modificationData.
+				}
 				Task.create({
 					conceptId: origin.conceptId,
 					gloss: origin.gloss,
@@ -74,21 +96,27 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 					translatedWords: words
 				}, callback)
 			})
-		})
+		})		
 	}
+	
 	var user = req.user
-	Translation.create({
+	var translationType = !req.body.translationType ? meta.runType.synset : req.body.translationType
+	var data = {
 		taskId: req.body.taskId,
 		domainId: req.body.domainId,
 		translator: user.username,
 		translatorId: user._id,
+		translationType: translationType,
 		translation: req.body.translation,
-		skip: req.body.skip || false,
-		gap: req.body.gap || false,
-		gapReason: req.body.gapReason || null,
 		startDate: req.body.start_date,
 		endDate: req.body.end_date
-	}, (err, translation) => {
+	}
+	if (translationType == meta.runType.synset) {
+		data.skip = req.body.skip || false,
+		data.gap = req.body.gap || false,
+		data.gapReason = req.body.gapReason || null,
+	}
+	Translation.create(data, (err, translation) => {
 		if (err) return handleError(res, err)
 		var con = 0
 		var cb = (err, data) => {
@@ -98,11 +126,11 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 				TaskEvent.count({ taskId: translation.taskId, state: meta.taskstate.terminated }, (err, r_count) => {
 					if (err) return handleError(res, err)
 					if (r_count >= meta.tasklimit.translation) {
-						generateModTask(req.body.taskId, (err, task) => {
+						generateModTask(req.body.taskId, trnType, (err, task) => {
 							if (err) return handleError(res, err)
 							TaskEventCount.create({
 								taskId: task._id,
-								taskType: meta.tasktype.modification,
+								taskType: task.taskType + 1,
 								domainId: task.domainId,
 								count: 0
 							}, (err, r_count) => {

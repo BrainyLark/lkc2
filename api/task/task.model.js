@@ -30,6 +30,27 @@ const VerificationTask = Task.discriminator(meta.tasktype.validation,
 		_modificationTaskId:	{ type: String }
 	}))
 
+const GlossTranslationTask = Task.discriminator(meta.tasktype.gtranslation, 
+	new mongoose.Schema({
+		targetWords:	{ type: String, required: true },
+		synsetAlpha: 	{ type: Number, required: true },
+		_validationTaskId: 	{ type: String }
+	}))
+
+const GlossModificationTask = Task.discriminator(meta.tasktype.gmodification,
+	new mongoose.Schema({
+		targetWords: 	{ type: String, required: true },
+		translatedGlosses: 	[{ gloss: String }],
+		_translationTaskId: 	{ type: String }
+	}))
+
+const GlossVerificationTask = Task.discriminator(meta.tasktype.gvalidation, 
+	new mongoose.Schema({
+		targetWords: 		{ type: String, required: true },
+		modifiedGlosses: 		[{ gloss: String }],
+		_modificationTaskId: 	{ type: String }
+	}))
+
 // Task table custom helper methods
 module.exports.findBySettings = function(settings, callback) {
 	const query = {}

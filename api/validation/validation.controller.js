@@ -9,28 +9,71 @@ const Estimator			= require('../../service/Estimator')
 module.exports.saveUserValidationData = (req, res, next) => {
 	var user = req.user
 
+	var regenerateMod = (taskId, callback) => {
+		Task.findById(taskId, '_modificationTaskId', (err, vtask) => {
+			let mqryString = 'conceptId synset domainId translatedWords _translationTaskId'
+			Task.findById(vtask._modificationTaskId, mqryString, (err, mtask) => {
+				Task.create({
+					conceptId: mtask.conceptId,
+					domainId: mtask.domainId,
+					synset: mtask.synset,
+					taskType: meta.tasktype.modification,
+					translatedWords: mtask.translatedWords,
+					_translationTaskId: mtask._translationTaskId,
+				}, callback)
+			})
+		})
+	}
+
 	var analyseSynset = (taskId, callback) => {
 		Validation.find({ taskId: taskId }, 'validations', (err, run) => {
 			if (err) return handleError(res, err)
 			
 			var raterCnt = run.length
 			var unitCnt = run[0].validations.length
-			var reliabilityMatrix = new Array(raterCnt)
+			var reliabilityMatrix = new Array(unitCnt)
 			
-			for (let r = 0; r < raterCnt; r++) {
-				reliabilityMatrix[r] = new Array(unitCnt)
-				for (let u = 0; u < unitCnt; u++) {
-					reliabilityMatrix[r][u] = run[r].validations[u].rating
+			for (let u = 0; u < unitCnt; u++) {
+				reliabilityMatrix[u] = new Array(raterCnt)
+				for (let r = 0; r < raterCnt; r++) {
+					reliabilityMatrix[u][r] = run[r].validations[u].rating
 				}
 			}
 
-			console.log("Reliability Matrix: ", reliabilityMatrix)
-
 			let alpha = Estimator.calculateAlpha(reliabilityMatrix, raterCnt, unitCnt)
+
 			if (alpha >= meta.agreement.alpha) {
-				callback("create gloss translation task")
+
+				var cb_generate = (targetWords) => {
+					Task.findById(taskId, 'conceptId synset domainId', (err, origin) => {
+						if (err) return  handleError(res, err)
+						Task.create({
+							conceptId: origin.conceptId,
+							domainId: origin.domainId,
+							synset: origin.synset,
+							taskType: meta.tasktype.gtranslation,
+							_validationTaskId: taskId,
+							targetWords: targetWords,
+							synsetAlpha: alpha
+						}, callback)
+					})
+				}
+
+				var selection = reliabilityMatrix.map(v => v.filter(x => x == 0).length).map(e => e > 2 ? true : false)
+				if (selection.filter(e => e == true).length) {
+					var targetWords = []
+					for (let i = 0; i < unitCnt; i++) {
+						if (selection[i]) {
+							targetWords.push(run[0].validations[i].word)
+						}
+					}
+					cb_generate(targetWords)
+				} else {
+					regenerateMod(taskId, callback)
+				}
+
 			} else {
-				callback("erase validation, modification run, validation task, update modification task")
+				regenerateMod(taskId, callback)
 			}
 		})
 	}
@@ -57,9 +100,18 @@ module.exports.saveUserValidationData = (req, res, next) => {
 					if (err) return handleError(res, err)
 					if (e_count >= meta.tasklimit.validation) {
 						//determine what route the synset would meet
-						analyseSynset(validation.taskId, (state) => {
-							console.log(state)
-							console.log("Determination end!")
+						analyseSynset(validation.taskId, (err, task) => {
+							if (err) return handleError(res, err)
+							console.log("Analysis finished, creating log!")
+							TaskEventCount.create({
+								taskId: task._id,
+								taskType: task.taskType,
+								domainId: task.domainId,
+								count: 0
+							}, (err, r_count) => {
+								if (err) return handleError(res, err)
+								console.log("Task-"r_count.taskType, " successfully created!")
+							})
 						})
 					}
 				})

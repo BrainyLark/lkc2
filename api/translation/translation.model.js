@@ -5,15 +5,23 @@ const TranslationSchema = mongoose.Schema({
       domainId:		{ type: Number, required: true },
       translator:		{ type: String, required: true },
       translatorId:	{ type: String, required: true },
-      translation:	[{ lemma: String, rating: Number }],
-      gap:			{ type: Boolean, required: true, default: false },
-      gapReason: 	{ type: String, default: null },
       skip:			{ type: Boolean, required: true, default: false },
       startDate:		{ type: Date, required: true },
-      endDate:		{ type: Date, required: true }
-}, { discriminatorKey: 'gap', timestamps: true })
+      endDate:		{ type: Date, required: true },
+      translationType: 	{ type: Number, required: true }
+}, { discriminatorKey: 'translationType', timestamps: true })
 
 const Translation = module.exports = mongoose.model('Translation', TranslationSchema)
+
+const SynsetTranslation = Translation.discriminator(meta.runType.synset, new mongoose.Schema({
+	translation:	[{ lemma: String, rating: Number }],
+	gap:			{ type: Boolean, required: true, default: false },
+    gapReason: 		{ type: String, default: null },
+}))
+
+const GlossTranslation = Translation.discriminator(meta.runType.gloss, new mongoose.Schema({
+	translation: 	{ gloss: String, required: true }
+}))
 
 module.exports.findBySettings = function(settings, callback) {
 	const query = {}

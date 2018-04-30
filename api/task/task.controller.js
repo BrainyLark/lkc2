@@ -31,7 +31,7 @@ module.exports.next = function (req, res, next) {
 	var userId = req.user._id
 	var domainId = req.params.domainId
 	var typeId = req.params.typeId
-	var taskLimit = (typeId == meta.tasktype.modification) ? meta.tasklimit.modification : meta.tasklimit.translation
+	var taskLimit = (typeId == meta.tasktype.modification || typeId == meta.tasktype.gmodification) ? meta.tasklimit.modification : meta.tasklimit.translation
 	TaskEvent.lastEvent([userId, domainId, typeId], (err, lastEvent) => {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
