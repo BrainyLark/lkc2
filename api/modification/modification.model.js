@@ -5,12 +5,20 @@ const ModificationSchema = mongoose.Schema({
     domainId:           { type: Number, required: true },
     modifierId:         { type: String, required: true },
     modifier:           { type: String, required: true },
-    modifiedWords:      [{ preWord: String, postWord: String }],
-    gap:                { type: Boolean, required: true, default: false },
-    gapReason: 			{ type: String, default: null },
     skip:               { type: Boolean, required: true, default: false },
     startDate:          { type: Date, required: true },
-    endDate:		{ type: Date, required: true }
-}, {timestamps: true})
+    endDate:            { type: Date, required: true },
+    modificationType:   { type: Number, required: true }
+}, {discriminatorKey: 'modificationType', timestamps: true})
 
 const Modification = module.exports = mongoose.model('Modification', ModificationSchema)
+
+const SynsetModification = Modification.discriminator(meta.runType.synset, new mongoose.Schema({
+    modification:      [{ preWord: String, postWord: String }],
+    gap:                { type: Boolean, required: true, default: false },
+    gapReason:          { type: String, default: null }
+}))
+
+const GlossModification = Modification.discriminator(meta.runType.gloss, new mongoose.Schema({
+    modification:      { type: String }
+}))

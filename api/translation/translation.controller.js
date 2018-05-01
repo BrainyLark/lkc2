@@ -52,6 +52,7 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
 			if (err) return handleError(res, err)
 			var words, glosses
+			var qryString = 'conceptId synset lemma gloss domainId taskType'
 			if (trType == meta.runType.synset) {
 				var tset = new Set()
 				for (let user = 0; user < meta.tasklimit.translation; user++) {
@@ -64,14 +65,15 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 					words.push({word: tlist[w]})
 				}
 			} else if (trType == meta.runType.gloss) {
+				qryString += ' targetWords'
 				glosses = []
 				for (let user = 0; user < meta.tasklimit.translation; user++) {
 					glosses.push(run[user].translation)
 				}
 			}
-			Task.findById(translationTaskId, 'conceptId synset lemma gloss domainId taskType', (err, origin) => {
+			Task.findById(translationTaskId, qryString, (err, origin) => {
 				if (err) return handleError(res, err)
-				var modificationData = {
+				var mdTaskData = {
 					conceptId: origin.conceptId,
 					gloss: origin.gloss,
 					synset: origin.synset,
@@ -81,20 +83,12 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 					_translationTaskId: translationTaskId
 				}
 				if (trType == meta.runType.synset) {
-					modificationData.translatedWords = words
+					mdTaskData.translatedWords = words
 				} else if (trType == meta.runType.gloss) {
-					modificationData.
+					mdTaskData.targetWords = origin.targetWords
+					mdTaskData.translatedGlosses = glosses
 				}
-				Task.create({
-					conceptId: origin.conceptId,
-					gloss: origin.gloss,
-					synset: origin.synset,
-					lemma: origin.lemma,
-					domainId: origin.domainId,
-					taskType: meta.tasktype.modification,
-					_translationTaskId: translationTaskId,
-					translatedWords: words
-				}, callback)
+				Task.create(mdTaskData, callback)
 			})
 		})		
 	}
@@ -126,16 +120,15 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 				TaskEvent.count({ taskId: translation.taskId, state: meta.taskstate.terminated }, (err, r_count) => {
 					if (err) return handleError(res, err)
 					if (r_count >= meta.tasklimit.translation) {
-						generateModTask(req.body.taskId, trnType, (err, task) => {
+						generateModTask(req.body.taskId, translationType, (err, task) => {
 							if (err) return handleError(res, err)
 							TaskEventCount.create({
 								taskId: task._id,
-								taskType: task.taskType + 1,
+								taskType: task.taskType,
 								domainId: task.domainId,
 								count: 0
 							}, (err, r_count) => {
 								if (err) return handleError(res, err)
-							 	console.log("Modification task successfully generated:\n")
 							})
 						})
 					}

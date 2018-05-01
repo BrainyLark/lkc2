@@ -8,49 +8,71 @@ const meta              = require('../../meta')
 
 module.exports.saveUserModificationData = (req, res, next) => {
     var user = req.user
+    var modificationType = !req.body.modificationType ? meta.runType.synset : req.body.modificationType
 
-    var generateValidTask = (modTaskId, callback) => {
+    var generateValidTask = (modTaskId, mdType, callback) => {
         Modification.find({ taskId: modTaskId }, (err, run) => {
             if (err) return handleError(res, err)
-            var mset = new Set()
-            let userCnt = run.length
-            for (let u = 0; u < userCnt; u++) {
-                let userRun = run[u]
-                for (let w = 0; w < userRun.modifiedWords.length; w++) {
-                    mset.add(userRun.modifiedWords[w].postWord)
+            var words, glosses
+            var qryString = 'conceptId synset domainId'
+            if (mdType == meta.runType.synset) {
+                var mset = new Set()
+                let userCnt = run.length
+                for (let u = 0; u < userCnt; u++) {
+                    let userRun = run[u]
+                    for (let w = 0; w < userRun.modifiedWords.length; w++) {
+                        mset.add(userRun.modifiedWords[w].postWord)
+                    }
+                }
+                var mlist = Array.from(mset)
+                words = []
+                for (let i = 0; i < mlist.length; i++) {
+                    words.push({ word: mlist[i] })
+                }
+            } else if (mdType == meta.runType.gloss) {
+                qryString += ' targetWords'
+                glosses = []
+                for (let user = 0; user < meta.tasklimit.modification; user++) {
+                    glosses.push(run[user].modification)
                 }
             }
-            var mlist = Array.from(mset)
-            var words = []
-            for (let i = 0; i < mlist.length; i++) {
-                words.push({ word: mlist[i] })
-            }
-            Task.findById(modTaskId, 'conceptId synset domainId', (err, origin) => {
+            Task.findById(modTaskId, qryString, (err, origin) => {
                 if (err) handleError(err)
-                Task.create({
+                var validTaskData = {
                     conceptId: origin.conceptId,
                     synset: origin.synset,
                     domainId: origin.domainId,
-                    taskType: meta.tasktype.validation,
+                    taskType: origin.taskType + 1,
                     _modificationTaskId: modTaskId,
-                    modifiedWords: words
-                }, callback)
+                }
+                if (mdType == meta.runType.synset) {
+                    validTaskData.modifiedWords = words   
+                } else if (mdType == meta.runType.gloss) {
+                    validTaskData.targetWords = origin.targetWords
+                    validTaskData.modifiedGloss = glosses
+                }
+                Task.create(validTaskData, callback)
             })
         })
     }
 
-    Modification.create({
+    var data = {
         taskId: req.body.taskId,
         domainId: req.body.domainId,
         modifier: user.username,
         modifierId: user._id,
-        modifiedWords: req.body.modifiedWords,
-        gap: req.body.gap || false,
-        gapReason: req.body.gapReason || null,
+        modification: req.body.modification,
         skip: req.body.skip || false,
         startDate: req.body.start_date,
         endDate: req.body.end_date
-    }, (err, modification) => {
+    }
+
+    if (translationType == meta.runType.synset) {
+        data.gap = req.body.gap || false
+        data.gapReason = req.body.gapReason || null
+    }
+
+    Modification.create(data, (err, modification) => {
         if (err) handleError(err)
         var con = 0
         var cb = (err, data) => {
@@ -59,18 +81,15 @@ module.exports.saveUserModificationData = (req, res, next) => {
             if (con == 2) {
                 TaskEvent.count({ taskId: modification.taskId, state: meta.taskstate.terminated }, (err, e_count) => {
                     if (e_count >= meta.tasklimit.modification) {
-                        generateValidTask(modification.taskId, (err, task) => {
+                        generateValidTask(modification.taskId, modificationType, (err, task) => {
                             if (err) return handleError(res, err)
                             TaskEventCount.create({
                                 taskId: task._id,
-                                taskType: meta.tasktype.validation,
+                                taskType: task.taskType,
                                 domainId: task.domainId,
                                 count: 0
                             }, (err, e_count) => {
                                 if (err) return handleError(res, err)
-                                console.log("Validation task successfully generated:\n")
-								console.log("Created task: ", task)
-								console.log("Task log: ", e_count)
                             })
                         })
                     }
