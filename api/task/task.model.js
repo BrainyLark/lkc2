@@ -16,35 +16,35 @@ const TaskSchema = new mongoose.Schema({
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)
 
-const TranslationTask = Task.discriminator(meta.tasktype.translation, new mongoose.Schema({}))
+const SynsetTranslationTask = Task.discriminator('SynsetTranslationTask', new mongoose.Schema({}))
 
-const ModificationTask = Task.discriminator(meta.tasktype.modification,
+const SynsetModificationTask = Task.discriminator('SynsetModificationTask',
 	new mongoose.Schema({
 		translatedWords: 	[{ word: String }],
 		_translationTaskId:	{ type: String }
 	}))
 
-const VerificationTask = Task.discriminator(meta.tasktype.validation,
+const SynsetValidationTask = Task.discriminator('SynsetValidationTask',
 	new mongoose.Schema({
 		modifiedWords: 			[{ word: String }],
 		_modificationTaskId:	{ type: String }
 	}))
 
-const GlossTranslationTask = Task.discriminator(meta.tasktype.gtranslation, 
+const GlossTranslationTask = Task.discriminator('GlossTranslationTask', 
 	new mongoose.Schema({
 		targetWords:	{ type: String, required: true },
 		synsetAlpha: 	{ type: Number, required: true },
 		_validationTaskId: 	{ type: String }
 	}))
 
-const GlossModificationTask = Task.discriminator(meta.tasktype.gmodification,
+const GlossModificationTask = Task.discriminator('GlossModificationTask',
 	new mongoose.Schema({
 		targetWords: 	{ type: String, required: true },
 		translatedGlosses: 	[{ gloss: String }],
 		_translationTaskId: 	{ type: String }
 	}))
 
-const GlossVerificationTask = Task.discriminator(meta.tasktype.gvalidation, 
+const GlossValidationTask = Task.discriminator('GlossValidationTask', 
 	new mongoose.Schema({
 		targetWords: 		{ type: String, required: true },
 		modifiedGlosses: 		[{ gloss: String }],

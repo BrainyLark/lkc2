@@ -107,8 +107,8 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 		skip: req.body.skip || false
 	}
 	if (translationType == meta.runType.synset) {
-		data.gap = req.body.gap || false,
-		data.gapReason = req.body.gapReason || null,
+		data.gap = req.body.gap || false
+		data.gapReason = req.body.gapReason || null
 	}
 	Translation.create(data, (err, translation) => {
 		if (err) return handleError(res, err)

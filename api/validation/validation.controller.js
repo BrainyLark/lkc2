@@ -8,6 +8,7 @@ const Estimator			= require('../../service/Estimator')
 
 module.exports.saveUserValidationData = (req, res, next) => {
 	var user = req.user
+	var validationType = !req.body.validationType ? meta.runType.synset : req.body.validationType
 
 	var regenerateMod = (taskId, callback) => {
 		Task.findById(taskId, '_modificationTaskId', (err, vtask) => {
@@ -78,18 +79,24 @@ module.exports.saveUserValidationData = (req, res, next) => {
 		})
 	}
 
-	Validation.create({
+	var data = {
+		validationType: validationType,
 		taskId: req.body.taskId,
 		domainId: req.body.domainId,
 		validatorId: user._id,
 		validator: user.username,
 		validations: req.body.validations,
-		gap: req.body.gap || false,
-		gapReason: req.body.gapReason || null,
 		skip: req.body.skip || false,
 		startDate: req.body.start_date,
 		endDate: req.body.end_date
-	}, (err, validation) => {
+	}
+
+	if (validationType == meta.runType.synset) {
+		data.gap = req.body.gap || false
+		data.gapReason = req.body.gapReason || null
+	}
+
+	Validation.create(data, (err, validation) => {
 		if (err) return handleError(res, err)
 		var con = 0
 		var cb = (err, data) => {
@@ -99,20 +106,25 @@ module.exports.saveUserValidationData = (req, res, next) => {
 				TaskEvent.count({ taskId: validation.taskId, state: meta.taskstate.terminated }, (err, e_count) => {
 					if (err) return handleError(res, err)
 					if (e_count >= meta.tasklimit.validation) {
-						//determine what route the synset would meet
-						analyseSynset(validation.taskId, (err, task) => {
-							if (err) return handleError(res, err)
-							console.log("Analysis finished, creating log!")
-							TaskEventCount.create({
-								taskId: task._id,
-								taskType: task.taskType,
-								domainId: task.domainId,
-								count: 0
-							}, (err, r_count) => {
+						if (validationType == meta.runType.synset) {
+							//determine what route the synset would meet
+							analyseSynset(validation.taskId, (err, task) => {
 								if (err) return handleError(res, err)
-								console.log("Task-"r_count.taskType, " successfully created!")
+								console.log("Analysis finished, creating log!")
+								TaskEventCount.create({
+									taskId: task._id,
+									taskType: task.taskType,
+									domainId: task.domainId,
+									count: 0
+								}, (err, r_count) => {
+									if (err) return handleError(res, err)
+									console.log("Task-", r_count.taskType, " successfully created!")
+								})
 							})
-						})
+						} else if (validationType == meta.runType.gloss) {
+							console.log("Gloss taskrun completed!")
+							console.log("No gloss post-processing instruction given!")
+						}
 					}
 				})
 				return res.json({ statusSuccess: meta.status.ok, statusMsg: meta.msg.mn.validsaved.ok }) 

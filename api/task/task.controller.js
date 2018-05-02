@@ -1,7 +1,6 @@
 const Task 			= require('./task.model')
 const TaskEvent		= require('../taskEvent/taskEvent.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
-const Translation		= require('../translation/translation.model')
 const request		= require('request')
 const handleError		= require('../../service/ErrorHandler')
 const meta			= require('../../meta')

@@ -14,12 +14,12 @@ const ModificationSchema = mongoose.Schema({
 
 const Modification = module.exports = mongoose.model('Modification', ModificationSchema)
 
-const SynsetModification = Modification.discriminator(meta.runType.synset, new mongoose.Schema({
+const SynsetModification = Modification.discriminator('SynsetModification', new mongoose.Schema({
     modification:      [{ preWord: String, postWord: String }],
     gap:                { type: Boolean, required: true, default: false },
     gapReason:          { type: String, default: null }
 }))
 
-const GlossModification = Modification.discriminator(meta.runType.gloss, new mongoose.Schema({
+const GlossModification = Modification.discriminator('GlossModification', new mongoose.Schema({
     modification:      { type: String }
 }))

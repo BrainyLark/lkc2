@@ -1,7 +1,7 @@
 const mongoose 	= require('mongoose')
 const meta = require('../../meta')
 
-const TranslationSchema = mongoose.Schema({
+var TranslationSchema = new mongoose.Schema({
       taskId:		{ type: String, required: true },
       domainId:		{ type: Number, required: true },
       translator:		{ type: String, required: true },
@@ -9,20 +9,21 @@ const TranslationSchema = mongoose.Schema({
       skip:			{ type: Boolean, required: true, default: false },
       startDate:		{ type: Date, required: true },
       endDate:		{ type: Date, required: true },
-      translationType: 	{ type: Number, required: true }
 }, { discriminatorKey: 'translationType', timestamps: true })
 
-const Translation = module.exports = mongoose.model('Translation', TranslationSchema)
+var Translation = module.exports = mongoose.model('Translation', TranslationSchema)
 
-const SynsetTranslation = Translation.discriminator(meta.runType.synset, new mongoose.Schema({
-	translation:	[{ lemma: String, rating: Number }],
-	gap:			{ type: Boolean, required: true, default: false },
-    gapReason: 		{ type: String, default: null },
-}))
+var SynsetTranslation = Translation.discriminator('SynsetTranslation', 
+	new mongoose.Schema({
+		translation:	[{ lemma: String, rating: Number }],
+		gap:			{ type: Boolean, required: true, default: false },
+    	gapReason: 		{ type: String, default: null }
+	}))
 
-const GlossTranslation = Translation.discriminator(meta.runType.gloss, new mongoose.Schema({
-	translation: 	{ gloss: String, required: true }
-}))
+var GlossTranslation = Translation.discriminator('GlossTranslation', 
+	new mongoose.Schema({
+		translation: 	{ type: String }
+	}))
 
 module.exports.findBySettings = function(settings, callback) {
 	const query = {}

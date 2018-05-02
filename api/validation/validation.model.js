@@ -10,16 +10,16 @@ const ValidationSchema = mongoose.Schema({
 	startDate: 		{ type: Date, required: true },
 	endDate: 		{ type: Date, required: true },
 	validationType:	{ type: Number, required: true },
-}, { discriminatorKey; 'validationType', timestamps: true })
+}, { discriminatorKey: 'validationType', timestamps: true })
 
 const Validation = module.exports = mongoose.model('Validation', ValidationSchema)
 
-const SynsetValidation = Validation.discriminator(meta.runType.synset, new mongoose.Schema({
+const SynsetValidation = Validation.discriminator('SynsetValidation', new mongoose.Schema({
 	validations: 	[{ word: String, rating: Number }],
 	gap: 			{ type: Boolean, required: true, default: false },
 	gapReason: 		{ type: String, default: null },
 }))
 
-const GlossValidation = Validation.discriminator(meta.runType.gloss, new mongoose.Schema({
+const GlossValidation = Validation.discriminator('GlossValidation', new mongoose.Schema({
 	validations:	[{ gloss: String, rating: Number }]
 }))

@@ -9,8 +9,9 @@ const config	= require('./config')
 const SlotResolver	= require('./service/SlotResolver')
 const ContentProvider	= require('./service/ContentProvider')
 const meta		= require('./meta')
-const session	= require('express-session');
-const cookieParser	= require('cookie-parser');
+const session	= require('express-session')
+const cookieParser	= require('cookie-parser')
+const Translation = require('./api/translation/translation.model')
 
 const Estimator = require('./service/Estimator')
 
