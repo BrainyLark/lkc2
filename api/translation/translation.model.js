@@ -1,4 +1,5 @@
 const mongoose 	= require('mongoose')
+const meta = require('../../meta')
 
 const TranslationSchema = mongoose.Schema({
       taskId:		{ type: String, required: true },

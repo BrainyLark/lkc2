@@ -49,7 +49,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
                     validTaskData.modifiedWords = words   
                 } else if (mdType == meta.runType.gloss) {
                     validTaskData.targetWords = origin.targetWords
-                    validTaskData.modifiedGloss = glosses
+                    validTaskData.modifiedGlosses = glosses
                 }
                 Task.create(validTaskData, callback)
             })

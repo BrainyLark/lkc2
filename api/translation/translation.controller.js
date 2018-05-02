@@ -103,10 +103,10 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 		translationType: translationType,
 		translation: req.body.translation,
 		startDate: req.body.start_date,
-		endDate: req.body.end_date
+		endDate: req.body.end_date,
+		skip: req.body.skip || false
 	}
 	if (translationType == meta.runType.synset) {
-		data.skip = req.body.skip || false,
 		data.gap = req.body.gap || false,
 		data.gapReason = req.body.gapReason || null,
 	}

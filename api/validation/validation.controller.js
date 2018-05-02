@@ -67,7 +67,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 							targetWords.push(run[0].validations[i].word)
 						}
 					}
-					cb_generate(targetWords)
+					cb_generate(targetWords.join(', '))
 				} else {
 					regenerateMod(taskId, callback)
 				}
