@@ -199,6 +199,9 @@ export class TranslationComponent implements OnInit {
       })
       return;
     }
+    for (let i = 0; i < this.taskRun.length; i++) {
+      this.taskRun[i].lemma = this.taskRun[i].lemma.toLowerCase();
+    }
     this.statusCode = 2;
     this.statusMsg = '';
     this.isSpinning = true;

@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
-      // this.checkAuth();
+      this.checkAuth();
   }
 
   checkAuth() {

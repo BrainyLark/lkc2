@@ -140,6 +140,10 @@ export class ModificationComponent implements OnInit {
       }
     }
 
+    for(let i = 0; i < this.modifications.length; i++) {
+      this.modifications[i].postWord = this.modifications[i].postWord.toLowerCase();
+    }
+
     this.statusCode = 2;
     this.statusMsg = '';
     this.isSpinning = true;
