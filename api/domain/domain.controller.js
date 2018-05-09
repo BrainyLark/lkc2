@@ -29,17 +29,17 @@ module.exports.index = function (req, res, next) {
 				if (innerCnt == 3) globalCb()
 			}
 			
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 1, count: { $lt: 5 } }, (err, cnt) => {
+			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetTranslationTask', count: { $lt: 5 } }, (err, cnt) => {
 				domain.availableTrn = cnt
 				innerCb()
 			})
 
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 2, count: { $lt: 3 } }, (err, cnt) => {
+			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetModificationTask', count: { $lt: 3 } }, (err, cnt) => {
 				domain.availableMod = cnt
 				innerCb()
 			})
 
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 3, count: { $lt: 5 } }, (err, cnt) => {
+			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetValidationTask', count: { $lt: 5 } }, (err, cnt) => {
 				domain.availableVal = cnt
 				innerCb()
 			})

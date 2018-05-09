@@ -103,7 +103,7 @@ export class ModificationComponent implements OnInit {
       end_date: this.endDate,
       gap: true,
       gapReason: this.gapReason,
-      modifiedWords: [{ preWord: "GAP", postWord: "GAP" }]
+      modification: [{ preWord: "GAP", postWord: "GAP" }]
     };
     this.isGap = false;
     this.gapReason = '';
@@ -151,7 +151,7 @@ export class ModificationComponent implements OnInit {
     let payload = {
       taskId: this.currentTask.task._id,
       domainId: this.gid,
-      modifiedWords: this.modifications,
+      modification: this.modifications,
       start_date: this.startDate,
       end_date: this.endDate
     }

@@ -129,7 +129,7 @@ module.exports.saveUserTranslationData = (req, res, next) => {
 								count: 0
 							}, (err, t_count) => {
 								if (err) return handleError(res, err)
-								console.log("GlossModificationTask successfully created! Molto Bene!")
+								console.log("ModificationTask successfully created! Molto Bene!")
 							})
 						})
 					}

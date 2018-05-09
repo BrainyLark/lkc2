@@ -8,10 +8,11 @@ const meta              = require('../../meta')
 
 module.exports.saveUserModificationData = (req, res, next) => {
     var user = req.user
+    var req_taskId = req.body.taskId
     var modificationType = !req.body.modificationType ? 'SynsetModification' : req.body.modificationType
 
     var generateValidTask = (modTaskId, mdType, callback) => {
-        Modification.find({ taskId: modTaskId }, (err, run) => {
+        Modification.find({ taskId: modTaskId }, 'modification', (err, run) => {
             if (err) return handleError(res, err)
             var words, glosses
             var qryString = 'conceptId synset domainId'
@@ -38,11 +39,12 @@ module.exports.saveUserModificationData = (req, res, next) => {
             }
             Task.findById(modTaskId, qryString, (err, origin) => {
                 if (err) handleError(err)
+                let taskType = origin.taskType == 'SynsetModificationTask' ? 'SynsetValidationTask' : 'GlossValidationTask'
                 var validTaskData = {
                     conceptId: origin.conceptId,
                     synset: origin.synset,
                     domainId: origin.domainId,
-                    taskType: origin.taskType == 'SynsetModificationTask' ? 'SynsetValidationTask' : 'GlossValidationTask',
+                    taskType: taskType,
                     _modificationTaskId: modTaskId,
                 }
                 if (mdType == 'SynsetModification') {
@@ -58,7 +60,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
 
     var data = {
         modificationType: modificationType,
-        taskId: req.body.taskId,
+        taskId: req_taskId,
         domainId: req.body.domainId,
         modifier: user.username,
         modifierId: user._id,
@@ -82,7 +84,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
             if (con == 2) {
                 TaskEvent.count({ taskId: modification.taskId, state: meta.taskstate.terminated }, (err, e_count) => {
                     if (e_count >= meta.tasklimit.modification) {
-                        generateValidTask(modification.taskId, modificationType, (err, task) => {
+                        generateValidTask(req_taskId, modificationType, (err, task) => {
                             if (err) return handleError(res, err)
                             TaskEventCount.create({
                                 taskId: task._id,
@@ -91,7 +93,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
                                 count: 0
                             }, (err, e_count) => {
                                 if (err) return handleError(res, err)
-                                console.log("GlossValidationTask successfully created! Molto Bene!")
+                                console.log("ValidationTask successfully created! Molto Bene!")
                             })
                         })
                     }
