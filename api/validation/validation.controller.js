@@ -1,4 +1,5 @@
 const Validation 		= require('./validation.model')
+const Task 				= require('../task/task.model')
 const TaskEvent 		= require('../taskEvent/taskEvent.model')
 const TaskEventCount 	= require('../taskEventCount/taskEventCount.model')
 const handleError 		= require('../../service/ErrorHandler')
@@ -8,7 +9,7 @@ const Estimator			= require('../../service/Estimator')
 
 module.exports.saveUserValidationData = (req, res, next) => {
 	var user = req.user
-	var validationType = !req.body.validationType ? meta.runType.synset : req.body.validationType
+	var validationType = !req.body.validationType ? 'SynsetValidation' : req.body.validationType
 
 	var regenerateMod = (taskId, callback) => {
 		Task.findById(taskId, '_modificationTaskId', (err, vtask) => {
@@ -18,7 +19,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 					conceptId: mtask.conceptId,
 					domainId: mtask.domainId,
 					synset: mtask.synset,
-					taskType: meta.tasktype.modification,
+					taskType: 'SynsetModificationTask',
 					translatedWords: mtask.translatedWords,
 					_translationTaskId: mtask._translationTaskId,
 				}, callback)
@@ -43,6 +44,8 @@ module.exports.saveUserValidationData = (req, res, next) => {
 
 			let alpha = Estimator.calculateAlpha(reliabilityMatrix, raterCnt, unitCnt)
 
+			alpha = parseFloat(Number(alpha).toFixed(3))
+
 			if (alpha >= meta.agreement.alpha) {
 
 				var cb_generate = (targetWords) => {
@@ -52,7 +55,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 							conceptId: origin.conceptId,
 							domainId: origin.domainId,
 							synset: origin.synset,
-							taskType: meta.tasktype.gtranslation,
+							taskType: 'GlossTranslationTask',
 							_validationTaskId: taskId,
 							targetWords: targetWords,
 							synsetAlpha: alpha
@@ -91,7 +94,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 		endDate: req.body.end_date
 	}
 
-	if (validationType == meta.runType.synset) {
+	if (validationType == 'SynsetValidation') {
 		data.gap = req.body.gap || false
 		data.gapReason = req.body.gapReason || null
 	}
@@ -106,7 +109,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 				TaskEvent.count({ taskId: validation.taskId, state: meta.taskstate.terminated }, (err, e_count) => {
 					if (err) return handleError(res, err)
 					if (e_count >= meta.tasklimit.validation) {
-						if (validationType == meta.runType.synset) {
+						if (validationType == 'SynsetValidation') {
 							//determine what route the synset would meet
 							analyseSynset(validation.taskId, (err, task) => {
 								if (err) return handleError(res, err)
@@ -121,7 +124,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 									console.log("Task-", r_count.taskType, " successfully created!")
 								})
 							})
-						} else if (validationType == meta.runType.gloss) {
+						} else if (validationType == 'GlossValidation') {
 							console.log("Gloss taskrun completed!")
 							console.log("No gloss post-processing instruction given!")
 						}

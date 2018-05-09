@@ -29,13 +29,13 @@ module.exports.truncate = function (req, res, next) {
 module.exports.next = function (req, res, next) {
 	var userId = req.user._id
 	var domainId = req.params.domainId
-	var typeId = req.params.typeId
-	var taskLimit = (typeId == meta.tasktype.modification || typeId == meta.tasktype.gmodification) ? meta.tasklimit.modification : meta.tasklimit.translation
-	TaskEvent.lastEvent([userId, domainId, typeId], (err, lastEvent) => {
+	var typeName = meta.taskTypeTable[req.params.typeId]
+	var taskLimit = (typeName == 'SynsetModificationTask' || typeName == 'GlossModificationTask') ? meta.tasklimit.modification : meta.tasklimit.translation
+	TaskEvent.lastEvent([userId, domainId, typeName], (err, lastEvent) => {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
 		var findNextTask = () => {
-			TaskEventCount.find({ domainId: domainId, taskType: typeId })
+			TaskEventCount.find({ domainId: domainId, taskType: typeName })
 				.where('count').lt(taskLimit)
 				.where('createdAt').gt(createdAt)
 				.sort('taskId')
@@ -65,7 +65,7 @@ module.exports.next = function (req, res, next) {
 							if (!tevent) {
 								TaskEvent.create({
 									taskId: taskId,
-									taskType: typeId,
+									taskType: typeName,
 									domainId: domainId,
 									userId: userId
 								}, cb)

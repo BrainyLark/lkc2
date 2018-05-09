@@ -3,7 +3,7 @@ const state		= require('../../meta').taskstate
 
 const TaskEventSchema = mongoose.Schema({
 	taskId: 		{ type: String, required: true },
-	taskType: 		{ type: Number, min: 1, max: 10, required: true },
+	taskType: 		{ type: String, required: true },
 	domainId: 		{ type: Number, required: true },
 	userId: 		{ type: String, required: true },
 	state:		{ type: Number, required: true, default: state.ongoing }

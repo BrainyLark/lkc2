@@ -8,20 +8,20 @@ const meta              = require('../../meta')
 
 module.exports.saveUserModificationData = (req, res, next) => {
     var user = req.user
-    var modificationType = !req.body.modificationType ? meta.runType.synset : req.body.modificationType
+    var modificationType = !req.body.modificationType ? 'SynsetModification' : req.body.modificationType
 
     var generateValidTask = (modTaskId, mdType, callback) => {
         Modification.find({ taskId: modTaskId }, (err, run) => {
             if (err) return handleError(res, err)
             var words, glosses
             var qryString = 'conceptId synset domainId'
-            if (mdType == meta.runType.synset) {
+            if (mdType == 'SynsetModification') {
                 var mset = new Set()
                 let userCnt = run.length
                 for (let u = 0; u < userCnt; u++) {
                     let userRun = run[u]
-                    for (let w = 0; w < userRun.modifiedWords.length; w++) {
-                        mset.add(userRun.modifiedWords[w].postWord)
+                    for (let w = 0; w < userRun.modification.length; w++) {
+                        mset.add(userRun.modification[w].postWord)
                     }
                 }
                 var mlist = Array.from(mset)
@@ -29,11 +29,11 @@ module.exports.saveUserModificationData = (req, res, next) => {
                 for (let i = 0; i < mlist.length; i++) {
                     words.push({ word: mlist[i] })
                 }
-            } else if (mdType == meta.runType.gloss) {
+            } else if (mdType == 'GlossModification') {
                 qryString += ' targetWords'
                 glosses = []
                 for (let user = 0; user < meta.tasklimit.modification; user++) {
-                    glosses.push(run[user].modification)
+                    glosses.push({ gloss: run[user].modification })
                 }
             }
             Task.findById(modTaskId, qryString, (err, origin) => {
@@ -42,12 +42,12 @@ module.exports.saveUserModificationData = (req, res, next) => {
                     conceptId: origin.conceptId,
                     synset: origin.synset,
                     domainId: origin.domainId,
-                    taskType: origin.taskType + 1,
+                    taskType: origin.taskType == 'SynsetModificationTask' ? 'SynsetValidationTask' : 'GlossValidationTask',
                     _modificationTaskId: modTaskId,
                 }
-                if (mdType == meta.runType.synset) {
+                if (mdType == 'SynsetModification') {
                     validTaskData.modifiedWords = words   
-                } else if (mdType == meta.runType.gloss) {
+                } else if (mdType == 'GlossModification') {
                     validTaskData.targetWords = origin.targetWords
                     validTaskData.modifiedGlosses = glosses
                 }
@@ -57,6 +57,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
     }
 
     var data = {
+        modificationType: modificationType,
         taskId: req.body.taskId,
         domainId: req.body.domainId,
         modifier: user.username,
@@ -67,7 +68,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
         endDate: req.body.end_date
     }
 
-    if (translationType == meta.runType.synset) {
+    if (modificationType == 'SynsetModification') {
         data.gap = req.body.gap || false
         data.gapReason = req.body.gapReason || null
     }
@@ -90,6 +91,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
                                 count: 0
                             }, (err, e_count) => {
                                 if (err) return handleError(res, err)
+                                console.log("GlossValidationTask successfully created! Molto Bene!")
                             })
                         })
                     }

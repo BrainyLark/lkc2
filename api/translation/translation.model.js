@@ -2,13 +2,14 @@ const mongoose 	= require('mongoose')
 const meta = require('../../meta')
 
 var TranslationSchema = new mongoose.Schema({
-      taskId:		{ type: String, required: true },
-      domainId:		{ type: Number, required: true },
+      taskId:			{ type: String, required: true },
+      domainId:			{ type: Number, required: true },
       translator:		{ type: String, required: true },
-      translatorId:	{ type: String, required: true },
-      skip:			{ type: Boolean, required: true, default: false },
+      translatorId:		{ type: String, required: true },
+      translationType: 	{ type: String, required: true, default: 'SynsetTranslation' },
+      skip:				{ type: Boolean, required: true, default: false },
       startDate:		{ type: Date, required: true },
-      endDate:		{ type: Date, required: true },
+      endDate:			{ type: Date, required: true },
 }, { discriminatorKey: 'translationType', timestamps: true })
 
 var Translation = module.exports = mongoose.model('Translation', TranslationSchema)

@@ -9,7 +9,7 @@ const ValidationSchema = mongoose.Schema({
 	skip: 			{ type: Boolean, required: true, default: false },
 	startDate: 		{ type: Date, required: true },
 	endDate: 		{ type: Date, required: true },
-	validationType:	{ type: Number, required: true },
+	validationType:	{ type: String, required: true },
 }, { discriminatorKey: 'validationType', timestamps: true })
 
 const Validation = module.exports = mongoose.model('Validation', ValidationSchema)

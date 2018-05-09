@@ -9,7 +9,7 @@ const ModificationSchema = mongoose.Schema({
     skip:               { type: Boolean, required: true, default: false },
     startDate:          { type: Date, required: true },
     endDate:            { type: Date, required: true },
-    modificationType:   { type: Number, required: true }
+    modificationType:   { type: String, required: true, default: 'SynsetModification' }
 }, {discriminatorKey: 'modificationType', timestamps: true})
 
 const Modification = module.exports = mongoose.model('Modification', ModificationSchema)

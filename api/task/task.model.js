@@ -3,15 +3,15 @@ const meta		= require('../../meta')
 
 // Necessary english resources for any type of task
 const TaskSchema = new mongoose.Schema({
-	conceptId: 			{ type: Number, required: true },
+	conceptId: 				{ type: Number, required: true },
 	conceptGlobalId: 		{ type: Number, required: false },
 	parentConceptId: 		{ type: Number, required: false },
 	parentConceptGlobalId: 	{ type: Number, required: false },
-	posTag:				{ type: String, required: false },
-	synset: 			[{ languageCode: String, vocabularyId: Number, concept: String, gloss: String, lemma: String }],
-	domainId: 			{ type: Number, required: true },
-	taskType: 			{ type: Number, min: 1, max: 10, required: true },
-	wordnetId: 			{ type: Number, required: false }
+	posTag:					{ type: String, required: false },
+	synset: 				[{ languageCode: String, vocabularyId: Number, concept: String, gloss: String, lemma: String }],
+	domainId: 				{ type: Number, required: true },
+	taskType: 				{ type: String, required: true, default: 'SynsetTranslationTask' },
+	wordnetId: 				{ type: Number, required: false }
 }, { discriminatorKey: 'taskType', timestamps: true })
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)

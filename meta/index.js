@@ -11,6 +11,14 @@ module.exports = {
 		gmodification: 5,
 		gvalidation: 6
 	},
+	taskTypeTable: {
+		1: 'SynsetTranslationTask',
+		2: 'SynsetModificationTask',
+		3: 'SynsetValidationTask',
+		4: 'GlossTranslationTask',
+		5: 'GlossModificationTask',
+		6: 'GlossValidationTask'
+	},
 	runType: {
 		synset: 0,
 		gloss: 1
