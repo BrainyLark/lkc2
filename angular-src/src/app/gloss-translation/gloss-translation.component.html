@@ -1,0 +1,56 @@
+<br>
+<div fxLayout>
+	<mat-card>
+		<mat-card-title>Тайлбар орчуулах</mat-card-title>
+		<mat-card-subtitle>Дараах ойлголтын тайлбарыг Монгол хэл рүү орчуулж бичнэ үү</mat-card-subtitle>
+		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+
+		<mat-card-content *ngIf="statusCode==1; else error;">
+			<mat-tab-group selectedIndex = "{{ selectedInd }}">
+				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
+					<br><p class="lemma"> {{ synset.lemma }}</p><br>
+					<p class="gloss"> {{ synset.gloss }} </p>
+				</mat-tab>
+			</mat-tab-group><br>
+
+			<mat-divider></mat-divider>
+
+			<div>
+				<mat-list>
+					<mat-list-item>
+						<mat-icon matListIcon>input</mat-icon>
+						<h3 matLine>Монгол ойлголт: </h3>
+						<p matLine>{{ currentTask.task.targetWords }}</p>
+					</mat-list-item>
+				</mat-list>
+			</div>
+
+			<div>
+				<mat-form-field appearance="outline">
+					<mat-label>Тайлбар орчуулах булан</mat-label>
+					<input #message maxlength="256" required matInput [(ngModel)]="translatedGloss" placeholder="Тайлбарын орчуулгыг энд оруулж бичнэ үү">
+					<mat-icon matSuffix>edit</mat-icon>
+					<mat-hint align="start">зөвхөн тайлбарыг орчуулна уу</mat-hint>
+    				<mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+				</mat-form-field>
+			</div>
+
+		</mat-card-content>
+
+		<mat-divider></mat-divider>
+
+		<mat-card-actions *ngIf="statusCode==1">
+			<div class="right-side">
+				<button mat-button color="primary" (click)="skip()">{{"modification.skip" | translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button color="primary" (click)="sendData()">{{"modification.send" | translate}}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+			</div>
+		</mat-card-actions>
+
+		<ng-template #error>
+			<div *ngIf="!statusCode" class="alert">
+				<p>{{ statusMsg | translate }}</p>
+			</div>
+		</ng-template>
+
+	</mat-card>
+</div>

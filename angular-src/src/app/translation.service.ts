@@ -4,9 +4,7 @@ import { Translation } from './model/Task';
 import { TaskrunRes, TranslationRes } from './model/response';
 import { config } from './config';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TranslationService {
@@ -15,8 +13,8 @@ export class TranslationService {
 
   constructor(private http: HttpClient) { }
 
-  getTask(jwt_token, gid) {
-  	let url = this.apiRoot + 'task/1/' + gid;
+  getTask(jwt_token, gid, taskType = 1) {
+  	let url = this.apiRoot + 'task/' + taskType  +'/' + gid;
   	let httpOptions = {
   	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	  };

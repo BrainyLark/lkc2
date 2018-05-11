@@ -28,7 +28,7 @@ module.exports.saveUserValidationData = (req, res, next) => {
 	}
 
 	var analyseSynset = (taskId, callback) => {
-		Validation.find({ taskId: taskId }, 'validations', (err, run) => {
+		Validation.find({ taskId: taskId, skip: false }, 'validations', (err, run) => {
 			if (err) return handleError(res, err)
 			
 			var raterCnt = run.length

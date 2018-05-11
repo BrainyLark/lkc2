@@ -14,7 +14,8 @@ export class Translation {
 			gloss: string,
 			lemma: string,
 			_id: string
-		}]
+		}],
+		targetWords: string
 	}
 }
 
@@ -37,7 +38,9 @@ export class Modification {
 		translatedWords: [{
 			word: string,
 			_id: string
-		}]
+		}],
+		targetWords: string,
+		translatedGlosses: [{ gloss: string }]
 	}
 }
 

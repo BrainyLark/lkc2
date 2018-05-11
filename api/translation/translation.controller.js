@@ -49,7 +49,7 @@ module.exports.getNext = function(req, res, next) {
 
 module.exports.saveUserTranslationData = (req, res, next) => {
 	var generateModTask = (translationTaskId, trType, callback) => {
-		Translation.find({ taskId: translationTaskId }, 'translation', (err, run) => {
+		Translation.find({ taskId: translationTaskId, skip: false }, 'translation', (err, run) => {
 			if (err) return handleError(res, err)
 			var words, glosses
 			var qryString = 'conceptId synset domainId taskType'

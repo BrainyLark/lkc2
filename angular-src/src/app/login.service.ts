@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginRes, ResetPasswordRes } from './model/response';
 import { User } from './model/User';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { config } from './config';
 
 const httpOptions = {

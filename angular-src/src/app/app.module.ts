@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterService } from './register.service';
 
@@ -33,6 +33,9 @@ import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { ResetPassComponent } from './reset-pass/reset-pass.component';
+import { GlossTranslationComponent } from './gloss-translation/gloss-translation.component';
+import { GlossModificationComponent } from './gloss-modification/gloss-modification.component';
+import { GlossValidationComponent } from './gloss-validation/gloss-validation.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,6 +58,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     PublicationComponent,
     GuidelinesComponent,
     ResetPassComponent,
+    GlossTranslationComponent,
+    GlossModificationComponent,
+    GlossValidationComponent,
   ],
   imports: [
     BrowserModule,

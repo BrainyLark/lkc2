@@ -8,6 +8,9 @@ import { DomainComponent } from './domain/domain.component';
 import { TranslationComponent } from './translation/translation.component';
 import { ModificationComponent } from './modification/modification.component';
 import { ValidationComponent } from './validation/validation.component';
+import { GlossTranslationComponent } from './gloss-translation/gloss-translation.component';
+import { GlossModificationComponent } from './gloss-modification/gloss-modification.component';
+import { GlossValidationComponent } from './gloss-validation/gloss-validation.component';
 import { ProjectComponent } from './project/project.component';
 import { HomeComponent } from './home/home.component';
 import { PublicationComponent } from './publication/publication.component';
@@ -24,6 +27,9 @@ const routes: Routes = [
 	{ path: 'task/1/:gid', component: TranslationComponent },
 	{ path: 'task/2/:gid', component: ModificationComponent },
 	{ path: 'task/3/:gid', component: ValidationComponent },
+	{ path: 'task/4/:gid', component: GlossTranslationComponent },
+	{ path: 'task/5/:gid', component: GlossModificationComponent },
+	{ path: 'task/6/:gid', component: GlossValidationComponent },
 	{ path: 'project', component: ProjectComponent },
 	{ path: 'publications', component: PublicationComponent },
 	{ path: 'guidelines', component: GuidelinesComponent },

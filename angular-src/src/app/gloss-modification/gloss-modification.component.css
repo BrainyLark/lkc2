@@ -1,0 +1,59 @@
+mat-card {
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 660px;
+	min-width: 50%;
+	height: 100%;
+}
+mat-card-title {
+	font-size: 1.8em;
+	text-transform: uppercase;
+}
+
+mat-card-subtitle {
+	font-size: 0.9em;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.lemma {
+	font-size: 2em;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.75);
+}
+/deep/.mat-tab-label, /deep/.mat-tab-label-active{
+ min-width: 100px !important;
+ font-family: 'Roboto Condensed', sans-serif;
+ font-size: 1.2em;
+}
+.gloss {
+	font-size: 1.3em;
+	color: rgba(0, 0, 0, 0.75);
+}
+.content {
+	text-align: center;
+	width: 100%;
+}
+input {
+	font-size: 1.2em;
+	color: rgba(0, 0, 0, 0.75);
+}
+mat-form-field {
+	width: 100%;
+}
+/deep/ label.mat-input-placeholder {
+  font-size: 1.1em;
+}
+button {
+	margin: 10px;
+}
+.right-side {
+	text-align: right;
+}
+button.mat-button {
+	margin-left: 15px;
+	text-transform: uppercase;
+}
+mat-form-field#gap {
+	width: 80%;
+}

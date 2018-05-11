@@ -7,7 +7,6 @@ import { LoginService } from '../login.service';
 import { language } from '../meta';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import 'rxjs/add/operator/catch';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({

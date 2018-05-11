@@ -4,9 +4,7 @@ import { config } from './config';
 import { Modification } from './model/Task';
 import { TaskrunRes } from './model/response';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ModificationService {
@@ -15,8 +13,8 @@ export class ModificationService {
 
     constructor(private http: HttpClient) { }
 
-    getTask(jwt_token:string, gid:string) {
-    	let url = this.apiRoot + 'task/2/' + gid;
+    getTask(jwt_token:string, gid:string, taskType = 2) {
+    	let url = this.apiRoot + 'task/' + taskType + '/' + gid;
     	let httpOptions = {
   	  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	  	};

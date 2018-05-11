@@ -12,7 +12,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
     var modificationType = !req.body.modificationType ? 'SynsetModification' : req.body.modificationType
 
     var generateValidTask = (modTaskId, mdType, callback) => {
-        Modification.find({ taskId: modTaskId }, 'modification', (err, run) => {
+        Modification.find({ taskId: modTaskId, skip: false }, 'modification', (err, run) => {
             if (err) return handleError(res, err)
             var words, glosses
             var qryString = 'conceptId synset domainId'
