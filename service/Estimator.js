@@ -45,6 +45,14 @@ module.exports.calculateAlpha = (reliMatrix, raterCnt, unitCnt) => {
 	var firstArg = tempO * (nTotal - 1) - tempN
 	var secondArg = nTotal * (nTotal - 1) - tempN
 
+	if (firstArg == 0 && secondArg == 0) {
+		return 1
+	}
+
+	if (secondArg == 0) {
+		return 0
+	}
+
 	return firstArg / secondArg
 
 }

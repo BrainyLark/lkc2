@@ -61,7 +61,7 @@ app.use('/user', require('./api/user'))
 app.use('/generate', require('./api/generate'))
 
 app.get('/alpha', (req, res, next) => {
-	var reliMatrix = [[0,0,0,0,0], [1,1,1,1,1], [1,1,1,1,1], [1,1,1,1,1], [0,1,0,2,1]]
+	var reliMatrix = [[0,0,0,0,0], [0,0,0,1,1], [0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
 	var alpha = Estimator.calculateAlpha(reliMatrix, 5, 5)
 	console.log(reliMatrix)
 	return res.json({ agreement: alpha })

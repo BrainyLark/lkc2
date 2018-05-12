@@ -23,7 +23,7 @@
 	<br>
 </div>
 
-<div fxLayoutAlign="start stretch" fxLayoutWrap>
+<div fxLayout="row wrap" fxLayoutAlign="start stretch">
 	<mat-card [ngClass]="(!domain.availableTrn && taskType == 1) || (!domain.availableMod && taskType == 2) || (!domain.availableVal && taskType == 3) ? 'domain-card inactive' : 'domain-card active' " *ngFor="let domain of placeholder" routerLink="{{ domain.globalId }}">
 		<mat-card-header>
 			<div mat-card-avatar>
