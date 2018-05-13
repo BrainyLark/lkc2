@@ -1,3 +1,59 @@
-<p>
-  gloss-validation works!
-</p>
+<br>
+<div fxLayout>
+	<mat-card>
+		<mat-card-title>Эрэмбэлэх</mat-card-title>
+		<mat-card-subtitle>Ойлголтын тайлбарыг доор өгөгдсөн орчуулгууд хэр оновчтой илэрхийлж буйгаар нь эрэмбэлнэ үү</mat-card-subtitle>
+		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
+
+		<mat-card-content *ngIf="statusCode==1; else error;">
+			<mat-tab-group selectedIndex = "{{ selectedInd }}">
+				<mat-tab label="Mongolian">
+					<br><p class="lemma"> {{ currentTask.task.targetWords }} </p><br>
+				</mat-tab>
+				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
+					<br><p class="lemma"> {{ synset.lemma }}</p><br>
+					<p class="gloss"> {{ synset.gloss }} </p>
+				</mat-tab>
+			</mat-tab-group><br>
+
+			<mat-divider></mat-divider>
+
+			<br>
+
+			<div>
+				<mat-nav-list>
+					<mat-list-item *ngFor="let t of currentTask.task.modifiedGlosses">
+						<div class="arrows" fxLayout="column">
+							<mat-icon matListIcon matTooltip="Өргөх" matTooltipPosition="left" (click)="swapPosition(t._id, -1)">arrow_upward</mat-icon>
+							<mat-icon matListIcon matTooltip="Буулгах" matTooltipPosition="left" (click)="swapPosition(t._id, 1)">arrow_downward</mat-icon>
+						</div>
+						
+						<div class="gcontent">
+							<p matLine>{{ t.gloss }}</p>
+							<span matLine>(орчуулгын дугаар: {{ t._id }})</span>
+						</div>
+					</mat-list-item>
+				</mat-nav-list>
+			</div>
+
+			<br>
+
+		</mat-card-content>
+
+		<mat-divider></mat-divider>
+
+		<mat-card-actions *ngIf="statusCode==1">
+			<div class="right-side">
+				<button mat-button color="primary" (click)="skip()">{{"modification.skip" | translate}}&nbsp;&nbsp;<mat-icon>skip_next</mat-icon></button>
+				<button mat-button color="primary" (click)="sendData()">{{"modification.send" | translate}}&nbsp;&nbsp;<mat-icon>send</mat-icon></button>
+			</div>
+		</mat-card-actions>
+
+		<ng-template #error>
+			<div *ngIf="!statusCode" class="alert">
+				<p>{{ statusMsg | translate }}</p>
+			</div>
+		</ng-template>
+
+	</mat-card>
+</div>

@@ -1,7 +1,7 @@
 <br>
 <div fxLayout>
 	<mat-card>
-		<mat-card-title>Тайлбар засварлах</mat-card-title>
+		<mat-card-title>Найруулах</mat-card-title>
 		<mat-card-subtitle>Өгөгдсөн орчуулгуудыг ашиглан ойлголтын тайлбарыг найруулан бичнэ үү</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 
@@ -45,7 +45,7 @@
 
 					<mat-nav-list>
 						<mat-list-item *ngFor="let t of currentTask.task.translatedGlosses">
-							<mat-icon matListIcon>description</mat-icon>
+							<mat-icon matListIcon>attachment</mat-icon>
 							<p matLine>{{ t.gloss }}</p>
 							<span matLine>
 								(reference translation)

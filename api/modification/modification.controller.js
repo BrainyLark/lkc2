@@ -34,7 +34,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
                 qryString += ' targetWords'
                 glosses = []
                 for (let user = 0; user < meta.tasklimit.modification; user++) {
-                    glosses.push({ gloss: run[user].modification })
+                    glosses.push({ gloss: run[user].modification, _id: user })
                 }
             }
             Task.findById(modTaskId, qryString, (err, origin) => {
@@ -76,7 +76,7 @@ module.exports.saveUserModificationData = (req, res, next) => {
     }
 
     Modification.create(data, (err, modification) => {
-        if (err) handleError(err)
+        if (err) return handleError(res, err)
         var con = 0
         var cb = (err, data) => {
             if (err) return handleError(res, err)

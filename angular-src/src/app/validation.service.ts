@@ -13,8 +13,8 @@ export class ValidationService {
 
 	constructor(private http: HttpClient) { }
 
-	getTask(jwt_token:string, gid:string) {
-    	let url = this.apiRoot + 'task/3/' + gid;
+	getTask(jwt_token:string, gid:string, taskType = 3) {
+    	let url = this.apiRoot + 'task/' + taskType + '/' + gid;
     	let httpOptions = {
   	  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	  	};

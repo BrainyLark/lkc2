@@ -63,6 +63,8 @@ export class Validation {
 		modifiedWords: [{
 			word: string,
 			_id: string
-		}]
+		}],
+		targetWords: string,
+		modifiedGlosses: [{ gloss: string, _id: number }]
 	}
 }

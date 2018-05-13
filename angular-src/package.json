@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --prod --aot --buildOptimizer --host 0.0.0.0 --port 80",
+    "start": "ng serve --prod --aot --build-optimizer --host 0.0.0.0 --port 80",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -32,7 +32,7 @@
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26",
     "webpack": "^3.0.0",
-    "ajv": "^6.0.0"
+    "ajv": "^5.0.0"
   },
   "devDependencies": {
     "@angular/cli": "1.6.6",

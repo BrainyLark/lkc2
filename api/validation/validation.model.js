@@ -21,5 +21,5 @@ const SynsetValidation = Validation.discriminator('SynsetValidation', new mongoo
 }))
 
 const GlossValidation = Validation.discriminator('GlossValidation', new mongoose.Schema({
-	validations:	[{ gloss: String, rating: Number }]
+	validations:	[{ gloss: String, _id: Number }]
 }))

@@ -47,7 +47,7 @@ const GlossModificationTask = Task.discriminator('GlossModificationTask',
 const GlossValidationTask = Task.discriminator('GlossValidationTask', 
 	new mongoose.Schema({
 		targetWords: 		{ type: String, required: true },
-		modifiedGlosses: 		[{ gloss: String }],
+		modifiedGlosses: 		[{ gloss: String, _id: Number }],
 		_modificationTaskId: 	{ type: String }
 	}))
 
