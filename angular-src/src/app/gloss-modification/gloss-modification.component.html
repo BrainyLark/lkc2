@@ -7,7 +7,7 @@
 
 		<mat-card-content *ngIf="statusCode==1; else error;">
 			<mat-tab-group selectedIndex = "{{ selectedInd }}">
-				<mat-tab label="Mongolian">
+				<mat-tab label="Монгол">
 					<br><p class="lemma"> {{ currentTask.task.targetWords }} </p><br>
 				</mat-tab>
 				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
@@ -36,10 +36,10 @@
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
 						<mat-panel-title>
-							Reference Translations
+							Ишлэх орчуулгууд
 						</mat-panel-title>
 						<mat-panel-description>
-							Click here to see reference translations
+							Энд дарж найруулга хийгдээгүй орчуулгуудыг харна уу
 						</mat-panel-description>
 					</mat-expansion-panel-header>
 
@@ -48,7 +48,7 @@
 							<mat-icon matListIcon>attachment</mat-icon>
 							<p matLine>{{ t.gloss }}</p>
 							<span matLine>
-								(reference translation)
+								(санаа авах орчуулга)
 							</span>
 						</mat-list-item>
 					</mat-nav-list>

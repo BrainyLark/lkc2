@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaskService } from '../task.service';
 import { PerformanceRes } from '../model/response';
 import { Router } from '@angular/router';
@@ -7,7 +7,8 @@ import { LoginService } from '../login.service';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css']
+  styleUrls: ['./task.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit {
 
