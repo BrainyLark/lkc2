@@ -1,7 +1,7 @@
-<mat-grid-list fxShow fxHide.lt-sm="true" cols=5 rowHeight="1:1.2" gutterSize="5px">
+<mat-grid-list fxShow fxHide.lt-sm="true" cols=5 rowHeight="185px" gutterSize="5px">
     <mat-grid-tile colspan="2" rowspan="1" routerLink="1">
         <div class="layer-one" style="background: #FAD7A0">
-            <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
+            <img width="20%" class="absolute-center" src="assets/img/translation_logo.png">
         </div>
         <div class="layer-two">
             <span class="label yellow">{{ "task.translate" | translate }}</span>
@@ -10,29 +10,19 @@
             <p class="labels" [innerHTML]="'task.tr_desc' | translate"></p>
         </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
-        <div class="layer-one" style="background: #D7BDE2">
-            <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="4">
+        <div class="layer-one" style="background: #A9CCE3">
+            <img width="20%" class="absolute-center" src="assets/img/gloss_translation_logo.png">
         </div>
         <div class="layer-two">
-            <span class="label purple">{{ "task.modify" | translate }}</span>
+            <span class="label blue">{{ "task.gtranslate" | translate }}</span>
         </div>
         <div class="layer-half">
             <p class="labels">{{ "task.md_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1" rowspan="2" style="align-items: flex-start;">
+    <mat-grid-tile colspan="1" rowspan="3" style="align-items: flex-start;">
         <div class="widget">
-            <mat-card class="card">
-                <mat-card-title>Даалгавар сонгох</mat-card-title>
-                <mat-divider></mat-divider>
-                <br><mat-form-field>
-                    <mat-select value="assignWords">
-                        <mat-option value="assignWords">Үгтэй ажиллах</mat-option>
-                        <mat-option value="translateGloss">Өгүүлбэртэй ажиллах</mat-option>
-                    </mat-select>
-                </mat-form-field><br>
-            </mat-card>
             <mat-card class="card">
                 <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
                 <mat-divider></mat-divider>
@@ -43,21 +33,43 @@
                 <br><button mat-stroked-button color="primary" [matBadge]="performance.validation" matBadgePosition="before" matBadgeColor="primary"> {{ "task.validated" | translate }} </button><br>
             </mat-card>
             <mat-card class="card">
-                <br>
                 <mat-card-content>
-                    <div class="info-list-item">
-                        <mat-icon color="primary">feedback</mat-icon> <div>{{ "task.send_feedback" | translate }}</div>
-                    </div><br>
-                    <div class="info-list-item">
+                    <div>
+                        <mat-icon color="primary">info</mat-icon> <br> <a href="/guidelines">Энд</a> дарж нутагшуулах зааврыг үзээрэй!
+                    </div>
+                    <br>
+                    <div>
                         <mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div>
                     </div>
                 </mat-card-content>
             </mat-card>
         </div>
     </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
+        <div class="layer-one" style="background: #D7BDE2">
+            <img width="20%" class="absolute-center" src="assets/img/modification_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label purple">{{ "task.modify" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.md_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="5">
+        <div class="layer-one" style="background: #A3E4D7">
+            <img width="20%" class="absolute-center" src="assets/img/gloss_modification_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label green">{{ "task.gmodify" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.md_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1" routerLink="3">
         <div class="layer-one" style="background: #F1948A">
-            <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
+            <img width="20%" class="absolute-center" src="assets/img/validation_logo.png">
         </div>
         <div class="layer-two">
             <span class="label red">{{ "task.validate" | translate }}</span>
@@ -66,7 +78,19 @@
             <p class="labels">{{ "task.vd_desc" | translate }}</p>
         </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="1" routerLink="/guidelines">
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="6">
+        <div class="layer-one" style="background: #AEB6BF">
+            <img width="20%" class="absolute-center" src="assets/img/gloss_sort_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label dark">{{ "task.gvalidate" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.vd_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+
+    <!--<mat-grid-tile colspan="2" rowspan="1" routerLink="/guidelines">
         <div class="layer-one">
             <img width="100%" src="assets/img/guide.png">
         </div>
@@ -76,7 +100,7 @@
         <div class="layer-half">
             <p class="labels">{{ "task.loc_desc" | translate }}</p>
         </div>
-    </mat-grid-tile>
+    </mat-grid-tile>-->
 </mat-grid-list>
 
 <mat-grid-list fxShow.lt-sm="true" fxHide cols=1 rowHeight="1:0.6" gutterSize="5px">

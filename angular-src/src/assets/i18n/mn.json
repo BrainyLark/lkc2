@@ -66,9 +66,12 @@
 		}
 	},
 	"task": {
-		"translate": "Орчуулах",
+		"translate": "Үг оноох",
+		"gtranslate": "Орчуулах",
 		"modify": "Засварлах",
+		"gmodify": "Найруулах",
 		"validate": "Үнэлэх",
+		"gvalidate": "Эрэмбэлэх",
 		"localize": "Нутагшуулах",
 		"progress": "Миний Оролцоо",
 		"translated": "Орчуулсан",

@@ -66,9 +66,12 @@
 		}
 	},
 	"task": {
-		"translate": "Translate",
-		"modify": "Modify",
+		"translate": "Allocate",
+		"gtranslate": "Translate",
+		"modify": "Rearrange",
+		"gmodify": "Modify",
 		"validate": "Validate",
+		"gvalidate": "Sort",
 		"localize": "Localize",
 		"progress": "My Contributions", 
 		"translated": "Translations",
