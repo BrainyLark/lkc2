@@ -4,3 +4,28 @@ input {
 /deep/ label.mat-input-placeholder {
   font-size: 1.1em;
 }
+mat-card {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 660px;
+    min-width: 50%;
+    height: 100%;
+}
+mat-card-title {
+    font-size: 1.8em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+mat-card-subtitle {
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.field {
+    width: 60%;
+}
+
+.input-field {
+    text-align: center;
+}

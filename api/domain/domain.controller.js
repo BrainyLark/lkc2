@@ -12,36 +12,23 @@ const selection = {
 }
 
 module.exports.index = function (req, res, next) {
-	Domain.find({}, selection, function(err, domains) {
+	var typeId = req.query.taskType
+
+	if (!typeId || typeId > 6 || typeId < 0) {
+		return res.json({ successStatus: false, msg: "Invalid task type or nothing included" })
+	}
+
+	var requestedType = meta.taskTypeTable[typeId]
+	var limit = (typeId == 2 || typeId == 5) ? 3 : 5
+
+	Domain.find({}, function(err, domains) {
 		if (err) return handleError(res, err)
-		
-		let globalCnt = 0;
-		var globalCb = () => {
-			globalCnt ++
-			if (globalCnt == 25) return res.json(domains)
-		}
-
+		var globalCnt = 0
 		domains.forEach(domain => {
-
-			var innerCnt = 0
-			var innerCb = () => {
-				innerCnt ++
-				if (innerCnt == 3) globalCb()
-			}
-			
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetTranslationTask', count: { $lt: 5 } }, (err, cnt) => {
-				domain.availableTrn = cnt
-				innerCb()
-			})
-
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetModificationTask', count: { $lt: 3 } }, (err, cnt) => {
-				domain.availableMod = cnt
-				innerCb()
-			})
-
-			TaskEventCount.count({ domainId: domain.globalId, taskType: 'SynsetValidationTask', count: { $lt: 5 } }, (err, cnt) => {
-				domain.availableVal = cnt
-				innerCb()
+			TaskEventCount.count({ domainId: domain.globalId, taskType: requestedType, count: { $lt: limit } }, (err, cnt) => {
+				domain.available = cnt
+				globalCnt++
+				if (globalCnt == 25) return res.json(domains)
 			})
 
 		})

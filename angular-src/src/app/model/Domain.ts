@@ -3,9 +3,7 @@ export class Domain {
 	conceptId: string;
 	posTag: string;
 	globalId: number;
-	availableTrn: number;
-	availableMod: number;
-	availableVal: number;
+	available: number;
 	synset: [{
 		languageCode: string;
 		vocabularyId: number;

@@ -44,7 +44,7 @@ export class GlossValidationComponent implements OnInit {
   	this.prepareData();
   }
 
-  checkAuth() {
+  checkAuth(): void {
   	this.jwt_token = localStorage.getItem('jwt_token');
   	if (!this.jwt_token) {
   		this.router.navigateByUrl('/login');
@@ -60,7 +60,7 @@ export class GlossValidationComponent implements OnInit {
   	});
   }
 
-  prepareData() {
+  prepareData(): void {
    	this.validationService.getTask(this.jwt_token, this.gid, 6).subscribe(res => {
    		this.isSpinning = false;
    		this.statusCode = res.statusCode;
@@ -88,6 +88,66 @@ export class GlossValidationComponent implements OnInit {
     var temp = this.sortedGlosses[x];
     this.sortedGlosses[x] = this.sortedGlosses[y];
     this.sortedGlosses[y] = temp;
+  }
+
+  skip() {
+    this.endDate = new Date();
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      skip: true,
+      validationType: 'GlossValidation'
+    };
+    this.validationService.sendValidation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.sortedGlosses = [];
+        this.prepareData();
+      }
+    }, error => {
+      this.translate.get("tr_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    });
+  }
+
+  sendData(): void {
+    this.endDate = new Date();
+    for (let i = 0; i < this.sortedGlosses.length; i++) {
+      this.sortedGlosses[i].priority = i;
+    }
+    this.statusCode = 2;
+    this.statusMsg = '';
+    this.isSpinning = true;
+    
+    let payload = {
+      taskId: this.currentTask.task._id,
+      domainId: this.currentTask.task.domainId,
+      validations: this.sortedGlosses,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      validationType: 'GlossValidation'
+    };
+
+    this.validationService.sendValidation(this.jwt_token, payload).subscribe(res => {
+      if (res.statusSuccess) {
+        this.sortedGlosses = [];
+        this.prepareData();
+      }
+    }, error => {
+      this.translate.get("tr_alerts.save_err").subscribe(msg => {
+        this.snackBar.open(msg, "Ok", {duration:3000});
+      })
+      if (error.status == 401) this.router.navigateByUrl('/login');
+      return;
+    })
+
   }
 
 }

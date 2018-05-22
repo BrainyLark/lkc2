@@ -1,10 +1,10 @@
-<mat-card class="lkc-card text-center">
-	<mat-card-title><mat-icon class="mr-1">lock_open</mat-icon>{{"login.title"|translate}}</mat-card-title>
-	<mat-card-content>
-		<mat-form-field>
+<br><mat-card>
+	<mat-card-title><mat-icon>lock_open</mat-icon>{{"login.title"|translate}}</mat-card-title>
+	<mat-card-content class="input-field">
+		<mat-form-field class="field">
 			<input matInput placeholder='{{"login.uname"|translate}}' [(ngModel)]="username" name="user" required>
 		</mat-form-field><br>
-	  	<mat-form-field>
+	  	<mat-form-field class="field">
 			<input (keyup.enter)="login()" type="password" matInput placeholder='{{"login.pass"|translate}}' [(ngModel)]="password" name="pass" required>
 		</mat-form-field>
 		<div [style.display]="isSpinning ? 'block' : 'none'">

@@ -11,11 +11,11 @@ export class DomainService {
 
   constructor(private http: HttpClient) { }
 
-  getDomains(jwt_token) {
+  getDomains(jwt_token, taskType) {
 	const httpOptions = {
 	  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': jwt_token })
 	};
-	const url = this.apiRoot + 'domain';
+	const url = this.apiRoot + 'domain?taskType=' + taskType;
 	return this.http.get<Domain[]>(url, httpOptions);
   }
 

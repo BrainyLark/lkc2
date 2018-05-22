@@ -1,23 +1,23 @@
-<mat-card class="lkc-card text-center">
+<br><mat-card>
 	<mat-card-title><mat-icon class="mr-1">fingerprint</mat-icon>{{"register.title"|translate}}</mat-card-title>
 	<mat-card-subtitle>{{"register.subtitle"|translate}}</mat-card-subtitle>
-	<mat-card-content>
-		<mat-form-field>
+	<mat-card-content class="input-field">
+		<mat-form-field class="field">
 	    	<input matInput placeholder='{{"register.uname"|translate}}' minlength="4" [(ngModel)]="uname" required>
 	    	<mat-error>{{"register.err.uname"|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
-	  	<mat-form-field>
+	  	<mat-form-field class="field">
 	    	<input matInput placeholder='{{"register.name"|translate}}' [(ngModel)]="name" minlength="2" required>
 	    	<mat-error>{{"register.err.name"|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
-	  	<mat-form-field>
+	  	<mat-form-field class="field">
 	  		<input matInput [formControl]="email" placeholder='{{"register.email"|translate}}' required>
 	  		<mat-error *ngIf="email.invalid">{{getErrorMessage()|translate}}</mat-error>
 	  	</mat-form-field>
 	  	<br>
-	  	<mat-form-field>
+	  	<mat-form-field class="field">
 	  		<input matInput type="password" [(ngModel)]="password" placeholder='{{"register.pass"|translate}}' minlength="6" required>
 	  		<mat-error>{{"register.err.pass"|translate}}</mat-error>
 	  	</mat-form-field>

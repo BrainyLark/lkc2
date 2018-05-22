@@ -1,10 +1,10 @@
-<mat-card class="lkc-card text-center">
+<br><mat-card>
 	<mat-card-title>Нууц үг өөрчлөх</mat-card-title>
 	<br>
-	<mat-card-content>
+	<mat-card-content class="input-field">
 		<section *ngIf="isUserfieldAllowed">
 			<br>
-			<mat-form-field>
+			<mat-form-field class="field">
 				<input (keyup.enter)="sendEmail()" matInput placeholder='Хэрэглэгчийн нэр' [(ngModel)]="username" minlength="2" required>
 			</mat-form-field>
 			<div [style.display]="isSendingEmail ? 'block' : 'none'">
@@ -20,7 +20,7 @@
 			<br>
 	  		<p style="margin: 0 auto;">Таны мейл рүү илгээсэн <b>баталгаажуулах кодыг</b> доор оруулна уу...</p>
 			<br>
-			<mat-form-field>
+			<mat-form-field class="field">
 				<input (keyup.enter)="checkToken()" matInput placeholder='Баталгаажуулах код' [(ngModel)]="token" required>
 			</mat-form-field>
 			<div [style.display]="isSendingToken ? 'block' : 'none'">
@@ -34,10 +34,10 @@
 
 		<section *ngIf="isResetAllowed">
 			<br>
-			<mat-form-field>
+			<mat-form-field class="field">
 				<input matInput type="password" minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үг' [(ngModel)]="password" required>
 			</mat-form-field>
-			<mat-form-field>
+			<mat-form-field class="field">
 				<input matInput type="password" minlength="6" (keyup.enter)="resetPass()" placeholder='Шинэ нууц үгээ давтана уу' [(ngModel)]="repassword" required>
 			</mat-form-field>
 			<div [style.display]="isSendingPass ? 'block' : 'none'">

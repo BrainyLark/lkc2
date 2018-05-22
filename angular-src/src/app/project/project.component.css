@@ -56,3 +56,19 @@ div.right-profile {
 	margin: 0 auto;
 	text-align: center;
 }
+
+mat-card {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 660px;
+    min-width: 50%;
+    height: 100%;
+}
+mat-card-title {
+    font-size: 1.8em;
+    text-transform: uppercase;
+}
+
+mat-card-subtitle {
+    font-size: 0.9em;
+}

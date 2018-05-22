@@ -9,7 +9,7 @@ const meta			= require('../../meta')
 module.exports.getPrevious = function(req, res, next) {
 	var domainId = req.query.domain
 	var boundaryTask = req.query.task
-	Translation.findOne({ translatorId: req.user._id, domainId: domainId, skip: false, taskId: { $lt: boundaryTask } }, {}, {sort: { endDate: -1 }}, (err, run) => {
+	Translation.findOne({ translatorId: req.user._id, translationType: 'SynsetTranslation', domainId: domainId, skip: false, taskId: { $lt: boundaryTask } }, {}, {sort: { endDate: -1 }}, (err, run) => {
 		if (err) return handleError(res, err)
 		if (!run) {
 			return res.json({ success: false, data: null })
@@ -30,7 +30,7 @@ module.exports.getPrevious = function(req, res, next) {
 module.exports.getNext = function(req, res, next) {
 	var domainId = req.query.domain
 	var boundaryTask = req.query.task
-	Translation.findOne({ translatorId: req.user._id, domainId: domainId, skip: false, taskId: { $gt: boundaryTask } }, {}, {sort: { endDate: 1 }}, (err, run) => {
+	Translation.findOne({ translatorId: req.user._id, translationType: 'SynsetTranslation', domainId: domainId, skip: false, taskId: { $gt: boundaryTask } }, {}, {sort: { endDate: 1 }}, (err, run) => {
 		if (err) return handleError(res, err)
 		if (!run) {
 			return res.json({ success: false, data: null })
@@ -41,7 +41,7 @@ module.exports.getNext = function(req, res, next) {
 		var cb = (err, task) => {
 			if (err) return handleError(res, err)
 			responseData.synset = task.synset
-		return res.json({ success: true, data: responseData })
+			return res.json({ success: true, data: responseData })
 		}
 		Task.findOne({ _id: run.taskId }, cb)
 	})

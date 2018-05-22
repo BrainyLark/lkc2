@@ -1,142 +1,127 @@
-<mat-tab-group selectedIndex="0" backgroundColor="primary" disableRipple="true">
-    <mat-tab label="Ойлголтын үгс боловсруулах">
-        <mat-grid-list fxShow fxHide.lt-sm="true" cols=5 rowHeight="1:1.2" gutterSize="5px">
-            <mat-grid-tile colspan="2" rowspan="1" routerLink="1">
-                <div class="layer-one" style="background: #FAD7A0">
-                    <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label yellow">{{ "task.translate" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p [innerHTML]="'task.tr_desc' | translate"></p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
-                <div class="layer-one" style="background: #D7BDE2">
-                    <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label purple">{{ "task.modify" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.md_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="2" style="margin: auto;">
-                <mat-card class="card">
-                    <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
-                    <mat-divider></mat-divider>
-                    <mat-list>
-                        <mat-chip-list class="w-200">
-                            <mat-list-item>
-                                <mat-icon mat-list-icon>playlist_add_check</mat-icon>
-                                {{ "task.translated" | translate }}:&nbsp;
-                                <mat-chip selected="true" style="margin-left: auto;">
-                                    {{ performance.translation }}
-                                </mat-chip>
-                            </mat-list-item>
-                            <mat-list-item>
-                                <mat-icon mat-list-icon>playlist_add_check</mat-icon>
-                                {{ "task.modified" | translate }}:&nbsp;
-                                <mat-chip selected="true" style="margin-left: auto;">
-                                    {{ performance.modification }}
-                                </mat-chip>
-                            </mat-list-item>
-                            <mat-list-item>
-                                <mat-icon mat-list-icon>playlist_add_check</mat-icon>
-                                {{ "task.validated" | translate }}:&nbsp;
-                                <mat-chip selected="true" style="margin-left: auto;">
-                                    {{ performance.validation }}
-                                </mat-chip>
-                            </mat-list-item>
-                        </mat-chip-list>
-                    </mat-list>
-                    <br>
-                    <mat-divider></mat-divider>
-                    <br>
-                        <mat-card-content>
-                            <div class="info-list-item">
-                                <mat-icon color="primary">feedback</mat-icon> <div>{{ "task.send_feedback" | translate }}</div>
-                            </div>
-                            <div class="info-list-item">
-                                <mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div>
-                            </div>
-                        </mat-card-content>
-                </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2" rowspan="1" routerLink="3">
-                <div class="layer-one" style="background: #F1948A">
-                    <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label red">{{ "task.validate" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.vd_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2" rowspan="1" routerLink="/guidelines">
-                <div class="layer-one">
-                    <img width="100%" src="assets/img/guide.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label blue">{{ "task.localize" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.loc_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </mat-tab>
-<mat-tab label="Ойлголтын тайлбар боловсруулах">
-    Another one bites the dust
-    </mat-tab>
-</mat-tab-group>
+<mat-grid-list fxShow fxHide.lt-sm="true" cols=5 rowHeight="1:1.2" gutterSize="5px">
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="1">
+        <div class="layer-one" style="background: #FAD7A0">
+            <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label yellow">{{ "task.translate" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels" [innerHTML]="'task.tr_desc' | translate"></p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="2">
+        <div class="layer-one" style="background: #D7BDE2">
+            <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label purple">{{ "task.modify" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.md_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="2" style="align-items: flex-start;">
+        <div class="widget">
+            <mat-card class="card">
+                <mat-card-title>Даалгавар сонгох</mat-card-title>
+                <mat-divider></mat-divider>
+                <br><mat-form-field>
+                    <mat-select value="assignWords">
+                        <mat-option value="assignWords">Үгтэй ажиллах</mat-option>
+                        <mat-option value="translateGloss">Өгүүлбэртэй ажиллах</mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+            </mat-card>
+            <mat-card class="card">
+                <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
+                <mat-divider></mat-divider>
+                <br><button mat-stroked-button color="primary" [matBadge]="performance.translation" matBadgePosition="before" matBadgeColor="primary"> {{ "task.translated" | translate }} </button><br>
 
-        <mat-grid-list fxShow.lt-sm="true" fxHide cols=1 rowHeight="1:0.6" gutterSize="5px">
-            <mat-grid-tile rowspan="1" routerLink="1">
-                <div class="layer-one" style="background: #FAD7A0">
-                    <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label yellow">{{ "task.translate" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p [innerHTML]="'task.tr_desc' | translate"></p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="1" routerLink="2">
-                <div class="layer-one" style="background: #D7BDE2">
-                    <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label purple">{{ "task.modify" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.md_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="1" routerLink="3">
-                <div class="layer-one" style="background: #F1948A">
-                    <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label red">{{ "task.validate" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.vd_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="1" routerLink="/guidelines">
-                <div class="layer-one">
-                    <img width="100%" src="assets/img/guide.png">
-                </div>
-                <div class="layer-two">
-                    <span class="label blue">{{ "task.localize" | translate }}</span>
-                </div>
-                <div class="layer-half">
-                    <p>{{ "task.loc_desc" | translate }}</p>
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
+                <br><button mat-stroked-button color="primary" [matBadge]="performance.modification" matBadgePosition="before" matBadgeColor="primary"> {{ "task.modified" | translate }} </button><br>
+
+                <br><button mat-stroked-button color="primary" [matBadge]="performance.validation" matBadgePosition="before" matBadgeColor="primary"> {{ "task.validated" | translate }} </button><br>
+            </mat-card>
+            <mat-card class="card">
+                <br>
+                <mat-card-content>
+                    <div class="info-list-item">
+                        <mat-icon color="primary">feedback</mat-icon> <div>{{ "task.send_feedback" | translate }}</div>
+                    </div><br>
+                    <div class="info-list-item">
+                        <mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="3">
+        <div class="layer-one" style="background: #F1948A">
+            <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label red">{{ "task.validate" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.vd_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" routerLink="/guidelines">
+        <div class="layer-one">
+            <img width="100%" src="assets/img/guide.png">
+        </div>
+        <div class="layer-two">
+            <span class="label blue">{{ "task.localize" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.loc_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list fxShow.lt-sm="true" fxHide cols=1 rowHeight="1:0.6" gutterSize="5px">
+    <mat-grid-tile rowspan="1" routerLink="1">
+        <div class="layer-one" style="background: #FAD7A0">
+            <img width="30%" class="absolute-center" src="assets/img/translation_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label yellow">{{ "task.translate" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels" [innerHTML]="'task.tr_desc' | translate"></p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" routerLink="2">
+        <div class="layer-one" style="background: #D7BDE2">
+            <img width="30%" class="absolute-center" src="assets/img/modification_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label purple">{{ "task.modify" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.md_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" routerLink="3">
+        <div class="layer-one" style="background: #F1948A">
+            <img width="30%" class="absolute-center" src="assets/img/validation_logo.png">
+        </div>
+        <div class="layer-two">
+            <span class="label red">{{ "task.validate" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.vd_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" routerLink="/guidelines">
+        <div class="layer-one">
+            <img width="100%" src="assets/img/guide.png">
+        </div>
+        <div class="layer-two">
+            <span class="label blue">{{ "task.localize" | translate }}</span>
+        </div>
+        <div class="layer-half">
+            <p class="labels">{{ "task.loc_desc" | translate }}</p>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

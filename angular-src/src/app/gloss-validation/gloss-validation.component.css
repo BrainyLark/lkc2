@@ -35,8 +35,14 @@ mat-card-subtitle {
 	width: 100%;
 }
 .arrows {
-	cursor: pointer;
 	border-right: 1px solid gray;
+}
+#arrow {
+	cursor: pointer;
+	margin-right: 1em;
+}
+#arrow:hover {
+	color: #EBC20B;
 }
 input {
 	font-size: 1.2em;
@@ -62,8 +68,9 @@ mat-form-field#gap {
 	width: 80%;
 }
 mat-list-item {
-	padding: 0.5em;
-	margin-top: 0.4em;
+	margin-bottom: 2em;
+	padding-bottom: 1em;
+	padding-bottom: 1em;
 	border-bottom: 1px solid gray;
 }
 .gcontent {

@@ -39,7 +39,7 @@ export class DomainComponent implements OnInit {
 	setDomains() {
 		let jwt_token = localStorage.getItem('jwt_token');
 		if (jwt_token) {
-			this.domainService.getDomains(jwt_token).subscribe(res => {
+			this.domainService.getDomains(jwt_token, this.taskType).subscribe(res => {
 				this.domains = res;
 				this.loadState = false;
 				this.updateLang(this.current_v);
@@ -64,9 +64,7 @@ export class DomainComponent implements OnInit {
 				synset = domain.synset.filter((s) => s.vocabularyId == defaultCode);
 			}
 			this.placeholder.push({ 
-				availableTrn: domain.availableTrn, 
-				availableMod: domain.availableMod,
-				availableVal: domain.availableVal,
+				available: domain.available,
 				globalId: domain.globalId, 
 				synset: synset[0] 
 			});

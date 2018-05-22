@@ -21,19 +21,19 @@
 			<br>
 
 			<div>
-				<mat-nav-list>
+				<mat-list>
 					<mat-list-item *ngFor="let t of currentTask.task.modifiedGlosses">
 						<div class="arrows" fxLayout="column">
-							<mat-icon matListIcon matTooltip="Өргөх" matTooltipPosition="left" (click)="swapPosition(t._id, -1)">arrow_upward</mat-icon>
-							<mat-icon matListIcon matTooltip="Буулгах" matTooltipPosition="left" (click)="swapPosition(t._id, 1)">arrow_downward</mat-icon>
+							<mat-icon id="arrow" matListIcon matTooltip="Дээш" matTooltipPosition="left" (click)="swapPosition(t._id, -1)">arrow_upward</mat-icon>
+							<p matLine>№ {{ t._id }}</p>
+							<mat-icon id="arrow" matListIcon matTooltip="Доош" matTooltipPosition="left" (click)="swapPosition(t._id, 1)">arrow_downward</mat-icon>
 						</div>
 						
 						<div class="gcontent">
 							<p matLine>{{ t.gloss }}</p>
-							<span matLine>(орчуулгын дугаар: {{ t._id }})</span>
 						</div>
 					</mat-list-item>
-				</mat-nav-list>
+				</mat-list>
 			</div>
 
 			<br>
