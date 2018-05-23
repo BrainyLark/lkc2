@@ -73,7 +73,7 @@
 		"validate": "Validate",
 		"gvalidate": "Sort",
 		"localize": "Localize",
-		"progress": "My Contributions", 
+		"progress": "My Badge", 
 		"translated": "Translations",
 		"modified": "Modifications",
 		"validated": "Validations",
@@ -82,7 +82,10 @@
 		"tr_desc": "Allocate mongolian words corresponding to <br> a given concept in multilingual forms",
 		"md_desc": "Correct mistakes found in given mongolian words of a concept",
 		"vd_desc": "Validate list of mongolian words that define its concept",
-		"loc_desc": "Get introduced to primary stages of localizing ontology"
+		"gtr_desc": "Contribute a translation of the gloss of a given concept",
+		"gmd_desc": "Pick up out of the given translations of a concept and modify its quality",
+		"gvd_desc": "Sort modified glosses with respect to their translation qualities",
+		"loc_desc": "<a href='/guidelines'>Click here</a> to look over the guidelines of localizing ontology"
 	},
 	"from": {
 		"en": "English",
@@ -99,7 +102,7 @@
 		"psubtitle": "Wait a sec, let me recall my precedents.",
 		"prev": "Previous",
 		"next": "Next",
-		"title": "Translate",
+		"title": "Allocate",
 		"subtitle": "Define mongolian words that indicate the following concepts",
 		"lemma": "My lemma",
 		"prating": "My personal rating",
@@ -109,7 +112,7 @@
 		"send": "Send"
 	},
 	"modification": {
-		"title": "Modify",
+		"title": "Rearrange",
 		"subtitle": "Correct the words representing a given concept or remove ones that you find inappropriate",
 		"check": "No need for fix",
 		"clear": "This word is unfit for this concept",
@@ -126,8 +129,38 @@
 		"skip": "Skip",
 		"send": "Send"
 	},
+	"gtranslation": {
+		"title": "Translate",
+		"subtitle": "Translate the following gloss sentence of a concept to Mongolian",
+		"label": "Gloss translation field",
+		"placeholder": "Put your translation here, please...",
+		"hint": "you don't need to translate none other than the gloss",
+		"skip": "Skip",
+		"send": "Send"
+	},
+	"gmodification": {
+		"title": "Modify",
+		"subtitle": "Modify syntactic structure of a sentence out of the given translations of the gloss",
+		"label": "Gloss modification field",
+		"placeholder": "Put your edited translation here, please...",
+		"hint": "you don't need to translate none other than the gloss",
+		"ref": "References",
+		"ref_desc": "Click here to see the previous translations, as a reference",
+		"prev": "a translation from a previous stage",
+		"skip": "Skip",
+		"send": "Send"
+	},
+	"gvalidation": {
+		"title": "Sort",
+		"subtitle": "Rearrange the following gloss translations according to your own priorities of translation quality",
+		"skip": "Skip",
+		"send": "Send",
+		"up": "Up",
+		"down": "Down"
+	},
 	"lang": {
 		"en": "English",
+		"mn": "Mongolian",
 		"it": "Italian",
 		"es": "Espanish",
 		"zh": "Chinese",

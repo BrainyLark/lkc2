@@ -1,13 +1,13 @@
 <br>
 <div fxLayout>
 	<mat-card>
-		<mat-card-title>Эрэмбэлэх</mat-card-title>
-		<mat-card-subtitle>Ойлголтын тайлбарыг доор өгөгдсөн орчуулгууд хэр оновчтой илэрхийлж буйгаар нь эрэмбэлнэ үү</mat-card-subtitle>
+		<mat-card-title>{{"gvalidation.title" | translate}}</mat-card-title>
+		<mat-card-subtitle>{{"gvalidation.subtitle" | translate}}</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 
 		<mat-card-content *ngIf="statusCode==1; else error;">
 			<mat-tab-group selectedIndex = "{{ selectedInd }}">
-				<mat-tab label="Mongolian">
+				<mat-tab label="{{language[2] | translate}}">
 					<br><p class="lemma"> {{ currentTask.task.targetWords }} </p><br>
 				</mat-tab>
 				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
@@ -24,9 +24,9 @@
 				<mat-list>
 					<mat-list-item *ngFor="let t of currentTask.task.modifiedGlosses">
 						<div class="arrows" fxLayout="column">
-							<mat-icon id="arrow" matListIcon matTooltip="Дээш" matTooltipPosition="left" (click)="swapPosition(t._id, -1)">arrow_upward</mat-icon>
+							<mat-icon id="arrow" matListIcon matTooltip="{{'gvalidation.up'|translate}}" matTooltipPosition="left" (click)="swapPosition(t._id, -1)">arrow_upward</mat-icon>
 							<p matLine>№ {{ t._id }}</p>
-							<mat-icon id="arrow" matListIcon matTooltip="Доош" matTooltipPosition="left" (click)="swapPosition(t._id, 1)">arrow_downward</mat-icon>
+							<mat-icon id="arrow" matListIcon matTooltip="{{'gvalidation.down'|translate}}" matTooltipPosition="left" (click)="swapPosition(t._id, 1)">arrow_downward</mat-icon>
 						</div>
 						
 						<div class="gcontent">
@@ -35,8 +35,6 @@
 					</mat-list-item>
 				</mat-list>
 			</div>
-
-			<br>
 
 		</mat-card-content>
 

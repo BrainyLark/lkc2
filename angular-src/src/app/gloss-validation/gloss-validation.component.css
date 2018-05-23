@@ -36,6 +36,7 @@ mat-card-subtitle {
 }
 .arrows {
 	border-right: 1px solid gray;
+	color: gray;
 }
 #arrow {
 	cursor: pointer;

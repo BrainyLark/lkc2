@@ -1,8 +1,8 @@
 <br>
 <div fxLayout>
 	<mat-card>
-		<mat-card-title>Орчуулах</mat-card-title>
-		<mat-card-subtitle>Дараах ойлголтын тайлбарыг Монгол хэл рүү орчуулж бичнэ үү</mat-card-subtitle>
+		<mat-card-title>{{"gtranslation.title" | translate}}</mat-card-title>
+		<mat-card-subtitle>{{"gtranslation.subtitle" | translate}}</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 
 		<mat-card-content *ngIf="statusCode==1; else error;">
@@ -19,7 +19,7 @@
 				<mat-list>
 					<mat-list-item>
 						<mat-icon matListIcon>input</mat-icon>
-						<h3 matLine>Монгол ойлголт: </h3>
+						<h3 matLine>{{language[2] | translate}}: </h3>
 						<p matLine>{{ currentTask.task.targetWords }}</p>
 					</mat-list-item>
 				</mat-list>
@@ -27,10 +27,10 @@
 
 			<div>
 				<mat-form-field appearance="outline">
-					<mat-label>Тайлбар орчуулах булан</mat-label>
-					<input #message maxlength="256" required matInput [(ngModel)]="translatedGloss" placeholder="Тайлбарын орчуулгыг энд оруулж бичнэ үү">
+					<mat-label>{{ "gtranslation.label" | translate }}</mat-label>
+					<input #message maxlength="256" required matInput [(ngModel)]="translatedGloss" placeholder="{{ 'gtranslation.placeholder' | translate }}">
 					<mat-icon matSuffix>edit</mat-icon>
-					<mat-hint align="start">зөвхөн тайлбарыг орчуулна уу</mat-hint>
+					<mat-hint align="start">{{ "gtranslation.hint" | translate }}</mat-hint>
     				<mat-hint align="end">{{message.value.length}} / 256</mat-hint>
 				</mat-form-field>
 			</div>

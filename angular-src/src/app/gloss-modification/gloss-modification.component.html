@@ -1,13 +1,13 @@
 <br>
 <div fxLayout>
 	<mat-card>
-		<mat-card-title>Найруулах</mat-card-title>
-		<mat-card-subtitle>Өгөгдсөн орчуулгуудыг ашиглан ойлголтын тайлбарыг найруулан бичнэ үү</mat-card-subtitle>
+		<mat-card-title>{{"gmodification.title" | translate}}</mat-card-title>
+		<mat-card-subtitle>{{"gmodification.subtitle" | translate}}</mat-card-subtitle>
 		<mat-spinner [diameter]="60" [style.display]="isSpinning ? 'block' : 'none'" style="margin: 0 auto;"></mat-spinner>
 
 		<mat-card-content *ngIf="statusCode==1; else error;">
 			<mat-tab-group selectedIndex = "{{ selectedInd }}">
-				<mat-tab label="Монгол">
+				<mat-tab label="{{language[2] | translate}}">
 					<br><p class="lemma"> {{ currentTask.task.targetWords }} </p><br>
 				</mat-tab>
 				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
@@ -22,10 +22,10 @@
 
 			<div>
 				<mat-form-field appearance="fill">
-					<mat-label>Тайлбар засаж бичих булан</mat-label>
-					<input #message maxlength="256" matInput [(ngModel)]="modifiedGloss" placeholder="Засварласан тайлбараа энд оруулж бичнэ үү">
+					<mat-label>{{ "gmodification.label" | translate }}</mat-label>
+					<input #message maxlength="256" matInput [(ngModel)]="modifiedGloss" placeholder="{{ 'gmodification.placeholder' | translate }}">
 					<mat-icon matSuffix>edit</mat-icon>
-					<mat-hint align="start">зөвхөн тайлбарыг орчуулна уу</mat-hint>
+					<mat-hint align="start">{{ "gmodification.hint" | translate }}</mat-hint>
     				<mat-hint align="end">{{message.value.length}} / 256</mat-hint>
 				</mat-form-field>
 			</div>
@@ -36,10 +36,10 @@
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
 						<mat-panel-title>
-							Ишлэх орчуулгууд
+							{{ "gmodification.ref" | translate }}
 						</mat-panel-title>
 						<mat-panel-description>
-							Энд дарж найруулга хийгдээгүй орчуулгуудыг харна уу
+							{{ "gmodification.ref_desc" | translate }}
 						</mat-panel-description>
 					</mat-expansion-panel-header>
 
@@ -48,7 +48,7 @@
 							<mat-icon matListIcon>attachment</mat-icon>
 							<p matLine>{{ t.gloss }}</p>
 							<span matLine>
-								(санаа авах орчуулга)
+								( {{ "gmodification.prev" | translate }} )
 							</span>
 						</mat-list-item>
 					</mat-nav-list>
