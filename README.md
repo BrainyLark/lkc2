@@ -1,6 +1,6 @@
 # LKC Crowdsourcing platform
 
-This is a crowdsourcing system dedicated to the LKC.
+This is a crowdsourcing system dedicated to the LKC. This document provides installation instructions.
 
 ## Getting Started
 
