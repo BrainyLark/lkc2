@@ -35,6 +35,7 @@ module.exports.next = function (req, res, next) {
 		if (err) return handleError(res, err)
 		var createdAt = new Date(2014, 0, 1)
 		var findNextTask = () => {
+			// console.log(domainId, typeName)
 			TaskEventCount.find({ domainId: domainId, taskType: typeName })
 				.where('count').lt(taskLimit)
 				.where('createdAt').gt(createdAt)
@@ -43,6 +44,7 @@ module.exports.next = function (req, res, next) {
 				.exec( (err, pEvent) => {
 					if (err) return handleError(res, err)
 					if (!pEvent.length) {
+						// console.log(pEvent)
 						return res.json({ statusCode: meta.status.null, statusMsg: meta.msg.mn.task.unavailable })
 					}
 					else {

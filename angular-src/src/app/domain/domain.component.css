@@ -1,10 +1,11 @@
 mat-card.domain-card {
 	width: 11em;
-	height: 9.5em;
+	/*height: 9.5em;*/
 	margin-bottom: 5px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .active {
 	background: rgba(255, 255, 255, 1);
 	cursor: pointer;
@@ -31,4 +32,7 @@ h2 {
  min-width: 100px !important;
  font-family: 'Roboto Condensed', sans-serif;
  font-size: 1.2em;
+}
+mat-card.domain-card mat-card-actions button {
+	text-transform: uppercase
 }

@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterService } from './register.service';
+import { ExcerptFilter } from './filters/excerpt.filter';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -61,6 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GlossTranslationComponent,
     GlossModificationComponent,
     GlossValidationComponent,
+    ExcerptFilter,
   ],
   imports: [
     BrowserModule,

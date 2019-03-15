@@ -11,7 +11,7 @@ const TaskSchema = new mongoose.Schema({
 	synset: 				[{ languageCode: String, vocabularyId: Number, concept: String, gloss: String, lemma: String }],
 	domainId: 				{ type: Number, required: true },
 	taskType: 				{ type: String, required: true, default: 'SynsetTranslationTask' },
-	wordnetId: 				{ type: Number, required: false }
+	// wordnetId: 				{ type: Number, required: false }
 }, { discriminatorKey: 'taskType', timestamps: true })
 
 const Task = module.exports = mongoose.model('Task', TaskSchema)

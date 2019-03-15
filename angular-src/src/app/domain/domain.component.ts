@@ -11,14 +11,20 @@ import { MatDialog } from '@angular/material';
 })
 export class DomainComponent implements OnInit {
 	
-	colNum = 5;
+	colNum = 6;
 	current_v: number = 1;
 	navLinks = [
-		{ vid: 1, lang: "from.en", isActive: true },
-		{ vid: 102, lang: "from.it", isActive: false },
-		{ vid: 101, lang: "from.es", isActive: false },
-		{ vid: 106, lang: "from.zh", isActive: false },
-		{ vid: 401, lang: "from.in", isActive: false }
+		// { vid: 1, lang: "from.en", isActive: true },
+		// { vid: 102, lang: "from.it", isActive: false },
+		// { vid: 101, lang: "from.es", isActive: false },
+		// { vid: 106, lang: "from.zh", isActive: false },
+		// { vid: 401, lang: "from.in", isActive: false }
+		{ vid: 1, lang: "from.eng", isActive: true },
+		{ vid: 106, lang: "from.zho", isActive: false },
+		{ vid: 1901, lang: "from.fra", isActive: false },
+		{ vid: 201, lang: "from.jpn", isActive: false },
+		{ vid: 2769, lang: "from.deu", isActive: false },
+		{ vid: 2923, lang: "from.rus", isActive: false }
 	];
 	domains: Domain[];
 	placeholder = [];

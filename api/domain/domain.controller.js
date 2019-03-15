@@ -1,4 +1,4 @@
-const DataStore	= require('../../service/DataAdapter')[0]
+const DataStore	= require('../../service/DataAdapterPostgres')[0]
 const handleError	= require('../../service/ErrorHandler')
 const Domain 	= require('./domain.model.js')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
@@ -12,6 +12,7 @@ const selection = {
 }
 
 module.exports.index = function (req, res, next) {
+
 	var typeId = req.query.taskType
 
 	if (!typeId || typeId > 6 || typeId < 0) {
@@ -21,10 +22,13 @@ module.exports.index = function (req, res, next) {
 	var requestedType = meta.taskTypeTable[typeId]
 	var limit = (typeId == 2 || typeId == 5) ? 3 : 5
 
+	// console.log("requestedType:",requestedType)
+
 	Domain.find({}, function(err, domains) {
 		if (err) return handleError(res, err)
 		var globalCnt = 0
 		domains.forEach(domain => {
+			// console.log(domain)
 			TaskEventCount.count({ domainId: domain.globalId, taskType: requestedType, count: { $lt: limit } }, (err, cnt) => {
 				domain.available = cnt
 				globalCnt++

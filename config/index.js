@@ -21,5 +21,13 @@ module.exports = {
 	},
 	// lkc api requires this one
 	// this cookie must be renewed within 3 days, in which one is valid and so that task and domain generation are valid
-	cookie: "connect.sid=s%3AzwNyvzt2jFkzq0QGlzq5kfIpo-TCY9yE.mW1rZsUxSYrWbb2AeHx2UAKCiWJmiHgcutxkjML9lyI"
+	cookie: "connect.sid=s%3AzwNyvzt2jFkzq0QGlzq5kfIpo-TCY9yE.mW1rZsUxSYrWbb2AeHx2UAKCiWJmiHgcutxkjML9lyI",
+	// Connection information for UKC Postgres database
+	pgDatabase: {
+		PGHOST: 'localhost',
+		PGUSER: 'postgres',
+		PGDATABASE: 'ukc-v1.0.210219',
+		PGPASSWORD: 'pgsa',
+		PGPORT: 5432
+	}
 }

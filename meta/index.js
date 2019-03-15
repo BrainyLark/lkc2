@@ -28,9 +28,9 @@ module.exports = {
 		null: 0
 	},
 	tasklimit: {
-		translation: 5,
-		modification: 3,
-		validation: 5
+		translation: 3,
+		modification: 2,
+		validation: 3
 	},
 	exp_days: 2,
 	taskstate: {
@@ -43,9 +43,11 @@ module.exports = {
 		notgap: false
 	},
 	ub_ids: [
-		161, 119, 124, 129, 15355, 127, 145, 138,
-		131, 123, 40, 132, 83505, 121, 61558, 118, 120,
-		143, 139, 28162, 142, 133, 130, 122, 134
+		118,119,120,121,122,
+		123,124,127,128,129,
+		130,131,132,133,134,
+		139,140,141,142,143,
+		145,146,28710,39162,61558
 	],
 	interval: 1 * dayInMilli,
 	agreement: {
@@ -54,7 +56,8 @@ module.exports = {
 		categories: 3
 	},
 	languageCodes: [
-		'en', 'in', 'it', 'es', 'zh'
+		//'en', 'it'//, 'in', 'es', 'zh'
+		'eng','zho','fra','jpn','deu', 'rus'
 	],
 	msg: {
 		mn: {

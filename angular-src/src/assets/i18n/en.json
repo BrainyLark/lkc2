@@ -8,7 +8,8 @@
 	    "register" : "sign up",
 	    "profile" : "profile",
 	    "config" : "configurations",
-	    "logout" : "log out"
+		"logout" : "log out",
+		"contribute": "contribute"
 	},
 	"profile": {
 		"name": "Full name: ",
@@ -66,14 +67,14 @@
 		}
 	},
 	"task": {
-		"translate": "Allocate",
-		"gtranslate": "Translate",
-		"modify": "Rearrange",
-		"gmodify": "Modify",
-		"validate": "Validate",
-		"gvalidate": "Sort",
+		"translate": "Provide synset",
+		"gtranslate": "Translate gloss",
+		"modify": "Edit synset",
+		"gmodify": "Revise gloss",
+		"validate": "Validate words",
+		"gvalidate": "Validate gloss",
 		"localize": "Localize",
-		"progress": "My Badge", 
+		"progress": "My contributions", 
 		"translated": "Translations",
 		"modified": "Modifications",
 		"validated": "Validations",
@@ -88,11 +89,12 @@
 		"loc_desc": "<a href='/guidelines'>Click here</a> to look over the guidelines of localizing ontology"
 	},
 	"from": {
-		"en": "English",
-		"it": "Italian",
-		"es": "Espanish",
-		"zh": "Chinese",
-		"in": "Indonesian"
+		"eng": "English",
+		"zho": "Chinese",
+		"fra": "French",
+		"jpn": "Japanese",
+		"deu": "German",
+		"rus": "Russian"
 	},
 	"domain": {
 		"headline": "Please localize concept sets in multilingual terms into Mongolian!"
@@ -159,12 +161,12 @@
 		"down": "Down"
 	},
 	"lang": {
-		"en": "English",
-		"mn": "Mongolian",
-		"it": "Italian",
-		"es": "Espanish",
-		"zh": "Chinese",
-		"in": "Indonesian"
+		"eng": "English",
+		"zho": "Chinese",
+		"fra": "French",
+		"jpn": "Japanese",
+		"deu": "German",
+		"rus": "Russian"
 	},
 	"tr_alerts": {
 		"no_word": "Please insert a word.",

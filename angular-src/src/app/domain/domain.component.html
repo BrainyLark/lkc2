@@ -24,18 +24,22 @@
 </div>
 
 <div fxLayout="row wrap" fxLayoutAlign="start stretch">
+	
 	<mat-card [ngClass]="(domain.available == 0) ? 'domain-card inactive' : 'domain-card active' " *ngFor="let domain of placeholder" routerLink="{{ domain.globalId }}">
 		<mat-card-header>
-			<div mat-card-avatar>
-				<button mat-mini-fab color="primary">
-					<mat-icon>navigate_next</mat-icon>
-				</button>
-			</div>
-			<mat-card-title><h2>{{ domain.synset.concept }}</h2></mat-card-title>
-			<mat-card-subtitle>{{ domain.synset.lemma }}</mat-card-subtitle>
+			<mat-icon svgIcon="thumbs-up"></mat-icon>
+			<mat-card-title><h2>{{ domain.synset.lemma | excerpt:60:domain.synset.languageCode }}</h2></mat-card-title>
+			<mat-card-subtitle *ngIf="domain.synset.gloss!='NO_GLOSS'">{{ domain.synset.gloss | excerpt:120:domain.synset.languageCode}}</mat-card-subtitle>
 		</mat-card-header>
-		<mat-card-content>
-			<p>{{ domain.synset.gloss }}</p>
-		</mat-card-content>
+		<!-- <mat-card-content> 
+			<p *ngIf="domain.synset.gloss!='NO_GLOSS'">{{ domain.synset.gloss | excerpt:120:domain.synset.languageCode}}</p>	
+		</mat-card-content> -->
+		<mat-card-actions *ngIf="domain.available!==0" align="end">
+				<button mat-stroked-button color="primary" 
+					matBadge="{{domain.available}}"
+					matBadgePosition="above before" matBadgeSize="medium">
+					{{ "nav.contribute" | translate }}
+				</button>
+		</mat-card-actions>
 	</mat-card>
 </div>

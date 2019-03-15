@@ -1,4 +1,4 @@
-const DataStore		= require('../../service/DataAdapter')[0]
+const DataStore		= require('../../service/DataAdapterPostgres')[0]
 const Task 			= require('../task/task.model')
 const TaskEventCount	= require('../taskEventCount/taskEventCount.model')
 const handleError		= require('../../service/ErrorHandler')
@@ -23,7 +23,9 @@ module.exports.index = function(req, res, next) {
 			}, generateTaskEventCount)
 		})
 	})
+	
 	var generateTaskEventCount = function(data) {
+		// console.log("generateTaskEventCount:")
 		Task.find({ domainId: uk_id },(err, tasks) => {
 			if (err) return handleError(res, err)
 			var taskIdx = -1, n = tasks.length
@@ -33,7 +35,7 @@ module.exports.index = function(req, res, next) {
 				if (taskIdx == n) return res.json(data)
 				TaskEventCount.create({
 					taskId: tasks[taskIdx]._id,
-					taskType: 1,
+					taskType: 'SynsetTranslationTask',
 					domainId: uk_id
 				}, generateTaskEventCountInterator)
 			}
@@ -41,6 +43,7 @@ module.exports.index = function(req, res, next) {
 		})
 	}
 	var createTask = function(concept, parentConcept, createTaskIteratorCallback) {
+		// console.log("createTask:", concept.target.id)
 		Task.findOne({
 			conceptId: concept.target.id,
 			conceptGlobalId: concept.target.globalId,
@@ -49,6 +52,7 @@ module.exports.index = function(req, res, next) {
 			if (task != null || err) return createTaskIteratorCallback(null, null)
 			DataStore.getConcept(concept.target.id, function(err, child) {
 				if (err) return createTaskIteratorCallback(null, null)
+				// console.log("createTask:",child)
 				Task.create({
 					conceptId: child.conceptId,
 					conceptGlobalId: child.globalId,
@@ -58,8 +62,8 @@ module.exports.index = function(req, res, next) {
 					parentConceptGlobalId: parentConcept.globalId,
 					domainId: uk_id,
 					typeId: 1,
-					taskType: 1,
-					wordnetId: -1
+					taskType: 'SynsetTranslationTask',
+					// wordnetId: child.wordnetId, // added during DataAdapterPostgres
 				}, createTaskIteratorCallback)
 			})
 		})
@@ -68,10 +72,13 @@ module.exports.index = function(req, res, next) {
 		concept, // {id: integer, globalId: integer}
 		parentConcept, // { id: integer, globalId: integer, child: integer}
 		generateTaskIteratorCallback) {
+		// console.log("generateTask:",concept.id)
 		DataStore.getDescendants(concept.id, function (descendants) {
 			var childIdx = -1, n = descendants.length
+			// console.log("concept\t",concept.id,"\tchilds\t",n,"\tcreated\t",initialLimit - limit)
 			var generateTaskIterator = function(res) {
 				childIdx++
+				// console.log("generateTaskIterator:",childIdx)
 				if (childIdx == n) return generateTaskIteratorCallback({ statusCode: 3, statusMsg: meta.msg.mn.generated.end + (initialLimit - limit) })
 				if (res.statusCode == 1) return generateTaskIteratorCallback(res)
 				generateTask({
@@ -82,12 +89,14 @@ module.exports.index = function(req, res, next) {
 					globalId: concept.globalId
 				}, generateTaskIterator)
 			}
-			var createTaskIterator = function(err, task) {
+			var createTaskIterator = function(err, task) {				
 				childIdx++
+				
 				if (err) handleError(res, err)
 				if (task) {
 					limit--
-					if (limit == 0) {
+					if (limit <= 0) {
+						// console.log("limit==0")
 						return generateTaskIteratorCallback({ statusCode: 1, statusMsg: initialLimit + meta.msg.mn.generated.limit + (initialLimit - limit) })
 					}
 				}
@@ -95,7 +104,7 @@ module.exports.index = function(req, res, next) {
 					childIdx = -1
 					return generateTaskIterator({ statusCode: 2, statusMsg: meta.msg.mn.generated.desc + (initialLimit - limit) })
 				}
-				createTask(descendants[childIdx], concept, createTaskIterator)
+				createTask(descendants[childIdx], concept, createTaskIterator) 
 			}
 			createTaskIterator(null, null)
 		})

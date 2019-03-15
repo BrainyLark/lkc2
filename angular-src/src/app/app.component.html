@@ -2,9 +2,9 @@
   <mat-toolbar color="primary">
     <mat-toolbar-row>
     <button mat-button routerLink="/">{{ "nav.title" | translate }}</button>
-    <button mat-button routerLink="/project"><mat-icon class="mr-1">info</mat-icon>{{ "nav.project" | translate }}</button>
-    <button mat-button routerLink="/task"><mat-icon class="mr-1">translate</mat-icon>{{ "nav.challenge" | translate }}</button>
-    <button mat-button routerLink="/publications"><mat-icon class="mr-1">public</mat-icon>{{ "nav.publication" | translate }}</button>
+    <button mat-button routerLink="/project"><mat-icon class="mr-1">info</mat-icon> {{ "nav.project" | translate }}</button>
+    <button mat-button routerLink="/task"><mat-icon class="mr-1">translate</mat-icon> {{ "nav.challenge" | translate }}</button>
+    <button mat-button routerLink="/publications"><mat-icon class="mr-1">public</mat-icon> {{ "nav.publication" | translate }}</button>
 
     <span class="example-spacer"></span>
 
@@ -58,7 +58,7 @@
 
       <mat-menu #menuMin="matMenu">
         <button mat-menu-item routerLink="/project"><mat-icon>info</mat-icon><span>{{ "nav.project" | translate }}</span></button>
-        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon><span>{{ "nav.challenge" | translate }}</span></button>
+        <button mat-menu-item routerLink="/task"><mat-icon>translate</mat-icon><span> {{ "nav.challenge" | translate }}</span></button>
         <button mat-menu-item routerLink="/publications"><mat-icon>public</mat-icon><span>{{ "nav.publication" | translate }}</span></button>
         <div *ngIf="!isAuth(); else profileMin">
           <button mat-menu-item routerLink="/login"><mat-icon>lock_open</mat-icon><span>{{ "nav.login" | translate }}</span></button>
