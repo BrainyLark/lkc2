@@ -25,7 +25,7 @@ $ git clone https://github.com/BrainyLark/lkc2.git
 
 2. Install the main components with global flag
 ```sh
-$ npm install -g angular-cli, nodemon
+$ npm install -g @angular/cli, nodemon
 ```
 
 3. Install the dependencies
@@ -42,14 +42,23 @@ $ npm i && cd angular-src && npm i
 ```
 
 4. Run client by typing (in angular-src folder)
+For development purposes, please run the following command.
 ```
 $ ng serve
+```
+For production purposes, please run the following command.
+```
+$ ng build -prod
 ```
 
 5. Run server by typing (in root folder)
 ```
 $ nodemon
 ```
+or 
+
+If you run the application as a service, you can install [`forever`](https://www.npmjs.com/package/forever) module which is a simple CLI tool for ensuring that a given script runs continuously.
+
 ## Todos
 
  - Multilingual adapter
