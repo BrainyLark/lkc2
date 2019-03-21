@@ -9,7 +9,7 @@ This is a crowdsourcing system dedicated to the LKC. This document provides inst
 All the installers can be found on official websites
 1) PostgreSQL
 2) MongoDB
-3) NodeJS
+3) NodeJS (follow separte installation guide for your operating system)
 ```sh
 $ sudo apt-get -y update
 $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -46,7 +46,7 @@ For development purposes, please run the following command.
 ```
 $ ng serve
 ```
-For production purposes, please run the following command.
+For production purposes, please run the following command. This command will build angular application in `angular-src/dist` folder.
 ```
 $ ng build -prod
 ```
@@ -58,6 +58,13 @@ $ nodemon
 or 
 
 If you run the application as a service, you can install [`forever`](https://www.npmjs.com/package/forever) module which is a simple CLI tool for ensuring that a given script runs continuously.
+
+### Running application in port 80
+If you run application in HTTP port 80, you can easily configure it with the command below.
+```
+sudo apt-get install libcap2-bin
+sudo setcap cap_net_bind_service=+ep /path/to/node
+```
 
 ## Todos
 
