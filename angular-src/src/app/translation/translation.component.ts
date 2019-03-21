@@ -8,15 +8,17 @@ import { language } from '../meta';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { TaskGuidelinesDialog } from '../task-guidelines/task-guidelines-dialog';
 
 @Component({
   selector: 'app-translation',
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.css'],
+  providers: [ TaskGuidelinesDialog ],
   animations: [
     trigger('prevCardPosition', [
       state('active', style({
-        width: '45%',
+        width: '35%',
         height: '100%',
         cursor: 'default',
       })),
@@ -24,7 +26,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         width: '15%',
         height: '50%',
         cursor: 'zoom-in',
-        'transform': 'translateY(7em) rotateZ(-10deg)',
+        //'transform': 'translateY(7em) rotateZ(-10deg)',
       })),
       transition('* => *', animate('250ms ease-out'))
     ]),
@@ -75,7 +77,8 @@ export class TranslationComponent implements OnInit {
   	private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
-    private translate: TranslateService) { }
+    private translate: TranslateService, 
+    private guidelineDialog: TaskGuidelinesDialog) { }
 
   ngOnInit() {
     this.checkAuth();
@@ -85,6 +88,7 @@ export class TranslationComponent implements OnInit {
   }
 
   prepareData() {
+    // console.log("type:", typeof this.currentTask);
     this.selectedInd = 0;
   	this.translationService.getTask(this.jwt_token, this.gid).subscribe(res => {
       this.isSpinning = false;
@@ -258,7 +262,7 @@ export class TranslationComponent implements OnInit {
     this.translationService.getPrevious(this.jwt_token, this.currentTask.task.domainId, boundaryTask).subscribe(run => {
       if(run.success) {
         this.currentPrevTask = run;
-        let cnt = 0;
+        let cnt = 0;        
         this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
         this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
       } else {
@@ -326,5 +330,9 @@ export class TranslationComponent implements OnInit {
   activateGap() {
     this.isGap = !this.isGap;
   }
-
+  openDialog() {
+    this.translate.get("translation.guidelines").subscribe(guidelines => {
+      this.guidelineDialog.openDialog(guidelines);
+    })
+  }
 }

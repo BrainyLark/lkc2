@@ -5,8 +5,8 @@ mat-card {
   flex: 1 1 auto;
 }
 mat-card.current {
-	max-width: 660px;
-	min-width: 50%;
+	max-width: 560px;
+	min-width: 40%;
 	height: 100%;
 }
 mat-card.previous {
@@ -33,6 +33,18 @@ button {
 	font-size: 2em;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.75);
+	margin-top: 10px;
+}
+.gloss {
+	margin-top: 10px;
+}
+.example, .label {
+	margin-top: 10px;
+	color: rgba(66, 66, 66, 0.75);
+	font-style: italic;
+}
+.label-default {
+
 }
 
 .right-side {
@@ -79,3 +91,11 @@ mat-card-subtitle {
 mat-form-field#gap {
 	width: 80%;
 }
+
+.guideline-mark {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	margin: 0;
+	cursor: pointer;
+  }

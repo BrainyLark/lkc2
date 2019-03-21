@@ -1,0 +1,44 @@
+import { Injectable } from "@angular/core";
+import {Component, Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  guidelines: {};
+}
+
+/**
+ * @title Task guideline dialog
+ */
+@Component({
+  selector: 'task-guidelines-dialog',
+})
+
+@Injectable()
+export class TaskGuidelinesDialog {
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(guidelines): void {
+    const dialogRef = this.dialog.open(TaskGuidelinesDialogWindow, {
+      width: '550px',
+      data: {guidelines: guidelines}
+    });
+  }
+}
+
+@Component({
+  selector: 'task-guidelines-dialog-content',
+  templateUrl: 'task-guidelines-dialog-content.html',
+  styleUrls: ['task-guidelines-dialog.css'],
+})
+export class TaskGuidelinesDialogWindow {
+
+  constructor(
+    public dialogRef: MatDialogRef<TaskGuidelinesDialogWindow>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}

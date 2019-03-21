@@ -1,0 +1,12 @@
+h1.mat-dialog-title {
+    margin-bottom: 10px!important;
+}
+div.mat-dialog-content {
+    margin-top: 10px;
+}
+li.line {
+    margin-bottom: 5px;
+}
+button {
+    text-transform: uppercase;
+}

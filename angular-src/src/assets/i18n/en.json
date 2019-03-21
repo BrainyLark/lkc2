@@ -101,17 +101,34 @@
 	},
 	"translation": {
 		"ptitle": "Previous",
-		"psubtitle": "Wait a sec, let me recall my precedents.",
+		"psubtitle": "Your previous words",
 		"prev": "Previous",
 		"next": "Next",
-		"title": "Allocate",
-		"subtitle": "Define mongolian words that indicate the following concepts",
-		"lemma": "My lemma",
+		"title": "Provide words",
+		"subtitle": "Provide mongolian words that represent the above concept",
+		"lemma": "Word",
 		"prating": "My personal rating",
 		"add": "Add a new word!",
 		"clear": "Remove this word!",
 		"skip": "Skip",
-		"send": "Send"
+		"send": "Send",
+		"pos": "Part-of-speech",
+		"example-sentence-tip": "Example usage of concept (synset word meaning)",
+		"gloss-tip": "Brief description for concept meaning",
+		"guidelines": {
+			"title":"Guidlines for providing words",
+			"okbtn": "OK",
+			"guides": {
+				"task-description": "Гадаад хэлээр илэрхийлсэн ойлголтын утгыг гаргаж чадах ойролцоо утгатай харгалзах үгсийг оноож бичнэ.",
+				"lines": [
+					"Англи хэлийг эх болгож илэрхийлсэн ойлголтын утгыг сайтар ойлгох",
+					"Тухайн ойлголтын утгыг илэрхийлж чадах монгол хэлний ойролцоо утгатай үг(с)ийг оноож бичих",
+					"Зөвхөн кирилл үсгээр зөв бичих дүрмийн алдаагүй бичих",
+					"Оноох үг нь үгийн сангийн нэгж (толгой үг | хэлц | холбоо үг) байх",
+					"Та оноосон үг бүртээ хэр итгэлтэй байгаа өөрийн үнэлгээг өгнө үү"
+				]
+			}
+		}
 	},
 	"modification": {
 		"title": "Rearrange",
@@ -211,5 +228,6 @@
 			"err": "Validation not saved properly, try again!"
 		}
 	},
-	"gap": "Please provide concrete evidence about why you find this word a gap"
+	"gap": "Please provide concrete evidence about why you find this word a gap",
+	"guideline-mark": "Guideline"
 }

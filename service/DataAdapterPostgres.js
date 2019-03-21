@@ -67,41 +67,48 @@ function getChildCount(conceptId, callback) {
 		}
 	})
 }
-function getConcept(conceptId, callback) {
-	
-	var synset = []
+async function getConceptResult(conceptId){
+	let synsets = [];
 	let langs = "'"+languageCodes.join().replace(/,/g, "','")+"'"
-
 	let query = "select * from synsets_view where con_id = $1 and language_code in ("+langs+")"
-	client.query(query, [conceptId], (err, res) => {
-		if (err) {
-			return console.error('Error executing query', err.stack)
-		}
-		res.rows.forEach(row => {
-			synset.push({
-				languageCode: row.language_code,
-				vocabularyId: row.voc_id,
-				concept: row.con_id,
-				gloss: row.gloss,
-				lemma: row.lemmas
-			}) 
+	let res = await client.query(query, [conceptId])
+	// building synsets
+	res.rows.forEach(row => {
+		synsets.push({
+			languageCode: row.language_code,
+			vocabularyId: row.voc_id,
+			concept: row.con_id,
+			gloss: row.gloss,
+			lemma: row.lemmas,
+			examples: []
 		})
-			 
-		try{
-			let responseData = {
-				conceptId: res.rows[0].con_id,
-				posTag: res.rows[0].pos,
-				globalId: res.rows[0].uk_id,
-				// wordnetId: res.rows[0].wn_id,
-				synset: synset
-			}
-			callback(null, responseData)
-		}
-		catch(e){
-			return console.log("***getConcept error***:", conceptId, res)
-			//callback(-1, null)
-		}
-	})
+	});
+	// getting synset examples
+	query = "select * from synset_examples where con_id = $1 and language_code in ("+langs+")"
+	let examples = await client.query(query, [conceptId])
+	examples.rows.forEach(row => {
+		// pushing example sentences into synsets
+		var idx = synsets.findIndex(syn => syn.languageCode == row.language_code)
+		synsets[idx].examples.push(row.sentence)
+	});
+	// setting up concept
+	let conceptData = {
+		conceptId: res.rows[0].con_id,
+		posTag: res.rows[0].pos,
+		globalId: res.rows[0].uk_id,
+		// wordnetId: res.rows[0].wn_id,
+		synset: synsets
+	}
+	return conceptData;
+}
+function getConcept(conceptId, callback) {
+	getConceptResult(conceptId).then(conceptData => {
+		// console.log(conceptData);
+		callback(null, conceptData);
+	}).catch(err => {
+		console.error(err);
+		callback(-1, null)
+	});
 }
 
 function getUniqueBeginners(uids, callback) {

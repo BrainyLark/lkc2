@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.guidelines.title}}</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <ul *ngFor="let line of data.guidelines.guides.lines">
+		<li class="line">{{line}}</li>
+    </ul> 
+</div>
+<br/>
+<mat-divider></mat-divider>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>{{data.guidelines.okbtn}}</button>
+</div>

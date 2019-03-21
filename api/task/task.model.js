@@ -8,7 +8,13 @@ const TaskSchema = new mongoose.Schema({
 	parentConceptId: 		{ type: Number, required: false },
 	parentConceptGlobalId: 	{ type: Number, required: false },
 	posTag:					{ type: String, required: false },
-	synset: 				[{ languageCode: String, vocabularyId: Number, concept: String, gloss: String, lemma: String }],
+	synset: 				[{ 	languageCode: String, 
+								vocabularyId: Number, 
+								concept: String, 
+								gloss: String, 
+								lemma: String, 
+								examples: [String] 
+							}],
 	domainId: 				{ type: Number, required: true },
 	taskType: 				{ type: String, required: true, default: 'SynsetTranslationTask' },
 	// wordnetId: 				{ type: Number, required: false }
