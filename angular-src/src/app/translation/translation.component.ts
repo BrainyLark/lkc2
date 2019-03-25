@@ -99,6 +99,7 @@ export class TranslationComponent implements OnInit {
         let cnt = 0;
         this.currentTask.task.synset.forEach(s => { if (s.vocabularyId == 1) this.selectedInd = cnt; cnt++; });
         this.currentTask.task.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
+        console.log(this.currentTask);
         this.getPrevious(this.currentTask.task._id);
       }
       else if (!res.statusCode) {
@@ -265,6 +266,7 @@ export class TranslationComponent implements OnInit {
         let cnt = 0;        
         this.currentPrevTask.data.synset.forEach(s => { if (s.vocabularyId == 1) this.prevSelectedInd = cnt; cnt ++; });
         this.currentPrevTask.data.synset.forEach(s => { if (s.gloss == 'NO_GLOSS' || s.gloss == 'no_gloss') s.gloss =  '' });
+        console.log(this.currentPrevTask);
       } else {
         this.translate.get("tr_alerts.no_prev").subscribe(msg => {
           this.snackBar.open(msg, "Ok", {duration:3000});

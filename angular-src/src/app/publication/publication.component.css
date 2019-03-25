@@ -52,3 +52,7 @@ mat-card-title {
 mat-card-subtitle {
     font-size: 0.9em;
 }
+p.publication-item {
+	line-height: 1.4em;
+	margin-bottom: 15px;
+}

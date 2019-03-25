@@ -15,3 +15,15 @@ img {
 	cursor: pointer;
 	width: 28px;
 }
+footer {
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+	
+}
+footer p, p#footer a, p#footer a:link, p#footer a:visited, p#footer a:focus, p#footer a:hover, p#footer a:active {
+	font-size: 0.8em!important;
+	color: white!important;
+	text-align: right;
+	text-decoration: none;
+}

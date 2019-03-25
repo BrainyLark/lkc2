@@ -4,8 +4,12 @@ h1.mat-dialog-title {
 div.mat-dialog-content {
     margin-top: 10px;
 }
-li.line {
-    margin-bottom: 5px;
+li.line, p.remark_label {
+    margin-bottom: 8px;
+    line-height: 1.4em;
+}
+p.remark_label {
+    color: #999;
 }
 button {
     text-transform: uppercase;

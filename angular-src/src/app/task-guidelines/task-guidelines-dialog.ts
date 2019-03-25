@@ -20,7 +20,7 @@ export class TaskGuidelinesDialog {
 
   openDialog(guidelines): void {
     const dialogRef = this.dialog.open(TaskGuidelinesDialogWindow, {
-      width: '550px',
+      width: '650px',
       data: {guidelines: guidelines}
     });
   }

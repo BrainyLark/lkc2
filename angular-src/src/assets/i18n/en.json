@@ -74,19 +74,20 @@
 		"validate": "Validate words",
 		"gvalidate": "Validate gloss",
 		"localize": "Localize",
-		"progress": "My contributions", 
+		"progress": "Your contributions", 
 		"translated": "Translations",
 		"modified": "Modifications",
 		"validated": "Validations",
 		"send_feedback": "Give feedback!",
-		"design_notification": "The design was motivated by <a href='https://translate.google.com/community'>Google Translate Community</a>!",
 		"tr_desc": "Allocate mongolian words corresponding to <br> a given concept in multilingual forms",
 		"md_desc": "Correct mistakes found in given mongolian words of a concept",
 		"vd_desc": "Validate list of mongolian words that define its concept",
 		"gtr_desc": "Contribute a translation of the gloss of a given concept",
 		"gmd_desc": "Pick up out of the given translations of a concept and modify its quality",
 		"gvd_desc": "Sort modified glosses with respect to their translation qualities",
-		"loc_desc": "<a href='/guidelines'>Click here</a> to look over the guidelines of localizing ontology"
+		"loc_desc": "<a href='/guidelines'>Click here</a> to visit application help and the guidelines of ontology localization",
+		"design_notification": "The design was motivated by <a href='https://translate.google.com/community'>Google Translate Community</a>!",
+		"app_info_title": "LKC Localization"
 	},
 	"from": {
 		"eng": "English",
@@ -105,7 +106,7 @@
 		"prev": "Previous",
 		"next": "Next",
 		"title": "Provide words",
-		"subtitle": "Provide mongolian words that represent the above concept",
+		"subtitle": "Provide mongolian words that represent the following concept",
 		"lemma": "Word",
 		"prating": "My personal rating",
 		"add": "Add a new word!",
@@ -116,18 +117,24 @@
 		"example-sentence-tip": "Example usage of concept (synset word meaning)",
 		"gloss-tip": "Brief description for concept meaning",
 		"guidelines": {
-			"title":"Guidlines for providing words",
+			"title":"Task Guidelines",
+			"task_description": "We will use your contribution to build Mongolian LKC. Thank you for your help!",
 			"okbtn": "OK",
-			"guides": {
-				"task-description": "Гадаад хэлээр илэрхийлсэн ойлголтын утгыг гаргаж чадах ойролцоо утгатай харгалзах үгсийг оноож бичнэ.",
-				"lines": [
-					"Англи хэлийг эх болгож илэрхийлсэн ойлголтын утгыг сайтар ойлгох",
-					"Тухайн ойлголтын утгыг илэрхийлж чадах монгол хэлний ойролцоо утгатай үг(с)ийг оноож бичих",
-					"Зөвхөн кирилл үсгээр зөв бичих дүрмийн алдаагүй бичих",
-					"Оноох үг нь үгийн сангийн нэгж (толгой үг | хэлц | холбоо үг) байх",
-					"Та оноосон үг бүртээ хэр итгэлтэй байгаа өөрийн үнэлгээг өгнө үү"
-				]
-			}
+			"guide_label":"Task",
+			"remark_label":"Remarks",
+			"guides": [
+				"Нутагшуулах ойлголтын англи хэлээр илэрхийлсэн утгыг сайтар ойлгох",
+				"Тухайн ойлголтын утгыг зөв илэрхийлж чадах монгол хэлний ойролцоо утгатай үг(с)ийг оноож бичих",
+				"Оноосон үг бүрд хэр итгэлтэй байгаа өөрийн үнэлгээг өгөх",
+				"Хэрэв ойлголтыг илэрхийлж чадах үг байхгүй гэж үзэж байгаа бол GAP товчийг дарж шалтгааныг бичих"
+			],
+			"remarks": [
+				"Оноох үг нь үгийн сангийн нэгж (толгой үг, хэлц үг, чөлөөт бус холбоо үг) байх",
+				"Нутагшуулах ойлголтын үгийн аймагт тохирсон үг бичих (n.-нэр, v.-үйл, a.-тэмдэг нэр, d.-дайвар үг)",
+				"Зөвхөн кирилл үсгээр зөв бичих дүрмийн алдаагүй бичих",
+				"Тайлбарлаж эсвэл шууд орчуулж бичихгүй байх",
+				"Англиас бусад хэлээр зөв илэрхийлээгүй байж болзошгүй"
+			]
 		}
 	},
 	"modification": {
@@ -229,5 +236,6 @@
 		}
 	},
 	"gap": "Please provide concrete evidence about why you find this word a gap",
-	"guideline-mark": "Guideline"
+	"guideline-mark": "Guideline",
+	"copyright_footer_info": "Machine Intelligence Lab, NUM &copy; 2019 <br>Design inspired by Google Translate Community<br>Code licensed under an MIT-style License"
 }

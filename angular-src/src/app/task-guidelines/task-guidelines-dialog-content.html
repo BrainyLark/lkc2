@@ -1,12 +1,18 @@
-<h1 mat-dialog-title>{{data.guidelines.title}}</h1>
+<mat-card-title>{{data.guidelines.title | translate}}</mat-card-title>
+<mat-card-subtitle>{{data.guidelines.task_description | translate}}</mat-card-subtitle>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
-    <ul *ngFor="let line of data.guidelines.guides.lines">
+    <p class="remark_label">{{data.guidelines.guide_label | translate}}:</p>
+    <ul *ngFor="let line of data.guidelines.guides">
 		<li class="line">{{line}}</li>
+    </ul> 
+    <p class="remark_label">{{data.guidelines.remark_label | translate}}:</p>
+    <ul *ngFor="let remark of data.guidelines.remarks">
+		<li class="line">{{remark}}</li>
     </ul> 
 </div>
 <br/>
 <mat-divider></mat-divider>
 <div mat-dialog-actions align="end">
-  <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>{{data.guidelines.okbtn}}</button>
+  <button mat-raised-button [mat-dialog-close]="data">{{data.guidelines.okbtn | translate}}</button>
 </div>

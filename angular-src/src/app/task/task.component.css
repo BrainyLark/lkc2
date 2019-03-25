@@ -45,10 +45,9 @@
 }
 
 .card {
-    width: 80%;
-    background-color: #E5E7E9;
-    margin-bottom: 0.4em;
-    text-align: center;
+    width: 90%;
+    /*background-color: #E5E7E9;*/
+    margin-bottom: 0.6em;
 }
 
 .labels {
@@ -87,4 +86,12 @@
 }
 #mt {
 	margin-top: 17%;
+}
+mat-chip-list {
+	margin-right: 10px;
+}
+
+mat-chip-list mat-chip {
+	font-size: 1.0em!important;
+	font-weight: bold;
 }

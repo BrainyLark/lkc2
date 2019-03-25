@@ -26,23 +26,23 @@
             <mat-card class="card">
                 <mat-card-title>{{ "task.progress" | translate }}</mat-card-title>
                 <mat-divider></mat-divider>
-                <br><button mat-stroked-button color="primary" [matBadge]="performance.translation" matBadgePosition="before" matBadgeColor="primary"> {{ "task.translated" | translate }} </button><br>
-
-                <br><button mat-stroked-button color="primary" [matBadge]="performance.modification" matBadgePosition="before" matBadgeColor="primary"> {{ "task.modified" | translate }} </button><br>
-
-                <br><button mat-stroked-button color="primary" [matBadge]="performance.validation" matBadgePosition="before" matBadgeColor="primary"> {{ "task.validated" | translate }} </button><br>
+                <mat-list>
+                        <mat-list-item ><mat-chip-list><mat-chip>{{performance.translation}}</mat-chip></mat-chip-list>{{ "task.translated" | translate }}</mat-list-item>
+                        <mat-list-item ><mat-chip-list><mat-chip>{{performance.modification}}</mat-chip></mat-chip-list>{{ "task.modified" | translate }}</mat-list-item>
+                        <mat-list-item ><mat-chip-list><mat-chip>{{performance.validation}}</mat-chip></mat-chip-list>{{ "task.validated" | translate }}</mat-list-item>
+                </mat-list>
             </mat-card>
             <mat-card class="card">
-                <mat-card-title>Supplementary</mat-card-title>
+                <mat-card-title>{{ "task.app_info_title" | translate }}</mat-card-title>
                 <mat-divider></mat-divider><br>
                 <mat-card-content>
                     <div>
-                        <mat-icon color="primary">info</mat-icon> <br> <div [innerHTML]="'task.loc_desc' | translate"></div>
+                        <div [innerHTML]="'task.loc_desc' | translate"></div>
                     </div>
                     <br>
-                    <div>
+                    <!-- <div>
                         <mat-icon color="primary">notifications_active</mat-icon> <div [innerHTML]="'task.design_notification' | translate"></div>
-                    </div>
+                    </div> -->
                 </mat-card-content>
             </mat-card>
         </div>
