@@ -85,7 +85,7 @@ $ sudo setcap cap_net_bind_service=+ep /path/to/node
 ```
 
 ### Configure API host
-Angular app uses API host configuration named `apiRoot` in `angular-src/src/app/config.ts`. This must be a URL of the LKC API running on a server. If the Angular app runs in the same server of LKC API, this host could be configured as its domain name/IP address. If the app is served from a different server, please set the correct host name for the configuration to resolve potential domain name issues as well as CORS headers following next optional step.
+Angular app uses API host configuration named `apiRoot` in [`angular-src/src/app/config.ts`](angular-src/src/app/config.ts). This must be a URL of the LKC API running on a server. If the Angular app runs in the same server of LKC API, this host could be configured as its domain name/IP address. If the app is served from a different server, please set the correct host name for the configuration to resolve potential domain name issues as well as CORS headers following next optional step.
 
 #### [optional] Allow Cross-Origin Resource Sharing (CORS)
 If your LKC API works (`api` folder) in other domain add additional HTTP header that allows CORS. In `app.js`, uncomment/edit/add relevant lines in the code as the following example.
