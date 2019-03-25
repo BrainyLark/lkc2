@@ -54,7 +54,7 @@ $ npm i && cd angular-src && npm i
 ```
 
 4. Run client by typing (in angular-src folder)
-For development purposes, please run the following command.
+For development purposes, please run the following command. This will create an Angular instance at localhost:4200.
 ```sh
 $ ng serve
 ```
@@ -69,7 +69,13 @@ $ nodemon
 ```
 or 
 
-If you run the application as a service, you can install [`forever`](https://www.npmjs.com/package/forever) module which is a simple CLI tool for ensuring that a given script runs continuously.
+If you run the application as a service, you can install [`forever`](https://www.npmjs.com/package/forever) module which is a simple CLI tool for ensuring that a given script runs continuously. 
+```sh
+$ [sudo] npm install forever -g
+$ cd /path/to/your/project
+$ [sudo] npm install forever-monitor
+$ forever start app.js
+```
 
 ### Running application in port 80
 If you run application in HTTP port 80, you can easily configure it with the command below.
@@ -81,7 +87,7 @@ $ sudo setcap cap_net_bind_service=+ep /path/to/node
 ### Configure API host
 Angular app uses API host configuration named `apiRoot` in `angular-src/src/app/config.ts`. This must be a URL of the LKC API running on a server. If the Angular app runs in the same server of LKC API, this host could be configured as its domain name/IP address. If the app is served from a different server, please set the correct host name for the configuration to resolve potential domain name issues as well as CORS headers following next optional step.
 
-### [optional] Allow Cross-Origin Resource Sharing (CORS)
+#### [optional] Allow Cross-Origin Resource Sharing (CORS)
 If your LKC API works (`api` folder) in other domain add additional HTTP header that allows CORS. In `app.js`, uncomment/edit/add relevant lines in the code as the following example.
 ```javascript
 res.setHeader('Access-Control-Allow-Origin', 'http://lkc.num.edu.mn/')
@@ -95,12 +101,12 @@ res.setHeader('Access-Control-Allow-Origin', 'http://lkc.num.edu.mn/')
 * [Express] - fast node.js web app framework
 
 
-## Authors
+## Credits
 
-* **Erdenebileg Byambadorj** - *Back&Front* - [BrainyLark](https://github.com/BrainyLark)
-* **Javkhlan Batsaikhan** - *Front* - [bjavkhlan](https://github.com/bjavkhlan)
-* **Enkhsanaa Natsagdorj** - *Back&Front* [enkhsanaa](https://github.com/enkhsanaa)
-* **Amarsanaa Ganbold** - *Front* [amarsanaa](https://github.com/amarsanaag)
+* **Erdenebileg Byambadorj** - Full stack - [BrainyLark](https://github.com/BrainyLark)
+* **Javkhlan Batsaikhan** - Front end - [bjavkhlan](https://github.com/bjavkhlan)
+* **Enkhsanaa Natsagdorj** - Full stack - [enkhsanaa](https://github.com/enkhsanaa)
+* **Amarsanaa Ganbold** - Full stack - [amarsanaa](https://github.com/amarsanaag)
 
 
 ## License
