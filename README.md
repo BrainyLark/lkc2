@@ -1,6 +1,8 @@
 # LKC Crowdsourcing platform
 
-This document provides installation instructions and other additional information about a crowdsourcing system dedicated to the Local Knowledge Core (LKC). 
+This document provides installation instructions and other additional information about a crowdsourcing system dedicated to the Local Knowledge Core (LKC). This system consists of two components: 1) Front-end application and 2) LKC API.
+
+The LKC API is developed with NodeJS and ExpressJS which provides a set of RESTful APIs functioning LKC crowdsourcing methodology. The front-end application is the web user interface developed with Angular 5 that uses the API.
 
 ## Getting Started
 
