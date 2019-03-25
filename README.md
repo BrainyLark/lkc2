@@ -9,7 +9,7 @@ This is a crowdsourcing system dedicated to the LKC. This document provides inst
 All the installers can be found on official websites
 1) PostgreSQL
 2) MongoDB
-3) NodeJS (follow separte installation guide for your operating system)
+3) NodeJS (follow separate installation guide for your operating system)
 ```sh
 $ sudo apt-get -y update
 $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
