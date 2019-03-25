@@ -24,11 +24,13 @@ $ curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
 $ sudo apt-get install -y nodejs
 ```
 
-3. PostgreSQL
+3. PostgreSQL (optional)
 ```sh
 $ sudo apt-get update
 $ sudo apt-get install postgresql postgresql-contrib
 ```
+If you populate LKC tasks from PostgreSQL database and use `lkc-postgres-data-adapter`, you will need an instance of such RDBMS.
+
 
 ### Installation guideline
 
