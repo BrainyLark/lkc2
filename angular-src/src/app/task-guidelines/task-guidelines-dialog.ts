@@ -28,8 +28,8 @@ export class TaskGuidelinesDialog {
 
 @Component({
   selector: 'task-guidelines-dialog-content',
-  templateUrl: 'task-guidelines-dialog-content.html',
-  styleUrls: ['task-guidelines-dialog.css'],
+  templateUrl: './task-guidelines-dialog-content.html',
+  styleUrls: ['./task-guidelines-dialog.css'],
 })
 export class TaskGuidelinesDialogWindow {
 
