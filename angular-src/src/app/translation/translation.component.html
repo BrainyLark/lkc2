@@ -33,9 +33,13 @@
 		<mat-card-content *ngIf="statusCode == 1; else error;">
 			<mat-tab-group selectedIndex="{{ selectedInd }}">
 				<mat-tab *ngFor="let synset of currentTask.task.synset" label="{{language[synset.vocabularyId] | translate}}">
-					<p class="lemma"><span matTooltip='{{ "translation.pos" | translate }}' matTooltipPosition="before">{{currentTask.task.posTag}}.</span> {{ synset.lemma }}</p>
+					<p class="lemma"><span class="pos-tag" matTooltip='{{ "translation.pos" | translate }}' matTooltipPosition="before">{{currentTask.task.posTag}}.</span> {{ synset.lemma }}</p>
 					<p class="gloss" matTooltip='{{ "translation.gloss-tip" | translate }}' matTooltipPosition="before"> {{ synset.gloss }} </p>
-					<p class="example" matTooltip='{{ "translation.example-sentence-tip" | translate }}' matTooltipPosition="before"> {{ synset.examples }} </p>
+					<p class="example" matTooltip='{{ "translation.example-sentence-tip" | translate }}' matTooltipPosition="before">
+						<span *ngFor="let example of synset.examples">
+							<span> {{ example }}; </span>
+						</span>
+					</p>
 				</mat-tab>
 			</mat-tab-group><br>
 

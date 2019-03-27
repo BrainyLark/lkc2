@@ -38,7 +38,7 @@ button {
 .gloss {
 	margin-top: 10px;
 }
-.example, .label {
+.example, .label, .pos-tag {
 	margin-top: 10px;
 	color: rgba(66, 66, 66, 0.75);
 	font-style: italic;

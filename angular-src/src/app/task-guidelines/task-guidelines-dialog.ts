@@ -3,16 +3,20 @@ import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface DialogData {
-  guidelines: {};
+  guidelines: {
+    title: String,
+    task_description: String,
+    guide_label: String,
+    guides: [String],
+    remark_label: String,
+    remarks: [String],
+    okbtn: String,
+  };
 }
 
 /**
  * @title Task guideline dialog
  */
-@Component({
-  selector: 'task-guidelines-dialog',
-})
-
 @Injectable()
 export class TaskGuidelinesDialog {
 

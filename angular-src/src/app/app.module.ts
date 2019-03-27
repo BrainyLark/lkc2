@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterService } from './register.service';
 import { ExcerptFilter } from './filters/excerpt.filter';
-import { TaskGuidelinesDialogWindow } from './task-guidelines/task-guidelines-dialog';
+import { TaskGuidelinesDialog, TaskGuidelinesDialogWindow } from './task-guidelines/task-guidelines-dialog';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -83,7 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService, ModificationService, ValidationService],
+  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService, ModificationService, ValidationService, TaskGuidelinesDialog,],
   bootstrap: [AppComponent],
   entryComponents: [TaskGuidelinesDialogWindow],
 })
