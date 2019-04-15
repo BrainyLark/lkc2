@@ -38,6 +38,7 @@ import { ResetPassComponent } from './reset-pass/reset-pass.component';
 import { GlossTranslationComponent } from './gloss-translation/gloss-translation.component';
 import { GlossModificationComponent } from './gloss-modification/gloss-modification.component';
 import { GlossValidationComponent } from './gloss-validation/gloss-validation.component';
+import { CookieService } from 'ngx-cookie-service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -83,7 +84,17 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [RegisterService, LoginService, DomainService, TranslationService, TaskService, ModificationService, ValidationService, TaskGuidelinesDialog,],
+  providers: [
+    RegisterService, 
+    LoginService, 
+    DomainService, 
+    TranslationService, 
+    TaskService, 
+    ModificationService, 
+    ValidationService, 
+    TaskGuidelinesDialog, 
+    CookieService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [TaskGuidelinesDialogWindow],
 })

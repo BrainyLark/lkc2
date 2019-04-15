@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +14,23 @@ export class AppComponent {
   title = 'app';
   username = '';
 
-  constructor(private router: Router, public snackBar: MatSnackBar, private translate: TranslateService) {
-    translate.addLangs(['en', 'mn']);
-    translate.setDefaultLang('en');
-    translate.use('en');
+  constructor(
+    private router: Router, 
+    public snackBar: MatSnackBar, 
+    private translate: TranslateService,
+    private cookieService: CookieService) {
+        let langCookie = 'ui-lang';
+        let defaultLang = 'en';
+        if(cookieService.check(langCookie) || this.cookieService.get(langCookie) != undefined)
+          defaultLang = this.cookieService.get(langCookie);
+        translate.addLangs(['en', 'mn']);
+        translate.setDefaultLang(defaultLang);
+        translate.use(defaultLang);
   }
 
   changeLang(lang: string) {
     this.translate.use(lang);
+    this.cookieService.set('ui-lang', lang);
   }
 
   isAuth(): boolean {
